@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "238250379722",
+    "firebase_url": "https://returnup-5f690.firebaseio.com",
+    "project_id": "returnup-5f690",
+    "storage_bucket": "returnup-5f690.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:238250379722:android:178351932c36b50541e733",
+        "android_client_info": {
+          "package_name": "com.returnup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "238250379722-hfn4qidkm9inir0tod3be3eb1tdv1gnp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDn1FnHovJ7Be1jn4BR8PoHbTWDNB6K8Lo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "238250379722-hfn4qidkm9inir0tod3be3eb1tdv1gnp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
