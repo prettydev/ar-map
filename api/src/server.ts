@@ -55,16 +55,16 @@ app.set("port", process.env.PORT || 8000);
 const connectedUsers = {};
 initializeSocketIO(io, connectedUsers);
 
-const MONGO_URI = "mongodb://localhost/find-stuff";
+const MONGO_URI = "mongodb://localhost/arnav";
 mongoose.set("useFindAndModify", true);
 mongoose
   .connect(process.env.MONGODB_URI || MONGO_URI, {
     useNewUrlParser: true,
     useCreateIndex: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   })
-  .then(db => console.log("DB is connected"));
+  .then((db) => console.log("DB is connected"));
 ////////////////////////////////////////
 app.use((req, res, next) => {
   req.io = io;

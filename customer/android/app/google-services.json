@@ -1,16 +1,16 @@
 {
   "project_info": {
     "project_number": "238250379722",
-    "firebase_url": "https://returnup-5f690.firebaseio.com",
-    "project_id": "returnup-5f690",
-    "storage_bucket": "returnup-5f690.appspot.com"
+    "firebase_url": "https://arnav-5f690.firebaseio.com",
+    "project_id": "arnav-5f690",
+    "storage_bucket": "arnav-5f690.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:238250379722:android:178351932c36b50541e733",
         "android_client_info": {
-          "package_name": "com.returnup"
+          "package_name": "com.arnav"
         }
       },
       "oauth_client": [

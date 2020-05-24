@@ -16,4 +16,11 @@ export default StyleSheet.create({
     width: 30,
     transform: [{rotate: '90deg'}],
   },
+  CustomTextInput: {
+    height: 50,
+    borderColor: Colors.border,
+    borderWidth: 1,
+    borderRadius: 5,
+    marginBottom: 30,
+  },
 });

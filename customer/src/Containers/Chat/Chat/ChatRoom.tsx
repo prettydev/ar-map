@@ -291,7 +291,7 @@ export default function ChatRoom(props) {
         <TouchableOpacity
           style={{
             flex: 1,
-            backgroundColor: Colors.active,
+            backgroundColor: Colors.primary,
             marginLeft: 4,
             justifyContent: 'center',
             alignItems: 'center',

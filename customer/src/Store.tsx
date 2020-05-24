@@ -12,6 +12,7 @@ import {localNotifTitle} from './Notif';
 const initialState = {
   socket: io(baseUrl, {ransports: ['websocket'], jsonp: false}),
   token: '',
+  lang: 'en', //  0:  english, 1: arabic
   user: {},
   news: [],
   last_note: {},
@@ -78,13 +79,16 @@ const pushInit = () => {
 
 Pushy.setNotificationListener(async data => {
   console.log('Received notification: ' + JSON.stringify(data));
-  let notificationTitle = 'Returnup';
+  let notificationTitle = 'arnav';
   Pushy.notify(notificationTitle, data.content, data);
 });
 */
 const StateProvider = ({children}) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
+      case 'setLang': {
+        return {...state, lang: action.payload};
+      }
       case 'setCurrentScreen': {
         return {...state, current_screen: action.payload};
       }

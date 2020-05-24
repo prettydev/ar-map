@@ -29,9 +29,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "returnup.app"
-               BlueprintName = "returnup"
-               ReferencedContainer = "container:returnup.xcodeproj">
+               BuildableName = "arnav.app"
+               BlueprintName = "arnav"
+               ReferencedContainer = "container:arnav.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
                BuildableName = "FindStuffTests.xctest"
                BlueprintName = "FindStuffTests"
-               ReferencedContainer = "container:returnup.xcodeproj">
+               ReferencedContainer = "container:arnav.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -63,7 +63,7 @@
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
                BuildableName = "FindStuffTests.xctest"
                BlueprintName = "FindStuffTests"
-               ReferencedContainer = "container:returnup.xcodeproj">
+               ReferencedContainer = "container:arnav.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -71,9 +71,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "returnup.app"
-            BlueprintName = "returnup"
-            ReferencedContainer = "container:returnup.xcodeproj">
+            BuildableName = "arnav.app"
+            BlueprintName = "arnav"
+            ReferencedContainer = "container:arnav.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -94,9 +94,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "returnup.app"
-            BlueprintName = "returnup"
-            ReferencedContainer = "container:returnup.xcodeproj">
+            BuildableName = "arnav.app"
+            BlueprintName = "arnav"
+            ReferencedContainer = "container:arnav.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -113,9 +113,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "returnup.app"
-            BlueprintName = "returnup"
-            ReferencedContainer = "container:returnup.xcodeproj">
+            BuildableName = "arnav.app"
+            BlueprintName = "arnav"
+            ReferencedContainer = "container:arnav.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

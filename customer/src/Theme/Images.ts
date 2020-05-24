@@ -3,5 +3,5 @@
  */
 
 export default {
-  Slide1: require('src/Images/laptop.jpg'),
+  Logo: require('src/Images/logo.png'),
 };

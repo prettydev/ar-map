@@ -1,23 +1,24 @@
 import React, {useState} from 'react';
 import {View, TouchableOpacity, TextInput, Text, Image} from 'react-native';
+import Style from 'src/Style';
 import Styles from './CustomPwdInputStyle';
 import {Images} from 'src/Theme';
+import Colors from 'src/Theme/Colors';
 
 export default function CustomPwdInput(props) {
   const [hidePassword, setHidePassword] = useState(true);
 
   return (
     <View>
-      <Text>{props.CustomPwdLabel}</Text>
       <View
         style={{
           flexDirection: 'row',
-          borderColor: '#ddd',
-          borderBottomWidth: 1,
+          borderColor: Colors.border,
+          borderWidth: 1,
+          borderRadius: 5,
         }}>
         <TextInput
           secureTextEntry={hidePassword}
-          style={Styles.CustomTextInput}
           placeholder={props.CustomPwdPlaceholder}
           onChangeText={props.proc}
         />

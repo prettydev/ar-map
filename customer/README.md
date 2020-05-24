@@ -1,4 +1,4 @@
-# Returnup customer app
+# arnav customer app
 
 ## build release version guide
 
@@ -60,7 +60,7 @@ pod install
 ---
 
 - get sha1
-  keytool -list -v -keystore .\returnup.keystore -alias findstuffkey -storepass 123456 -keypass 123456
+  keytool -list -v -keystore .\arnav.keystore -alias findstuffkey -storepass 123456 -keypass 123456
 
 - generate debug.keystore
   keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
@@ -68,9 +68,5 @@ pod install
 - generate app icon sets
 
   https://easyappicon.com/
-
----
-
-#5ec7db
 
 ---

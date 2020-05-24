@@ -1,15 +1,18 @@
-import {StyleSheet} from 'react-native'
+import {StyleSheet} from 'react-native';
+import Colors from 'src/Theme/Colors';
 export default StyleSheet.create({
-   FormCommonBtn: {
-      width: 250,
-      height: 45,
-      borderRadius: 50,
-      backgroundColor: '#0084da',
-      alignItems: 'center',
-      justifyContent: 'center'
-   },
-   FormCommonBtnText: {
-      color: '#fff',
-      fontSize: 20
-   }
-})
+  FormCommonBtn: {
+    width: '90%',
+    height: 45,
+    borderRadius: 5,
+    backgroundColor: Colors.primary,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 50,
+    marginBottom: 10,
+  },
+  FormCommonBtnText: {
+    color: '#fff',
+    fontSize: 20,
+  },
+});

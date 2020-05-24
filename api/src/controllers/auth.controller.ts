@@ -242,7 +242,7 @@ class AuthController {
       return;
     }
 
-    let content = `Returnup verification code is ${otp_code}`;
+    let content = `arnav verification code is ${otp_code}`;
 
     console.log("will send sms  ...", content);
 

@@ -1,19 +1,30 @@
 import React, {useState, useEffect, useContext} from 'react';
-import {View, Text, TouchableOpacity, BackHandler} from 'react-native';
-import Styles from './SignInScreenStyle';
-import CustomTextInput from 'src/Components/CustomForm/CustomTextInput/CustomTextInput';
+import {
+  Image,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  BackHandler,
+} from 'react-native';
+
+import RNPickerSelect from 'react-native-picker-select';
+import FastImage from 'react-native-fast-image';
+
+import Style from 'src/Style';
 import CustomPwdInput from 'src/Components/CustomForm/CustomPwdInput/CustomPwdInput';
 import FormCommonBtn from 'src/Components/Buttons/FormCommonBtn/FormCommonBtn';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import {baseUrl, translationGetters} from 'src/config';
 import {store} from 'src/Store';
 
 import Toast from 'react-native-simple-toast';
-import {baseUrl} from 'src/config';
 import axios from 'axios';
 import io from 'socket.io-client';
 
-// import Pushy from 'pushy-react-native';
+import Images from 'src/Theme/Images';
+import Colors from 'src/Theme/Colors';
 
 export default function SignInScreen(props) {
   const [email, setEmail] = useState('');
@@ -44,29 +55,6 @@ export default function SignInScreen(props) {
         if (response.data.success) {
           console.log('user info...', response.data.user);
 
-          // Register the device for push notifications
-          /*
-          Pushy.register()
-            .then(async deviceToken => {
-              axios
-                .post(baseUrl + 'auth/device', {
-                  user_id: response.data.user._id,
-                  device: deviceToken,
-                })
-                .then(response => {
-                  console.log(response.data.user, 'user with device token');
-                })
-                .catch(error => {
-                  console.log(error);
-                });
-
-              await fetch(baseUrl + 'api/auth/device?token=' + deviceToken);
-            })
-            .catch(err => {
-              // Handle registration errors
-              console.log('Device registration exception.......', err);
-            });
-          */
           const signInfo = {
             auth_token: response.headers.auth_token,
             user: response.data.user,
@@ -109,36 +97,64 @@ export default function SignInScreen(props) {
   }, []);
 
   return (
-    <View style={{flex: 1}}>
-      <View style={Styles.SignInHeader}>
-        <Text style={{fontSize: 20}}>Returnup</Text>
+    <View style={{flex: 12, flexDirection: 'column', backgroundColor: 'white'}}>
+      <View flex={1} flexDirection="row" style={{marginBottom: -20}}>
+        <View flex={5} />
+        <View flex={2}>
+          <RNPickerSelect
+            onValueChange={value => {
+              dispatch({
+                type: 'setLang',
+                payload: value,
+              });
+            }}
+            items={[
+              {label: 'English', value: 'en', color: Colors.primary},
+              {label: 'Arabic', value: 'ar', Color: Colors.primary},
+            ]}
+            value="en"
+          />
+        </View>
       </View>
-      <View style={Styles.SignFormContainer}>
-        <View style={Styles.SignPhoneInput}>
-          <CustomTextInput
-            CustomLabel={'Email'}
-            CustomPlaceholder={'Email'}
-            proc={value => setEmail(value)}
-          />
-        </View>
-        <View style={Styles.SignPwdInput}>
-          <CustomPwdInput
-            CustomPwdLabel={'Password'}
-            CustomPwdPlaceholder={'Password'}
-            proc={value => setPassword(value)}
-          />
-        </View>
-        <View style={Styles.SignOtherFunc}>
-          <TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}>
-            <Text>Sign up &nbsp;</Text>
-          </TouchableOpacity>
+      <View style={{alignItems: 'center'}}>
+        <FastImage
+          style={{width: 180, height: 150}}
+          source={Images.Logo}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+        <Text
+          style={{
+            fontSize: 30,
+            color: Colors.primary,
+            fontWeight: 'bold',
+            marginTop: -20,
+          }}>
+          KP MASTER PLAN
+        </Text>
+      </View>
+      <View style={{flex: 5, padding: 30, marginTop: 20}}>
+        <TextInput
+          style={Style.CustomTextInput}
+          placeholder={'Email'}
+          onChangeText={value => setEmail(value)}
+        />
+
+        <CustomPwdInput
+          CustomPwdPlaceholder={'Password'}
+          proc={value => setPassword(value)}
+        />
+
+        <FormCommonBtn CustomBtnTitle={'Sign in'} proc={handleSubmit} />
+
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <Text>Don't have account? </Text>
           <TouchableOpacity
             onPress={() => props.navigation.navigate('ForgotPwd')}>
-            <Text> | &nbsp; Forgot password?</Text>
+            <Text
+              style={{color: Colors.primary, textDecorationLine: 'underline'}}>
+              Forgot password?
+            </Text>
           </TouchableOpacity>
-        </View>
-        <View style={Styles.SignBtn}>
-          <FormCommonBtn CustomBtnTitle={'Sign in'} proc={handleSubmit} />
         </View>
       </View>
     </View>

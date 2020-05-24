@@ -6,6 +6,8 @@
  */
 
 export default {
+  primary: '#7B2935',
+  border: '#0072ff',
   MainRed: '#ff4e46',
   MainYellow: '#f78000',
   transparent: 'rgba(0,0,0,0)',
@@ -20,14 +22,12 @@ export default {
   whiteTransparent50: 'rgba(255,255,255,0.5)',
   whiteTransparent85: 'rgba(255,255,255,0.85)',
   yellowTransparent91: 'rgba(198, 164, 61, 0.91)',
-  blueTransparent90: 'rgba(0, 114, 255, 0.8)',
   whiteTransparent90: 'rgba(255,255,255,0.9)',
   coolGrey138: 'rgb(138,146,162)',
   greyBackground: '#F1F3F7',
   greyLoading: '#d3d5de',
   bottomNav: '#f8f9fd',
   text: 'black',
-  primary: '#47516F',
   black1: '#464646',
   black2: '#2F273D',
   black3: '#55515E',
@@ -50,8 +50,6 @@ export default {
   red: 'red',
   selected: '#00B3AB',
   pink: '#F07778',
-  border: '#5F63C6',
-  active: '#0072ff',
   inActive: '#8a92a2',
   profileBackGround: '#4d577d',
   profileEditBack: '#8a92a2',
@@ -118,4 +116,4 @@ export default {
   greyishBrown70: '#707070',
   btnBack: '#1c77ff',
   apple: '#86c63d',
-}
+};
