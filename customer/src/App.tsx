@@ -26,6 +26,7 @@ import AddFriend from 'src/Containers/Friend/AddFriend/AddFriend';
 import {StateProvider} from 'src/Store';
 
 import Style from 'src/Style';
+import Colors from './Theme/Colors.ts';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -61,18 +62,20 @@ const MainStack = () => {
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
           if (route.name === 'FriendList') {
+            iconName = focused ? 'ios-list-box' : 'ios-list';
+          } else if (route.name === 'AddFriend') {
             iconName = focused
               ? 'ios-information-circle'
               : 'ios-information-circle-outline';
-          } else if (route.name === 'AddFriend') {
-            iconName = focused ? 'ios-list-box' : 'ios-list';
           }
           return <Ionicons name={iconName} size={size} color={color} />;
         },
+        // tabBarLabel: '',
       })}
       tabBarOptions={{
-        activeTintColor: 'tomato',
+        activeTintColor: Colors.primary,
         inactiveTintColor: 'gray',
+        showLabel: false,
       }}>
       <Tab.Screen
         name="FriendList"

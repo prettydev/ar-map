@@ -16,6 +16,19 @@ const UserSchema = new Schema({
 
   device: { type: String },
   block: { type: Boolean },
+
+  friends: [
+    {
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+        autopopulate: { select: "name phone photo location" },
+      },
+      state: { type: Boolean, required: true },
+    },
+  ],
+
   createAt: { type: Date, default: Date.now },
   updateAt: { type: Date, default: Date.now },
 });

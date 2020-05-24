@@ -69,4 +69,8 @@ pod install
 
   https://easyappicon.com/
 
+- bottom tab bar ref
+
+  https://reactnavigation.org/docs/bottom-tab-navigator/
+
 ---

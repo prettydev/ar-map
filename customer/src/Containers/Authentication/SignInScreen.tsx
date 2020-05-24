@@ -88,14 +88,6 @@ export default function SignInScreen(props) {
       });
   };
 
-  useEffect(() => {
-    BackHandler.addEventListener('hardwareBackPress', () => {
-      console.log('you clicked back button. go to the app home.');
-      props.navigation.navigate('PostList');
-      return true;
-    });
-  }, []);
-
   return (
     <View style={{flex: 12, flexDirection: 'column', backgroundColor: 'white'}}>
       <View flex={1} flexDirection="row" style={{marginBottom: -20}}>
@@ -122,17 +114,9 @@ export default function SignInScreen(props) {
           source={Images.Logo}
           resizeMode={FastImage.resizeMode.contain}
         />
-        <Text
-          style={{
-            fontSize: 30,
-            color: Colors.primary,
-            fontWeight: 'bold',
-            marginTop: -20,
-          }}>
-          KP MASTER PLAN
-        </Text>
+        <Text style={Style.CustomText}>KP MASTER PLAN</Text>
       </View>
-      <View style={{flex: 5, padding: 30, marginTop: 20}}>
+      <View style={Style.CustomForm}>
         <TextInput
           style={Style.CustomTextInput}
           placeholder={'Email'}

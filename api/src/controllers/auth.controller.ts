@@ -130,20 +130,19 @@ class AuthController {
   }
 
   public async signin(req: Request, res: Response) {
-    // body request validation
+    console.log(req.body);
 
     const { error } = signinValidation(req.body);
     if (error)
       return res.status(200).json({ success: false, msg: error.message });
-
-    // find user
-    // const user = await User.findOne({ email: req.body.email });
 
     const user = await User.findOne({
       // phone: req.body.phone,
       email: req.body.email,
       password: req.body.password,
     });
+
+    console.log(user);
 
     if (!user)
       return res.status(200).json({ success: false, msg: "no registered" });
@@ -421,6 +420,61 @@ class AuthController {
       res.status(500).json({
         success: false,
         msg: "失败了",
+      });
+    }
+  }
+
+  public async invite(req: Request, res: Response): Promise<any> {
+    try {
+      const { email, user } = req.body;
+
+      console.log("received from the client.......", email, user);
+
+      const friend = await User.findOne({ email });
+
+      if (!friend) {
+        return res.status(200).json({
+          success: false,
+          msg: "Item not exist",
+        });
+      }
+
+      const updatedMe = await User.findOneAndUpdate(
+        { _id: new mongodb.ObjectID(user) },
+        {
+          $addToSet: {
+            friends: { state: true, user: new mongodb.ObjectID(friend._id) },
+          },
+        },
+        { new: true }
+      ).populate("user", ["name", "email", "phone", "photo"]);
+
+      const updatedFriend = await User.findOneAndUpdate(
+        { email },
+        {
+          $addToSet: {
+            friends: { state: false, user: new mongodb.ObjectID(user) },
+          },
+        },
+        { new: true }
+      ).populate("user", ["name", "email", "phone", "photo"]);
+
+      if (!updatedMe || !updatedFriend)
+        return res.status(200).json({
+          success: false,
+          msg: "Item not updated",
+        });
+
+      res.status(200).json({
+        success: true,
+        msg: "Item updated.",
+        item: updatedMe,
+      });
+    } catch (err) {
+      console.log("error => ", err);
+      res.status(200).json({
+        success: false,
+        msg: "Item not updated with error",
       });
     }
   }

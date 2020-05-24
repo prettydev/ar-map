@@ -16,6 +16,18 @@ export default StyleSheet.create({
     width: 30,
     transform: [{rotate: '90deg'}],
   },
+  CustomText: {
+    fontSize: 30,
+    color: Colors.primary,
+    fontWeight: 'bold',
+  },
+  CustomForm: {
+    flex: 5,
+    // flexDirection: 'column',
+    // alignItems: 'center',
+    padding: 30,
+    marginTop: 20,
+  },
   CustomTextInput: {
     height: 50,
     borderColor: Colors.border,
