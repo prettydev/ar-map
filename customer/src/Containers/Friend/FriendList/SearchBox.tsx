@@ -9,16 +9,19 @@ const SearchBox = props => {
     <View style={Styles.HomeSearchArea}>
       <View style={Styles.HomeSearchInputContainer}>
         <TextInput
-          placeholder={'Keyword'}
+          placeholder={'User ID/Phone Number'}
+          placeholderTextColor={'white'}
           style={Styles.HomeSearchInput}
           onChangeText={props.inputProc}
         />
       </View>
-      <TouchableOpacity
-        onPress={props.handleSearch}
-        style={Styles.HomeSearchBtn}>
-        <EvilIconsIcon name="search" style={{fontSize: 30}} />
-      </TouchableOpacity>
+      <View>
+        <TouchableOpacity
+          onPress={props.handleSearch}
+          style={Styles.HomeSearchBtn}>
+          <EvilIconsIcon name="search" style={{fontSize: 30, color: 'white'}} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };

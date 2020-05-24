@@ -5,6 +5,7 @@ import {Images} from 'src/Theme';
 import CatListBtn from 'src/Components/Buttons/CatListBtn/CatListBtn';
 import Styles from './FriendListStyle';
 import Style from 'src/Style';
+import Colors from 'src/Theme/Colors';
 import Header from 'src/Components/Header/Header';
 import ProductCard from 'src/Components/Card/Product/ProductCard';
 import {tagJson} from 'src/config';
@@ -12,16 +13,14 @@ import {baseUrl} from 'src/config';
 import {store} from 'src/Store';
 
 import SearchBox from './SearchBox';
-
+import Toast from 'react-native-simple-toast';
 import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 const axios = require('axios');
 
 export default function FriendList(props) {
   const [state, dispatch] = useContext(store);
-
-  const [list, setList] = useState([]);
-  const [tag, setTag] = useState('');
 
   const [tmp, setTmp] = useState('');
   const [key, setKey] = useState('');
@@ -30,48 +29,32 @@ export default function FriendList(props) {
     setKey(tmp);
   };
 
-  const getList = () => {
+  const handleAccept = item => {
     axios
-      .get(baseUrl + 'api/stuffpost', {
-        params: {
-          tag,
-          key,
-        },
+      .post(baseUrl + 'auth/accept', {
+        item,
+        user: state.user._id,
       })
-      .then(function(response) {
-        setList(response.data);
+      .then(function(response2) {
+        Toast.show(response2.data.msg);
+
+        dispatch({
+          type: 'setUser',
+          payload: response2.data.item,
+        });
       })
       .catch(function(error) {
-        console.log(error);
-      })
-      .finally(function() {
-        // always executed
+        Toast.show('error');
+        console.log(JSON.stringify(error));
       });
   };
 
   useEffect(() => {
-    getList();
-  }, [tag, key]);
-
-  useEffect(
-    () =>
-      props.navigation.addListener('focus', () => {
-        getList();
-        dispatch({type: 'setCurrentScreen', payload: 'post-list'});
-      }),
-    [],
-  );
-
-  useEffect(
-    () =>
-      props.navigation.addListener('blur', () =>
-        console.log('Home Screen was unfocused'),
-      ),
-    [props.navigation],
-  );
+    console.log(state.user.friends);
+  });
 
   return (
-    <ScrollView style={{backgroundColor: '#f4f6f8'}}>
+    <ScrollView style={{backgroundColor: 'white'}}>
       <View style={Styles.CategoryListContainer}>
         <View
           style={{
@@ -87,39 +70,70 @@ export default function FriendList(props) {
           <View style={{flex: 1}}>
             <TouchableOpacity
               onPress={() => {
-                props.navigation.navigate('PostWrite');
+                props.navigation.navigate('AddFriend');
               }}>
-              <EvilIconsIcon name="plus" style={{fontSize: 30}} />
+              <FontAwesome name="user-plus" style={{fontSize: 30}} />
             </TouchableOpacity>
           </View>
         </View>
-        {false && (
-          <View style={Styles.CategoryListWrap}>
-            <FlatList
-              horizontal={false}
-              numColumns={4}
-              style={Styles.CategoryFlatList}
-              data={tagJson}
-              renderItem={({item}) => (
-                <TouchableOpacity
-                  onPress={() => {
-                    const currentTag = Object.values(item);
-                    setTag(currentTag[0]);
-                  }}>
-                  <CatListBtn
-                    title={Object.keys(item)}
-                    imgSource={Object.values(item)}
-                  />
-                </TouchableOpacity>
-              )}
-              keyExtractor={(item, index) => index.toString()}
-            />
-          </View>
-        )}
       </View>
-      <View>
-        {list.map((item, i) => (
-          <ProductCard key={i} navigation={props.navigation} item={item} />
+      <View style={{padding: 10}}>
+        {state.user.friends.map((item, i) => (
+          <View
+            key={i}
+            style={{
+              flexDirection: 'row',
+              flex: 6,
+              justifyContent: 'center',
+              alignItems: 'center',
+              padding: 10,
+              borderBottomWidth: 1,
+              borderBottomColor: Colors.border,
+            }}>
+            <View flex={1}>
+              <EvilIconsIcon name="user" style={{fontSize: 50}} />
+            </View>
+            <View flex={4}>
+              <View style={{alignItems: 'center'}}>
+                <Text style={{fontSize: 20}}>{item.user.email}</Text>
+              </View>
+
+              {!item.state && (
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                    paddingTop: 5,
+                  }}>
+                  <View />
+                  <TouchableOpacity onPress={() => handleAccept(item)}>
+                    <Text
+                      style={{
+                        color: Colors.primary,
+                        fontSize: 18,
+                      }}>
+                      accept
+                    </Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    onPress={() => {
+                      Toast.show('Rejected!');
+                    }}>
+                    <Text
+                      style={{
+                        color: Colors.primary,
+                        fontSize: 18,
+                      }}>
+                      reject
+                    </Text>
+                  </TouchableOpacity>
+                  <View />
+                </View>
+              )}
+            </View>
+
+            <View flex={1} />
+          </View>
         ))}
       </View>
     </ScrollView>

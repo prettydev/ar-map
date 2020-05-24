@@ -23,7 +23,7 @@ const UserSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: "User",
         required: true,
-        autopopulate: { select: "name phone photo location" },
+        autopopulate: { select: "name email phone photo location" },
       },
       state: { type: Boolean, required: true },
     },
@@ -32,5 +32,7 @@ const UserSchema = new Schema({
   createAt: { type: Date, default: Date.now },
   updateAt: { type: Date, default: Date.now },
 });
+
+UserSchema.plugin(require("mongoose-autopopulate"));
 
 export default model("User", UserSchema);

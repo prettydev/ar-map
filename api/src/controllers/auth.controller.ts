@@ -478,6 +478,61 @@ class AuthController {
       });
     }
   }
+
+  /**
+   * accept friend request
+   *
+   * @param req
+   * @param res
+   */
+  public async accept(req: Request, res: Response): Promise<any> {
+    try {
+      const { item, user } = req.body;
+
+      console.log("received from the client.......", item, user);
+
+      const newItem = { ...item };
+      newItem.state = true;
+
+      let updatedMe = await User.findOneAndUpdate(
+        { _id: new mongodb.ObjectID(user) },
+        {
+          $addToSet: {
+            friends: newItem,
+          },
+        },
+        { new: true }
+      ).populate("user", ["name", "email", "phone", "photo"]);
+
+      updatedMe = await User.findOneAndUpdate(
+        { _id: new mongodb.ObjectID(user) },
+        {
+          $pull: {
+            friends: item,
+          },
+        },
+        { new: true }
+      ).populate("user", ["name", "email", "phone", "photo"]);
+
+      if (!updatedMe)
+        return res.status(200).json({
+          success: false,
+          msg: "Item not updated",
+        });
+
+      res.status(200).json({
+        success: true,
+        msg: "Item updated.",
+        item: updatedMe,
+      });
+    } catch (err) {
+      console.log("error => ", err);
+      res.status(200).json({
+        success: false,
+        msg: "Item not updated with error",
+      });
+    }
+  }
 }
 
 export default new AuthController();

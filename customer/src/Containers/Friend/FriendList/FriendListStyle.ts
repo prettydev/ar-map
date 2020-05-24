@@ -21,7 +21,6 @@ export default StyleSheet.create({
   },
   ///////////////////////////
   HomeSearchArea: {
-    backgroundColor: '#fff',
     flexDirection: 'row',
     justifyContent: 'space-between',
     height: 40,
@@ -41,21 +40,24 @@ export default StyleSheet.create({
     padding: 8,
     borderTopLeftRadius: 4,
     borderBottomLeftRadius: 4,
+    backgroundColor: 'black',
   },
   HomeSearchInput: {
-    height: 40,
+    height: 38,
+    backgroundColor: 'black',
+    color: 'white',
+    width: '100%',
+    textAlign: 'center',
+    fontSize: 15,
   },
 
   HomeSearchBtn: {
     flex: 1,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderLeftWidth: 0,
     padding: 10,
     borderTopRightRadius: 4,
     borderBottomRightRadius: 4,
     alignItems: 'center',
-    backgroundColor: '#eee',
+    backgroundColor: 'black',
   },
 
   ////////////////////////////////
