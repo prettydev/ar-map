@@ -16,6 +16,7 @@ export default function CustomPwdInput(props) {
           borderColor: Colors.border,
           borderWidth: 1,
           borderRadius: 5,
+          marginBottom: 30,
         }}>
         <TextInput
           secureTextEntry={hidePassword}

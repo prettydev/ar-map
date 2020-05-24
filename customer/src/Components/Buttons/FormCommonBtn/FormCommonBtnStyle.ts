@@ -8,7 +8,7 @@ export default StyleSheet.create({
     backgroundColor: Colors.primary,
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: 50,
+    marginTop: 20,
     marginBottom: 10,
   },
   FormCommonBtnText: {

@@ -23,4 +23,24 @@ export default StyleSheet.create({
     borderRadius: 5,
     marginBottom: 30,
   },
+  /** drawer styles */
+  drawer: {
+    backgroundColor: Colors.primary,
+  },
+  drawerIcon: {
+    width: 33,
+    height: 33,
+  },
+  drawerHeader: {
+    marginTop: 10,
+    marginLeft: 15,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  drawerText: {
+    color: Colors.white,
+    fontSize: 22,
+    marginLeft: 12,
+  },
+  //////////////////////////////////
 });

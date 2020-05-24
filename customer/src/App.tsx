@@ -1,58 +1,117 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 
+import {Image, Text, View} from 'react-native';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItemList,
+  DrawerItem,
+} from '@react-navigation/drawer';
+
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import SignInScreen from 'src/Containers/Authentication/SignInScreen';
 import SignUpScreen from 'src/Containers/Authentication/SignUpScreen/SignUpScreen';
 import ForgotPwdScreen from 'src/Containers/Authentication/ForgotPwdScreen/ForgotPwdScreen';
 
-import PostList from 'src/Containers/Post/PostList/PostList';
-import PostDetails from 'src/Containers/Post/PostDetails/PostDetails';
-import PostWrite from 'src/Containers/Post/PostWrite/PostWrite';
+import FriendList from 'src/Containers/Friend/FriendList/FriendList';
+import AddFriend from 'src/Containers/Friend/AddFriend/AddFriend';
 
 import {StateProvider} from 'src/Store';
 
+import Style from 'src/Style';
+
 const Stack = createStackNavigator();
+const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
+
+const AuthStack = () => {
+  return (
+    <Stack.Navigator initialRouteName="SignIn">
+      <Stack.Screen
+        name="SignIn"
+        component={SignInScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="SignUp"
+        component={SignUpScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ForgotPwd"
+        component={ForgotPwdScreen}
+        options={{headerShown: false}}
+      />
+    </Stack.Navigator>
+  );
+};
+
+const MainStack = () => {
+  return (
+    <Tab.Navigator
+      initialRouteName="FriendList"
+      screenOptions={({route}) => ({
+        tabBarIcon: ({focused, color, size}) => {
+          let iconName;
+          if (route.name === 'FriendList') {
+            iconName = focused
+              ? 'ios-information-circle'
+              : 'ios-information-circle-outline';
+          } else if (route.name === 'AddFriend') {
+            iconName = focused ? 'ios-list-box' : 'ios-list';
+          }
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+      })}
+      tabBarOptions={{
+        activeTintColor: 'tomato',
+        inactiveTintColor: 'gray',
+      }}>
+      <Tab.Screen
+        name="FriendList"
+        component={FriendList}
+        options={{headerShown: false}}
+      />
+      <Tab.Screen
+        name="AddFriend"
+        component={AddFriend}
+        options={{headerShown: false}}
+      />
+    </Tab.Navigator>
+  );
+};
+
+function CustomDrawerContent(props) {
+  return <DrawerContentScrollView {...props} style={Style.drawer} />;
+}
 
 export default function App() {
   return (
     <StateProvider>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="SignIn"
-            component={SignInScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUpScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="ForgotPwd"
-            component={ForgotPwdScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="PostList"
-            component={PostList}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="PostDetails"
-            component={PostDetails}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="PostWrite"
-            component={PostWrite}
-            options={{headerShown: false}}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator
+            drawerContent={props => <CustomDrawerContent {...props} />}>
+            <Stack.Screen
+              name="Auth"
+              component={AuthStack}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="Main"
+              component={MainStack}
+              options={{headerShown: false}}
+            />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
     </StateProvider>
   );
 }

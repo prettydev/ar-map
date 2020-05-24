@@ -7,7 +7,7 @@
 
 export default {
   primary: '#7B2935',
-  border: '#0072ff',
+  border: '#345692',
   MainRed: '#ff4e46',
   MainYellow: '#f78000',
   transparent: 'rgba(0,0,0,0)',

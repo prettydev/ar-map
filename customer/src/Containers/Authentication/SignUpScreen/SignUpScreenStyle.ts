@@ -15,12 +15,4 @@ export default StyleSheet.create({
   SignFormContainer: {
     padding: 30,
   },
-  FormInput: {
-    paddingTop: 15,
-  },
-
-  SignBtn: {
-    alignItems: 'center',
-    marginTop: 50,
-  },
 });

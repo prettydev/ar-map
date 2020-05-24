@@ -78,7 +78,7 @@ export default function SignInScreen(props) {
           await saveToken('signInfo', JSON.stringify(signInfo));
 
           Toast.show('success!');
-          props.navigation.navigate('PostList');
+          props.navigation.navigate('Main');
         } else {
           Toast.show(response.data.msg);
         }
@@ -144,15 +144,14 @@ export default function SignInScreen(props) {
           proc={value => setPassword(value)}
         />
 
-        <FormCommonBtn CustomBtnTitle={'Sign in'} proc={handleSubmit} />
+        <FormCommonBtn CustomBtnTitle={'Login'} proc={handleSubmit} />
 
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <Text>Don't have account? </Text>
-          <TouchableOpacity
-            onPress={() => props.navigation.navigate('ForgotPwd')}>
+          <TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}>
             <Text
               style={{color: Colors.primary, textDecorationLine: 'underline'}}>
-              Forgot password?
+              Create a new account
             </Text>
           </TouchableOpacity>
         </View>

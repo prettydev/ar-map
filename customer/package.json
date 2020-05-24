@@ -12,6 +12,8 @@
   "dependencies": {
     "@react-native-community/async-storage": "^1.7.1",
     "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/bottom-tabs": "^5.5.0",
+    "@react-navigation/drawer": "^5.8.0",
     "@react-navigation/native": "^5.3.0",
     "@react-navigation/stack": "^5.3.2",
     "axios": "^0.19.2",
@@ -36,7 +38,7 @@
     "react-native-push-notification": "^3.1.9",
     "react-native-qrcode-svg": "^6.0.3",
     "react-native-reanimated": "^1.8.0",
-    "react-native-safe-area-context": "^1.0.0",
+    "react-native-safe-area-context": "^2.0.0",
     "react-native-screens": "^2.7.0",
     "react-native-settings": "^0.2.3",
     "react-native-shadow-cards": "^1.0.2",
