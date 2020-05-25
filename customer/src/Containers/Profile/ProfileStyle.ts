@@ -11,7 +11,7 @@ export default StyleSheet.create({
   },
   ProfileHeaderTitleContainer: {
     alignItems: 'center',
-    paddingTop: (Platform.OS==='android')?10:45,
+    paddingTop: Platform.OS === 'android' ? 10 : 45,
   },
   ProfileHeaderTitleText: {
     color: '#fff',
@@ -22,12 +22,6 @@ export default StyleSheet.create({
     padding: 10,
     paddingTop: 30,
     flex: 1,
-  },
-  ProfileHeaderAvatarImg: {
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-    zIndex: 100,
   },
   ProfileBtnGroupContainer: {
     padding: 5,

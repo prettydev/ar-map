@@ -46,11 +46,11 @@ const AddFriend = props => {
       })
       .then(function(response2) {
         Toast.show(response2.data.msg);
-
-        dispatch({
-          type: 'setUser',
-          payload: response2.data.item,
-        });
+        if (response2.data.success)
+          dispatch({
+            type: 'setUser',
+            payload: response2.data.item,
+          });
       })
       .catch(function(error) {
         Toast.show('error');

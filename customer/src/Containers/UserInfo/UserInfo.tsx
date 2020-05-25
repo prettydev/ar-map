@@ -31,7 +31,7 @@ export default function Profile(props) {
               source={{
                 uri: baseUrl + 'download/photo?path=' + item.photo,
               }}
-              style={Styles.ProfileHeaderAvatarImg}
+              style={Style.profileAvatar}
               resizeMode="cover"
             />
             <Text style={Styles.ProfileHeaderAvatarText}>take a picture</Text>

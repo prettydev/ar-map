@@ -21,8 +21,8 @@ const UserSchema = new Schema({
     {
       user: {
         type: Schema.Types.ObjectId,
-        ref: "User",
         required: true,
+        ref: "User",
         autopopulate: { select: "name email phone photo location" },
       },
       state: { type: Boolean, required: true },

@@ -31,7 +31,7 @@ class AuthController {
     //   return res.status(400).json({ msg: "Username already exist." });
 
     // const { name, email, username, password } = req.body;
-    const { email, phone, password, otp } = req.body;
+    const { email, phone, photo, password, otp } = req.body;
 
     // if (!otp || otp === "")
     //   return res.status(200).json({ success: true, msg: "没有输入验证码" });
@@ -54,7 +54,7 @@ class AuthController {
     try {
       const newUser = new User({
         email,
-        photo: "",
+        photo,
         name: "",
         phone,
         password,
@@ -443,7 +443,11 @@ class AuthController {
         { _id: new mongodb.ObjectID(user) },
         {
           $addToSet: {
-            friends: { state: true, user: new mongodb.ObjectID(friend._id) },
+            friends: {
+              state: true,
+              user: new mongodb.ObjectID(friend._id),
+              _id: new mongodb.ObjectID(friend._id),
+            },
           },
         },
         { new: true }
@@ -453,7 +457,11 @@ class AuthController {
         { email },
         {
           $addToSet: {
-            friends: { state: false, user: new mongodb.ObjectID(user) },
+            friends: {
+              state: false,
+              user: new mongodb.ObjectID(user),
+              _id: new mongodb.ObjectID(user),
+            },
           },
         },
         { new: true }

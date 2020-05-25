@@ -23,11 +23,6 @@ export default StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  ProfileHeaderAvatarImg: {
-    width: 52,
-    height: 52,
-    borderRadius: 50,
-  },
   ProfileHeaderAvatarText: {
     color: 'white',
     fontSize: 18,

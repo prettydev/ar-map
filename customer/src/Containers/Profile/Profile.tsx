@@ -253,7 +253,7 @@ const Profile = props => {
                       uri: baseUrl + 'download/photo?path=' + state.user.photo,
                     }
               }
-              style={Style.ProfileHeaderAvatarImg}
+              style={Style.ProfileAvatar}
               // resizeMode="cover"
             />
           </TouchableOpacity>

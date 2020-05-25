@@ -55,4 +55,10 @@ export default StyleSheet.create({
     marginLeft: 12,
   },
   //////////////////////////////////
+  profileAvatar: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+    zIndex: 100,
+  },
 });

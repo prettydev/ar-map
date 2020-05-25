@@ -78,63 +78,66 @@ export default function FriendList(props) {
         </View>
       </View>
       <View style={{padding: 10}}>
-        {state.user.friends.map((item, i) => (
-          <View
-            key={i}
-            style={{
-              flexDirection: 'row',
-              flex: 6,
-              justifyContent: 'center',
-              alignItems: 'center',
-              padding: 10,
-              borderBottomWidth: 1,
-              borderBottomColor: Colors.border,
-            }}>
-            <View flex={1}>
-              <EvilIconsIcon name="user" style={{fontSize: 50}} />
-            </View>
-            <View flex={4}>
-              <View style={{alignItems: 'center'}}>
-                <Text style={{fontSize: 20}}>{item.user.email}</Text>
-              </View>
-
-              {!item.state && (
-                <View
-                  style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-around',
-                    paddingTop: 5,
-                  }}>
-                  <View />
-                  <TouchableOpacity onPress={() => handleAccept(item)}>
-                    <Text
-                      style={{
-                        color: Colors.primary,
-                        fontSize: 18,
-                      }}>
-                      accept
-                    </Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    onPress={() => {
-                      Toast.show('Rejected!');
-                    }}>
-                    <Text
-                      style={{
-                        color: Colors.primary,
-                        fontSize: 18,
-                      }}>
-                      reject
-                    </Text>
-                  </TouchableOpacity>
-                  <View />
+        {state.user.friends.map(
+          (item, i) =>
+            item.user.email.indexOf(tmp) > -1 && (
+              <View
+                key={i}
+                style={{
+                  flexDirection: 'row',
+                  flex: 6,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  padding: 10,
+                  borderBottomWidth: 1,
+                  borderBottomColor: Colors.border,
+                }}>
+                <View flex={1}>
+                  <EvilIconsIcon name="user" style={{fontSize: 50}} />
                 </View>
-              )}
-            </View>
+                <View flex={4}>
+                  <View style={{alignItems: 'center'}}>
+                    <Text style={{fontSize: 20}}>{item.user.email}</Text>
+                  </View>
 
-            <View flex={1} />
-          </View>
-        ))}
+                  {!item.state && (
+                    <View
+                      style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-around',
+                        paddingTop: 5,
+                      }}>
+                      <View />
+                      <TouchableOpacity onPress={() => handleAccept(item)}>
+                        <Text
+                          style={{
+                            color: Colors.primary,
+                            fontSize: 18,
+                          }}>
+                          accept
+                        </Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        onPress={() => {
+                          Toast.show('Rejected!');
+                        }}>
+                        <Text
+                          style={{
+                            color: Colors.primary,
+                            fontSize: 18,
+                          }}>
+                          reject
+                        </Text>
+                      </TouchableOpacity>
+                      <View />
+                    </View>
+                  )}
+                </View>
+
+                <View flex={1} />
+              </View>
+            ),
+        )}
       </View>
     </ScrollView>
   );
