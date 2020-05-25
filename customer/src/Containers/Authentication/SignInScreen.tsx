@@ -121,7 +121,7 @@ export default function SignInScreen(props) {
       <View style={Style.CustomForm}>
         <TextInput
           style={Style.CustomTextInput}
-          placeholder={"test@test.com"}
+          placeholder={"test@a.com"}
           onChangeText={(value) => setEmail(value)}
         />
 
