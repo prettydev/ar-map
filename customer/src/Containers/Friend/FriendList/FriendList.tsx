@@ -93,7 +93,19 @@ export default function FriendList(props) {
                   borderBottomColor: Colors.border,
                 }}>
                 <View flex={1}>
-                  <EvilIconsIcon name="user" style={{fontSize: 50}} />
+                  {!state.user.photo && (
+                    <EvilIconsIcon name="user" style={{fontSize: 50}} />
+                  )}
+                  {state.user.photo && (
+                    <FastImage
+                      style={{width: 50, height: 50, borderRadius: 25}}
+                      source={{
+                        uri:
+                          baseUrl + 'download/photo?path=' + state.user.photo,
+                      }}
+                      resizeMode={FastImage.resizeMode.contain}
+                    />
+                  )}
                 </View>
                 <View flex={4}>
                   <View style={{alignItems: 'center'}}>
