@@ -1,5 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   StyleSheet,
@@ -22,196 +21,151 @@ const PLACE_DETAIL_URL =
   'https://maps.googleapis.com/maps/api/place/details/json';
 const DEFAULT_DELTA = {latitudeDelta: 0.015, longitudeDelta: 0.0121};
 
-export default class LocationView extends React.Component {
-  static propTypes = {
-    apiKey: PropTypes.string.isRequired,
-    initialLocation: PropTypes.shape({
-      latitude: PropTypes.number,
-      longitude: PropTypes.number,
-    }).isRequired,
-    markerColor: PropTypes.string,
-    actionButtonStyle: ViewPropTypes.style,
-    actionTextStyle: Text.propTypes.style,
-    actionText: PropTypes.string,
-    onLocationSelect: PropTypes.func,
-    debounceDuration: PropTypes.number,
-    components: PropTypes.arrayOf(PropTypes.string),
-    timeout: PropTypes.number,
-    maximumAge: PropTypes.number,
-    enableHighAccuracy: PropTypes.bool,
-  };
+const apiKey = 'AIzaSyDO-TS1el3z_uiyRXeauXl7MUAy_c_mMd4';
+const displayName = 'eventS';
 
-  static defaultProps = {
-    apiKey: 'AIzaSyDO-TS1el3z_uiyRXeauXl7MUAy_c_mMd4',
-    initialLocation: {
-      latitude: 0,
-      longitude: 0,
-    },
-    markerColor: 'black',
-    actionText: 'DONE',
-    onLocationSelect: () => ({}),
-    debounceDuration: 300,
-    components: [],
-    timeout: 15000,
-    maximumAge: Infinity,
-    enableHighAccuracy: true,
-  };
+export default function Map() {
+  let _map = useRef(null);
+  let _input = useRef(null);
 
-  constructor(props) {
-    super(props);
-    if (Platform.OS === 'android') {
-      UIManager.setLayoutAnimationEnabledExperimental &&
-        UIManager.setLayoutAnimationEnabledExperimental(true);
-    }
-  }
-
-  componentDidMount() {
-    Events.listen('InputBlur', this.constructor.displayName, this._onTextBlur);
-    Events.listen(
-      'InputFocus',
-      this.constructor.displayName,
-      this._onTextFocus,
-    );
-    Events.listen(
-      'PlaceSelected',
-      this.constructor.displayName,
-      this._onPlaceSelected,
-    );
-  }
-
-  componentWillUnmount() {
-    Events.rm('InputBlur', this.constructor.displayName);
-    Events.rm('InputFocus', this.constructor.displayName);
-    Events.rm('PlaceSelected', this.constructor.displayName);
-  }
-
-  state = {
+  const [state, setState] = useState({
     inputScale: new Animated.Value(1),
     inFocus: false,
     region: {
       ...DEFAULT_DELTA,
-      ...this.props.initialLocation,
+      latitude: 0,
+      longitude: 0,
     },
-  };
+  });
 
-  _animateInput = () => {
-    Animated.timing(this.state.inputScale, {
-      toValue: this.state.inFocus ? 1.2 : 1,
+  useEffect(() => {
+    if (Platform.OS === 'android') {
+      UIManager.setLayoutAnimationEnabledExperimental &&
+        UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+
+    Events.listen('InputBlur', displayName, _onTextBlur);
+    Events.listen('InputFocus', displayName, _onTextFocus);
+    Events.listen('PlaceSelected', displayName, _onPlaceSelected);
+
+    return () => {
+      Events.rm('InputBlur', displayName);
+      Events.rm('InputFocus', displayName);
+      Events.rm('PlaceSelected', displayName);
+    };
+  }, []);
+
+  const onLocationSelect = () => ({});
+
+  const _animateInput = () => {
+    Animated.timing(state.inputScale, {
+      toValue: state.inFocus ? 1.2 : 1,
       duration: 300,
     }).start();
   };
 
-  _onMapRegionChange = region => {
-    this._setRegion(region, false);
-    if (this.state.inFocus) {
-      this._input.blur();
+  const _onMapRegionChange = region => {
+    _setRegion(region, false);
+    if (state.inFocus) {
+      _input.current.blur();
     }
   };
 
-  _onMapRegionChangeComplete = region => {
-    this._input.fetchAddressForLocation(region);
+  const _onMapRegionChangeComplete = region => {
+    _input.current.fetchAddressForLocation(region);
   };
 
-  _onTextFocus = () => {
-    this.state.inFocus = true;
-    this._animateInput();
+  const _onTextFocus = () => {
+    state.inFocus = true;
+    _animateInput();
   };
 
-  _onTextBlur = () => {
-    this.state.inFocus = false;
-    this._animateInput();
+  const _onTextBlur = () => {
+    state.inFocus = false;
+    _animateInput();
   };
 
-  _setRegion = (region, animate = true) => {
-    this.state.region = {...this.state.region, ...region};
-    if (animate) this._map.animateToRegion(this.state.region);
+  const _setRegion = (region, animate = true) => {
+    state.region = {...state.region, ...region};
+    if (animate) _map.current.animateToRegion(state.region);
   };
 
-  _onPlaceSelected = placeId => {
-    this._input.blur();
+  const _onPlaceSelected = placeId => {
+    _input.current.blur();
     axios
-      .get(`${PLACE_DETAIL_URL}?key=${this.props.apiKey}&placeid=${placeId}`)
+      .get(`${PLACE_DETAIL_URL}?key=${apiKey}&placeid=${placeId}`)
       .then(({data}) => {
         let region = (({lat, lng}) => ({latitude: lat, longitude: lng}))(
           data.result.geometry.location,
         );
-        this._setRegion(region);
-        this.setState({placeDetails: data.result});
+        _setRegion(region);
+        setState({placeDetails: data.result});
       });
   };
 
-  _getCurrentLocation = () => {
-    const {timeout, maximumAge, enableHighAccuracy} = this.props;
+  const _getCurrentLocation = () => {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
-        this._setRegion({latitude, longitude});
+        _setRegion({latitude, longitude});
       },
       error => console.log(error.message),
       {
-        enableHighAccuracy,
-        timeout,
-        maximumAge,
+        enableHighAccuracy: true,
+        timeout: 15000,
+        maximumAge: Infinity,
       },
     );
   };
 
-  render() {
-    let {inputScale} = this.state;
-    return (
-      <View style={styles.container}>
-        <MapView
-          ref={mapView => (this._map = mapView)}
-          style={styles.mapView}
-          region={this.state.region}
-          showsMyLocationButton={true}
-          showsUserLocation={false}
-          onPress={({nativeEvent}) => this._setRegion(nativeEvent.coordinate)}
-          onRegionChange={this._onMapRegionChange}
-          onRegionChangeComplete={this._onMapRegionChangeComplete}
+  let {inputScale} = state;
+  return (
+    <View style={styles.container}>
+      <MapView
+        ref={_map}
+        style={styles.mapView}
+        region={state.region}
+        showsMyLocationButton={true}
+        showsUserLocation={false}
+        onPress={({nativeEvent}) => _setRegion(nativeEvent.coordinate)}
+        onRegionChange={_onMapRegionChange}
+        onRegionChangeComplete={_onMapRegionChangeComplete}
+      />
+      <Entypo
+        name={'location-pin'}
+        size={30}
+        color={'black'}
+        style={{backgroundColor: 'transparent'}}
+      />
+      <View style={styles.fullWidthContainer}>
+        <AutoCompleteInput
+          ref={_input}
+          apiKey={apiKey}
+          style={[styles.input, {transform: [{scale: inputScale}]}]}
+          debounceDuration={300}
+          components={[]}
         />
-        <Entypo
-          name={'location-pin'}
-          size={30}
-          color={this.props.markerColor}
-          style={{backgroundColor: 'transparent'}}
-        />
-        <View style={styles.fullWidthContainer}>
-          <AutoCompleteInput
-            ref={input => (this._input = input)}
-            apiKey={this.props.apiKey}
-            style={[styles.input, {transform: [{scale: inputScale}]}]}
-            debounceDuration={this.props.debounceDuration}
-            components={this.props.components}
-          />
-        </View>
-        <TouchableOpacity
-          style={[
-            styles.currentLocBtn,
-            {backgroundColor: this.props.markerColor},
-          ]}
-          onPress={this._getCurrentLocation}>
-          <MaterialIcons name={'my-location'} color={'white'} size={25} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={[styles.actionButton, this.props.actionButtonStyle]}
-          onPress={() =>
-            this.props.onLocationSelect({
-              ...this.state.region,
-              address: this._input.getAddress(),
-              placeDetails: this.state.placeDetails,
-            })
-          }>
-          <View>
-            <Text style={[styles.actionText, this.props.actionTextStyle]}>
-              {this.props.actionText}
-            </Text>
-          </View>
-        </TouchableOpacity>
-        {this.props.children}
       </View>
-    );
-  }
+      <TouchableOpacity
+        style={[styles.currentLocBtn, {backgroundColor: 'black'}]}
+        onPress={_getCurrentLocation}>
+        <MaterialIcons name={'my-location'} color={'white'} size={25} />
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.actionButton}
+        onPress={() =>
+          onLocationSelect({
+            ...state.region,
+            address: _input.current.getAddress(),
+            placeDetails: state.placeDetails,
+          })
+        }>
+        <View>
+          <Text style={styles.actionText}>{'Done'}</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
