@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {
+  Dimensions,
   View,
   StyleSheet,
   Animated,
@@ -15,14 +16,22 @@ import axios from 'axios';
 import Events from 'react-native-simple-events';
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
+import MapViewDirections from 'react-native-maps-directions';
 import AutoCompleteInput from './AutoCompleteInput';
+
+const {width, height} = Dimensions.get('window');
 
 const PLACE_DETAIL_URL =
   'https://maps.googleapis.com/maps/api/place/details/json';
 const DEFAULT_DELTA = {latitudeDelta: 0.015, longitudeDelta: 0.0121};
 
-const apiKey = 'AIzaSyDO-TS1el3z_uiyRXeauXl7MUAy_c_mMd4';
+const apiKey = 'AIzaSyDOo1Y_JbCuuhs39Wt3i3iEyLgZXnqBkWo'; //unlimited key
 const displayName = 'eventS';
+
+const coordinates = [
+  {latitude: 37.79879, longitude: -122.442753},
+  {latitude: 37.790651, longitude: -122.422497},
+];
 
 export default function Map() {
   let _map = useRef(null);
@@ -33,8 +42,9 @@ export default function Map() {
     inFocus: false,
     region: {
       ...DEFAULT_DELTA,
-      latitude: 0,
-      longitude: 0,
+
+      latitude: 37.771707,
+      longitude: -122.4053769,
     },
   });
 
@@ -55,7 +65,17 @@ export default function Map() {
     };
   }, []);
 
-  const onLocationSelect = () => ({});
+  const onLocationSelect = params => {
+    // {
+    // address: "1 Rue Joseph Gay Lussac, 26100 Romans-sur-Isère, France",
+    // latitude: 45.05234371964782,
+    // latitudeDelta: 0.015001959785394092,
+    // longitude: 5.078941639512777,
+    // longitudeDelta: 0.014334060251711911,
+    // }
+
+    console.log(params);
+  };
 
   const _animateInput = () => {
     Animated.timing(state.inputScale, {
@@ -118,6 +138,21 @@ export default function Map() {
     );
   };
 
+  const onReady = result => {
+    _map.current.fitToCoordinates(result.coordinates, {
+      edgePadding: {
+        right: width / 10,
+        bottom: height / 10,
+        left: width / 10,
+        top: height / 10,
+      },
+    });
+  };
+
+  const onError = errorMessage => {
+    console.log(errorMessage); // eslint-disable-line no-console
+  };
+
   let {inputScale} = state;
   return (
     <View style={styles.container}>
@@ -129,8 +164,32 @@ export default function Map() {
         showsUserLocation={false}
         onPress={({nativeEvent}) => _setRegion(nativeEvent.coordinate)}
         onRegionChange={_onMapRegionChange}
-        onRegionChangeComplete={_onMapRegionChangeComplete}
-      />
+        onRegionChangeComplete={_onMapRegionChangeComplete}>
+        <MapViewDirections
+          origin={coordinates[0]}
+          destination={coordinates[coordinates.length - 1]}
+          waypoints={coordinates.slice(1, -1)}
+          mode="DRIVING"
+          apikey={apiKey}
+          language="en"
+          strokeWidth={4}
+          strokeColor="red"
+          onStart={params => {
+            console.log(
+              `Started routing between "${params.origin}" and "${
+                params.destination
+              }"${
+                params.waypoints.length
+                  ? ' using waypoints: ' + params.waypoints.join(', ')
+                  : ''
+              }`,
+            );
+          }}
+          onReady={onReady}
+          onError={onError}
+          resetOnChange={false}
+        />
+      </MapView>
       <Entypo
         name={'location-pin'}
         size={30}
@@ -146,24 +205,64 @@ export default function Map() {
           components={[]}
         />
       </View>
+
+      <MapViewDirections
+        origin={coordinates[0]}
+        destination={coordinates[coordinates.length - 1]}
+        waypoints={coordinates.slice(1, -1)}
+        mode="DRIVING"
+        apikey={apiKey}
+        language="en"
+        strokeWidth={4}
+        strokeColor="red"
+        onStart={params => {
+          console.log(
+            `Started routing between "${params.origin}" and "${
+              params.destination
+            }"${
+              params.waypoints.length
+                ? ' using waypoints: ' + params.waypoints.join(', ')
+                : ''
+            }`,
+          );
+        }}
+        onReady={onReady}
+        onError={onError}
+        resetOnChange={false}
+      />
       <TouchableOpacity
         style={[styles.currentLocBtn, {backgroundColor: 'black'}]}
         onPress={_getCurrentLocation}>
         <MaterialIcons name={'my-location'} color={'white'} size={25} />
       </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.actionButton}
-        onPress={() =>
-          onLocationSelect({
-            ...state.region,
-            address: _input.current.getAddress(),
-            placeDetails: state.placeDetails,
-          })
-        }>
-        <View>
-          <Text style={styles.actionText}>{'Done'}</Text>
-        </View>
-      </TouchableOpacity>
+      <View style={styles.actionView}>
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={() =>
+            onLocationSelect({
+              ...state.region,
+              address: _input.current.getAddress(),
+              placeDetails: state.placeDetails,
+            })
+          }>
+          <View>
+            <Text style={styles.actionText}>{'Route'}</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={() =>
+            onLocationSelect({
+              ...state.region,
+              address: _input.current.getAddress(),
+              placeDetails: state.placeDetails,
+            })
+          }>
+          <View>
+            <Text style={styles.actionText}>{'Navigate'}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -195,16 +294,25 @@ const styles = StyleSheet.create({
     bottom: 70,
     right: 10,
   },
-  actionButton: {
-    backgroundColor: '#000',
-    height: 50,
+  actionView: {
     position: 'absolute',
     bottom: 10,
     left: 10,
     right: 10,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     borderRadius: 5,
+    flex: 3,
+    flexDirection: 'row',
+  },
+  actionButton: {
+    backgroundColor: 'gray',
+    paddingLeft: 10,
+    paddingRight: 10,
+    borderRadius: 5,
+    flex: 1,
+    alignItems: 'center',
+    margin: 5,
   },
   actionText: {
     color: 'white',
