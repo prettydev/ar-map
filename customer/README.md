@@ -74,3 +74,56 @@ pod install
   https://reactnavigation.org/docs/bottom-tab-navigator/
 
 ---
+
+# gradle.properties
+
+## error
+
+- Where:
+  Script 'F:\boss\ar-navigation\customer\node_modules\react-native-maps\lib\android\gradle-maven-push.gradle' line: 62
+
+- What went wrong:
+  A problem occurred configuring project ':react-native-maps'.
+
+  > No such property: POM_DESCRIPTION for class: org.gradle.api.publication.maven.internal.pom.CustomModelBuilder
+
+- Try:
+  Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output. Run with --scan to get full insights.
+
+- Get more help at https://help.gradle.org
+
+## occurs error due to the following settings
+
+MYAPP_UPLOAD_STORE_FILE=arnav.keystore
+MYAPP_UPLOAD_KEY_ALIAS=findstuffkey
+MYAPP_UPLOAD_STORE_PASSWORD=123456
+MYAPP_UPLOAD_KEY_PASSWORD=123456
+
+VERSION_NAME=1000.0.0-master
+GROUP=com.facebook.react
+
+POM_NAME=ReactNative
+POM_ARTIFACT_ID=react-native
+POM_PACKAGING=aar
+
+MOCKITO_CORE_VERSION=2.19.1
+POWERMOCK_VERSION=1.6.2
+ROBOLECTRIC_VERSION=3.0
+JUNIT_VERSION=4.12
+FEST_ASSERT_CORE_VERSION=2.0M10
+
+ANDROIDX_TEST_VERSION=1.1.0
+FRESCO_VERSION=2.0.0
+OKHTTP_VERSION=3.12.1
+SO_LOADER_VERSION=0.8.2
+
+BOOST_VERSION=1_63_0
+DOUBLE_CONVERSION_VERSION=1.1.6
+FOLLY_VERSION=2020.01.13.00
+GLOG_VERSION=0.3.5
+
+android.useAndroidX=true
+android.enableJetifier=true
+android.enableR8=false
+
+---

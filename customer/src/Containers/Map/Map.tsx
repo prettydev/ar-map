@@ -1,33 +1,83 @@
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, {useState, useEffect} from 'react';
 import {
+  StyleSheet,
   View,
   Text,
-  TouchableOpacity,
-  FlatList,
-  ScrollView,
-} from "react-native";
-import FastImage from "react-native-fast-image";
-import { Images } from "src/Theme";
-import CatListBtn from "src/Components/Buttons/CatListBtn/CatListBtn";
-import Style from "src/Style";
-import Colors from "src/Theme/Colors";
-import Header from "src/Components/Header/Header";
-import ProductCard from "src/Components/Card/Product/ProductCard";
-import { tagJson } from "src/config";
-import { baseUrl } from "src/config";
-import { store } from "src/Store";
+  Image,
+  Alert,
+  Platform,
+  Dimensions,
+} from 'react-native';
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  Callout,
+  Polygon,
+  Circle,
+} from 'react-native-maps';
+import {request, PERMISSIONS} from 'react-native-permissions';
+import Geolocation from '@react-native-community/geolocation';
 
-import SearchBox from "./SearchBox";
-import Toast from "react-native-simple-toast";
-import EvilIconsIcon from "react-native-vector-icons/EvilIcons";
-import FontAwesome from "react-native-vector-icons/FontAwesome";
+export default function Map() {
+  const [markers, setMarkers] = useState([]);
+  const [initialPosition, setInitialPosition] = useState({});
 
-const axios = require("axios");
+  const requestLocationPermission = async () => {
+    if (Platform.OS === 'ios') {
+      var response = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
+      console.log('iPhone: ' + response);
 
-export default function Map(props) {
+      if (response === 'granted') {
+        locateCurrentPosition();
+      }
+    } else {
+      var response = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
+      console.log('Android: ' + response);
+
+      if (response === 'granted') {
+        locateCurrentPosition();
+      }
+    }
+  };
+
+  const locateCurrentPosition = () => {
+    Geolocation.getCurrentPosition(
+      position => {
+        console.log(JSON.stringify(position));
+
+        setInitialPosition({
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+          latitudeDelta: 0.09,
+          longitudeDelta: 0.035,
+        });
+      },
+      error => Alert.alert(error.message),
+      {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000},
+    );
+  };
+
+  useEffect(() => {
+    requestLocationPermission();
+  }, []);
+
   return (
-    <ScrollView style={{ backgroundColor: "white" }}>
-        <Text>Map screen</Text>
-    </ScrollView>
+    <View style={styles.container}>
+      <MapView
+        provider={PROVIDER_GOOGLE}
+        showsUserLocation={true}
+        style={styles.map}
+        initialRegion={initialPosition}
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+  },
+});

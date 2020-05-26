@@ -207,9 +207,6 @@ dependencies {
 	implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
-    implementation 'me.pushy:sdk:1.0.54'
-    implementation 'me.pushy:sdk-react-native:1.0.13'
-
     implementation 'com.google.firebase:firebase-analytics:17.2.2'
 
     if (enableHermes) {

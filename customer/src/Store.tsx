@@ -1,6 +1,5 @@
 import React, {createContext, useReducer, useEffect, useContext} from 'react';
 import {Platform, PermissionsAndroid, Alert} from 'react-native';
-// import Pushy from 'pushy-react-native';
 import io from 'socket.io-client';
 import {baseUrl, appVersion} from 'src/config';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -31,58 +30,6 @@ const initialState = {
 const store = createContext(initialState);
 const {Provider} = store;
 
-/*
-const pushInit = () => {
-  Pushy.listen();
-  if (Platform.OS === 'android') {
-    PermissionsAndroid.check(
-      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-    ).then(granted => {
-      if (!granted) {
-        PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-        ).then(result => {
-          if (result !== PermissionsAndroid.RESULTS.GRANTED) {
-          }
-        });
-      }
-    });
-  }
-
-  try {
-    Pushy.isRegistered().then(isRegistered => {
-      if (isRegistered) {
-        try {
-          Pushy.subscribe('data_news')
-            .then(() => {
-              console.log('Subscribed to news topic successfully');
-            })
-            .catch(err => {
-              console.log('data_news subscribe exeption', err);
-            });
-          Pushy.subscribe('data_note')
-            .then(() => {
-              console.log('Subscribed to note topic successfully');
-            })
-            .catch(err => {
-              console.log('data_note subscribe exception', err);
-            });
-        } catch (err) {
-          console.log(err, '.........Pushy.subscribe news, note exception');
-        }
-      }
-    });
-  } catch (err) {
-    console.log(err, '-----------isRegistered().then... exception');
-  }
-};
-
-Pushy.setNotificationListener(async data => {
-  console.log('Received notification: ' + JSON.stringify(data));
-  let notificationTitle = 'arnav';
-  Pushy.notify(notificationTitle, data.content, data);
-});
-*/
 const StateProvider = ({children}) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
