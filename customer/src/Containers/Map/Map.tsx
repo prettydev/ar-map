@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -7,34 +7,34 @@ import {
   Alert,
   Platform,
   Dimensions,
-} from 'react-native';
+} from "react-native";
 import MapView, {
   PROVIDER_GOOGLE,
   Marker,
   Callout,
   Polygon,
   Circle,
-} from 'react-native-maps';
-import {request, PERMISSIONS} from 'react-native-permissions';
-import Geolocation from '@react-native-community/geolocation';
+} from "react-native-maps";
+import { request, PERMISSIONS } from "react-native-permissions";
+import Geolocation from "@react-native-community/geolocation";
 
 export default function Map() {
   const [markers, setMarkers] = useState([]);
   const [initialPosition, setInitialPosition] = useState({});
 
   const requestLocationPermission = async () => {
-    if (Platform.OS === 'ios') {
+    if (Platform.OS === "ios") {
       var response = await request(PERMISSIONS.IOS.LOCATION_WHEN_IN_USE);
-      console.log('iPhone: ' + response);
+      console.log("iPhone: " + response);
 
-      if (response === 'granted') {
+      if (response === "granted") {
         locateCurrentPosition();
       }
     } else {
       var response = await request(PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION);
-      console.log('Android: ' + response);
+      console.log("Android: " + response);
 
-      if (response === 'granted') {
+      if (response === "granted") {
         locateCurrentPosition();
       }
     }
@@ -42,8 +42,8 @@ export default function Map() {
 
   const locateCurrentPosition = () => {
     Geolocation.getCurrentPosition(
-      position => {
-        console.log(JSON.stringify(position));
+      (position) => {
+        console.log("current location is ", JSON.stringify(position));
 
         setInitialPosition({
           latitude: position.coords.latitude,
@@ -52,8 +52,8 @@ export default function Map() {
           longitudeDelta: 0.035,
         });
       },
-      error => Alert.alert(error.message),
-      {enableHighAccuracy: true, timeout: 10000, maximumAge: 1000},
+      (error) => Alert.alert(error.message),
+      { enableHighAccuracy: true, timeout: 10000, maximumAge: 1000 },
     );
   };
 
