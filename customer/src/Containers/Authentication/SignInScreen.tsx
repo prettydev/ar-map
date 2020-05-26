@@ -42,8 +42,10 @@ export default function SignInScreen(props) {
 
   const handleSubmit = async () => {
     if (email === "" || password === "") {
-      Toast.show("input error!");
-      return;
+      setEmail("test@a.com"); //  test code
+      setPassword("123123"); //  test code
+      // Toast.show("input error!");
+      // return;
     }
 
     await axios
@@ -121,12 +123,12 @@ export default function SignInScreen(props) {
       <View style={Style.CustomForm}>
         <TextInput
           style={Style.CustomTextInput}
-          placeholder={"test@a.com"}
+          placeholder={"Email"}
           onChangeText={(value) => setEmail(value)}
         />
 
         <CustomPwdInput
-          CustomPwdPlaceholder={"123123"}
+          CustomPwdPlaceholder={"Password"}
           proc={(value) => setPassword(value)}
         />
 

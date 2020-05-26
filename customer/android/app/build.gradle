@@ -86,7 +86,15 @@ project.ext.react = [
 ]
 
 project.ext.vectoricons = [
-    iconFontNames: [ 'MaterialIcons.ttf', 'EvilIcons.ttf', 'Ionicons.ttf', 'FontAwesome.ttf', 'AntDesign.ttf' ] // Name of the font files you want to copy
+    iconFontNames: [ 
+        'AntDesign.ttf',
+        'Entypo.ttf', 
+        'EvilIcons.ttf', 
+        'FontAwesome.ttf', 
+        'Ionicons.ttf',
+        'MaterialIcons.ttf', 
+        'MaterialCommunityIcons.ttf', 
+    ] // Name of the font files you want to copy
 ]
 
 /**

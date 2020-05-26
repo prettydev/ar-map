@@ -46,6 +46,7 @@
     "react-native-screens": "^2.7.0",
     "react-native-settings": "^0.2.3",
     "react-native-shadow-cards": "^1.0.2",
+    "react-native-simple-events": "^1.0.1",
     "react-native-simple-toast": "^1.0.0",
     "react-native-static-safe-area-insets": "^2.0.0",
     "react-native-status-bar-height": "^2.4.0",
