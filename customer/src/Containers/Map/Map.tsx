@@ -73,6 +73,19 @@ export default function LocationView() {
     );
   };
 
+  const _onPlaceSelected = placeId => {
+    _input.current.blur();
+    axios
+      .get(`${PLACE_DETAIL_URL}?key=${apiKey}&placeid=${placeId}`)
+      .then(({data}) => {
+        let rg = (({lat, lng}) => ({latitude: lat, longitude: lng}))(
+          data.result.geometry.location,
+        );
+        _setRegion(rg);
+        console.log('placeDetails...', data.result);
+      });
+  };
+
   const fetchAddressForLocation = location => {
     setLoading(true);
     setPredictions([]);
@@ -144,6 +157,12 @@ export default function LocationView() {
 
   useEffect(() => {
     _getCurrentLocation();
+
+    Events.listen('PlaceSelected', 'DetailID', _onPlaceSelected);
+
+    return () => {
+      Events.rm('PlaceSelected', 'DetailID');
+    };
   }, []);
 
   return (

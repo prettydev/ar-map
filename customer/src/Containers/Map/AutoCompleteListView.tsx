@@ -14,8 +14,6 @@ import Events from 'react-native-simple-events';
 export default function AutoCompleteListView(props) {
   const [inFocus, setInFocus] = useState(false);
 
-  const onSelectPlace = () => {};
-
   useEffect(() => {
     Events.listen('InputBlur', 'ListViewID', _onTextBlur);
     Events.listen('InputFocus', 'ListViewID', _onTextFocus);
