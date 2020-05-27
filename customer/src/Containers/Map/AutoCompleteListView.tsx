@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   FlatList,
   Text,
@@ -10,41 +10,33 @@ import {
   TouchableNativeFeedback,
 } from 'react-native';
 import Events from 'react-native-simple-events';
-import PropTypes from 'prop-types';
 
-export default class AutoCompleteListView extends React.Component {
-  static propTypes = {
-    predictions: PropTypes.array.isRequired,
-    onSelectPlace: PropTypes.func,
-  };
+export default function AutoCompleteListView(props) {
+  const [inFocus, setInFocus] = useState(false);
 
-  state = {
-    inFocus: false,
-  };
+  const onSelectPlace = () => {};
 
-  componentDidMount() {
-    Events.listen('InputBlur', 'ListViewID', this._onTextBlur);
-    Events.listen('InputFocus', 'ListViewID', this._onTextFocus);
-  }
+  useEffect(() => {
+    Events.listen('InputBlur', 'ListViewID', _onTextBlur);
+    Events.listen('InputFocus', 'ListViewID', _onTextFocus);
 
-  componentWillUnmount() {
-    Events.rm('InputBlur', 'ListViewID');
-    Events.rm('InputFocus', 'ListViewID');
-  }
-
-  _onTextFocus = () => {
-    this.setState({inFocus: true});
-  };
-
-  _onTextBlur = () => {
-    this.setState({inFocus: false});
-  };
-
-  componentDidUpdate() {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-  }
 
-  _renderItem({item}) {
+    return () => {
+      Events.rm('InputBlur', 'ListViewID');
+      Events.rm('InputFocus', 'ListViewID');
+    };
+  }, []);
+
+  const _onTextFocus = () => {
+    setInFocus(true);
+  };
+
+  const _onTextBlur = () => {
+    setInFocus(false);
+  };
+
+  const _renderItem = ({item}) => {
     const TouchableControl =
       Platform.OS === 'ios' ? TouchableOpacity : TouchableNativeFeedback;
     const {structured_formatting} = item;
@@ -61,17 +53,17 @@ export default class AutoCompleteListView extends React.Component {
         </View>
       </TouchableControl>
     );
-  }
+  };
 
-  _getFlatList = () => {
-    const style = this.state.inFocus ? null : {height: 0};
+  const _getFlatList = () => {
+    const style = inFocus ? null : {height: 0};
     return (
       <FlatList
         showsVerticalScrollIndicator={false}
         elevation={3}
         style={[styles.list, style]}
-        data={this.props.predictions}
-        renderItem={this._renderItem.bind(this)}
+        data={props.predictions}
+        renderItem={_renderItem}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         keyboardShouldPersistTaps={'handled'}
         keyExtractor={item => item.id}
@@ -79,13 +71,11 @@ export default class AutoCompleteListView extends React.Component {
     );
   };
 
-  render() {
-    return Platform.OS === 'android' ? (
-      this._getFlatList()
-    ) : (
-      <View style={styles.listContainer}>{this._getFlatList()}</View>
-    );
-  }
+  return Platform.OS === 'android' ? (
+    _getFlatList()
+  ) : (
+    <View style={styles.listContainer}>{_getFlatList()}</View>
+  );
 }
 
 const styles = StyleSheet.create({

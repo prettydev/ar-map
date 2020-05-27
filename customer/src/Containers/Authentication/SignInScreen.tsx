@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {useState, useEffect, useContext} from 'react';
 import {
   Image,
   View,
@@ -6,29 +6,29 @@ import {
   TextInput,
   TouchableOpacity,
   BackHandler,
-} from "react-native";
+} from 'react-native';
 
-import RNPickerSelect from "react-native-picker-select";
-import FastImage from "react-native-fast-image";
+import RNPickerSelect from 'react-native-picker-select';
+import FastImage from 'react-native-fast-image';
 
-import Style from "src/Style";
-import CustomPwdInput from "src/Components/CustomForm/CustomPwdInput/CustomPwdInput";
-import FormCommonBtn from "src/Components/Buttons/FormCommonBtn/FormCommonBtn";
-import AsyncStorage from "@react-native-community/async-storage";
+import Style from 'src/Style';
+import CustomPwdInput from 'src/Components/CustomForm/CustomPwdInput/CustomPwdInput';
+import FormCommonBtn from 'src/Components/Buttons/FormCommonBtn/FormCommonBtn';
+import AsyncStorage from '@react-native-community/async-storage';
 
-import { baseUrl, translationGetters } from "src/config";
-import { store } from "src/Store";
+import {baseUrl, translationGetters} from 'src/config';
+import {store} from 'src/Store';
 
-import Toast from "react-native-simple-toast";
-import axios from "axios";
-import io from "socket.io-client";
+import Toast from 'react-native-simple-toast';
+import axios from 'axios';
+import io from 'socket.io-client';
 
-import Images from "src/Theme/Images";
-import Colors from "src/Theme/Colors";
+import Images from 'src/Theme/Images';
+import Colors from 'src/Theme/Colors';
 
 export default function SignInScreen(props) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const [state, dispatch] = useContext(store);
 
@@ -36,27 +36,25 @@ export default function SignInScreen(props) {
     try {
       await AsyncStorage.setItem(key, value);
     } catch (e) {
-      console.log("saveToken Exception... ... ...", e);
+      console.log('saveToken Exception... ... ...', e);
     }
   };
 
   const handleSubmit = async () => {
-    if (email === "" || password === "") {
-      setEmail("test@a.com"); //  test code
-      setPassword("123123"); //  test code
+    if (email === '' || password === '') {
+      setEmail('test@a.com'); //  test code
+      setPassword('123123'); //  test code
       // Toast.show("input error!");
       // return;
     }
 
     await axios
-      .post(baseUrl + "auth/signin", {
+      .post(baseUrl + 'auth/signin', {
         email,
         password,
       })
-      .then(async (response) => {
+      .then(async response => {
         if (response.data.success) {
-          console.log("user info...", response.data.user);
-
           const signInfo = {
             auth_token: response.headers.auth_token,
             user: response.data.user,
@@ -64,57 +62,55 @@ export default function SignInScreen(props) {
           };
 
           dispatch({
-            type: "setTokenUser",
+            type: 'setTokenUser',
             payload: signInfo,
           });
 
           dispatch({
-            type: "setSocket",
+            type: 'setSocket',
             payload: io(baseUrl, {
-              query: { user_id: response.data.user._id },
-              ransports: ["websocket"],
+              query: {user_id: response.data.user._id},
+              ransports: ['websocket'],
               jsonp: false,
             }),
           });
 
-          await saveToken("signInfo", JSON.stringify(signInfo));
+          await saveToken('signInfo', JSON.stringify(signInfo));
 
-          Toast.show("success!");
-          props.navigation.navigate("Main");
+          Toast.show('success!');
+          props.navigation.navigate('Main');
         } else {
           Toast.show(response.data.msg);
         }
       })
-      .catch((error) => {
+      .catch(error => {
         console.log(error);
       });
   };
 
   return (
-    <View
-      style={{ flex: 12, flexDirection: "column", backgroundColor: "white" }}
-    >
-      <View flex={1} flexDirection="row" style={{ marginBottom: -20 }}>
+    <View style={{flex: 12, flexDirection: 'column', backgroundColor: 'white'}}>
+      <View flex={1} flexDirection="row" style={{marginBottom: -20}}>
         <View flex={5} />
         <View flex={2}>
           <RNPickerSelect
-            onValueChange={(value) => {
+            onValueChange={value => {
               dispatch({
-                type: "setLang",
+                type: 'setLang',
                 payload: value,
               });
             }}
             items={[
-              { label: "English", value: "en", color: Colors.primary },
-              { label: "Arabic", value: "ar", Color: Colors.primary },
+              {label: 'English', value: 'en', color: Colors.primary},
+              {label: 'Arabic', value: 'ar', Color: Colors.primary},
             ]}
             value="en"
           />
         </View>
       </View>
-      <View style={{ alignItems: "center" }}>
+      <View style={{alignItems: 'center'}}>
         <FastImage
-          style={{ width: 180, height: 150 }}
+          style={{width: 180, height: 150}}
           source={Images.Logo}
           resizeMode={FastImage.resizeMode.contain}
         />
@@ -123,23 +119,22 @@ export default function SignInScreen(props) {
       <View style={Style.CustomForm}>
         <TextInput
           style={Style.CustomTextInput}
-          placeholder={"Email"}
-          onChangeText={(value) => setEmail(value)}
+          placeholder={'Email'}
+          onChangeText={value => setEmail(value)}
         />
 
         <CustomPwdInput
-          CustomPwdPlaceholder={"Password"}
-          proc={(value) => setPassword(value)}
+          CustomPwdPlaceholder={'Password'}
+          proc={value => setPassword(value)}
         />
 
-        <FormCommonBtn CustomBtnTitle={"Login"} proc={handleSubmit} />
+        <FormCommonBtn CustomBtnTitle={'Login'} proc={handleSubmit} />
 
-        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
           <Text>Don't have account?</Text>
-          <TouchableOpacity onPress={() => props.navigation.navigate("SignUp")}>
+          <TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}>
             <Text
-              style={{ color: Colors.primary, textDecorationLine: "underline" }}
-            >
+              style={{color: Colors.primary, textDecorationLine: 'underline'}}>
               Create a new account
             </Text>
           </TouchableOpacity>
