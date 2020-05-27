@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Text,
   TextInput,
+  Dimensions,
 } from 'react-native';
 import Events from 'react-native-simple-events';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -14,6 +15,9 @@ import axios from 'axios';
 import MapView from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import AutoCompleteListView from './AutoCompleteListView';
+import MapViewDirections from 'react-native-maps-directions';
+
+const {width, height} = Dimensions.get('window');
 
 const PLACE_DETAIL_URL =
   'https://maps.googleapis.com/maps/api/place/details/json';
@@ -39,6 +43,9 @@ export default function LocationView() {
     longitude: -122,
   });
 
+  const [start, setStart] = useState({latitude: 0, longitude: 0});
+  const [end, setEnd] = useState({latitude: 0, longitude: 0});
+
   const _input = useRef();
   const _map = useRef();
 
@@ -48,7 +55,19 @@ export default function LocationView() {
 
   const _onMapRegionChange = rg => {
     console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&', rg);
+
+    if (inFocus) {
+      _input.current.blur();
+      setInFocus(false);
+    }
+  };
+
+  const _onMapPressed = rg => {
+    console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', rg);
+
+    setEnd(rg);
     _setRegion(rg, false);
+
     if (inFocus) {
       _input.current.blur();
       setInFocus(false);
@@ -57,15 +76,19 @@ export default function LocationView() {
 
   const _setRegion = (rg, animate = true) => {
     setRegion({...region, ...rg});
-    if (animate && ready) _map.current.animateToRegion(region);
-    console.log('===========================', region);
+    // if (animate && ready) _map.current.animateToRegion(region);
+    console.log('======ttttttttttttttttttttt', start);
+    console.log('======ddddddddddddddddddddd', end);
   };
 
   const _getCurrentLocation = () => {
     Geolocation.getCurrentPosition(
       position => {
         const {latitude, longitude} = position.coords;
+
+        setStart({latitude, longitude});
         _setRegion({latitude, longitude});
+
         console.log('current location is ', position);
         setReady(true);
       },
@@ -81,8 +104,11 @@ export default function LocationView() {
         let rg = (({lat, lng}) => ({latitude: lat, longitude: lng}))(
           data.result.geometry.location,
         );
+
+        setEnd(rg);
         _setRegion(rg);
-        console.log('placeDetails...', data.result);
+
+        console.log('search result...', rg);
       });
   };
 
@@ -165,6 +191,21 @@ export default function LocationView() {
     };
   }, []);
 
+  const onReady = result => {
+    _map.current.fitToCoordinates(result.coordinates, {
+      edgePadding: {
+        right: width / 10,
+        bottom: height / 10,
+        left: width / 10,
+        top: height / 10,
+      },
+    });
+  };
+
+  const onError = errorMessage => {
+    console.log(errorMessage); // eslint-disable-line no-console
+  };
+
   return (
     <View style={styles.container}>
       {
@@ -174,10 +215,34 @@ export default function LocationView() {
           region={region}
           showsMyLocationButton={true}
           showsUserLocation={false}
-          onPress={({nativeEvent}) => _setRegion(nativeEvent.coordinate)}
+          onPress={({nativeEvent}) => _onMapPressed(nativeEvent.coordinate)}
           onRegionChange={_onMapRegionChange}
-          onRegionChangeComplete={fetchAddressForLocation}
-        />
+          onRegionChangeComplete={fetchAddressForLocation}>
+          <MapViewDirections
+            origin={start}
+            destination={end}
+            // waypoints={coordinates.slice(1, -1)}
+            mode="DRIVING"
+            apikey={apiKey}
+            language="en"
+            strokeWidth={4}
+            strokeColor="red"
+            onStart={params => {
+              console.log(
+                `Started routing between "${params.origin}" and "${
+                  params.destination
+                }"${
+                  params.waypoints.length
+                    ? ' using waypoints: ' + params.waypoints.join(', ')
+                    : ''
+                }`,
+              );
+            }}
+            onReady={onReady}
+            onError={onError}
+            resetOnChange={false}
+          />
+        </MapView>
       }
       <Entypo
         name={'location-pin'}
