@@ -12,10 +12,11 @@ import Events from 'react-native-simple-events';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import axios from 'axios';
-import MapView from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import Geolocation from '@react-native-community/geolocation';
 import AutoCompleteListView from './AutoCompleteListView';
 import MapViewDirections from 'react-native-maps-directions';
+import Colors from 'src/Theme/Colors';
 
 const {width, height} = Dimensions.get('window');
 
@@ -46,11 +47,13 @@ export default function LocationView() {
   const [start, setStart] = useState({latitude: 0, longitude: 0});
   const [end, setEnd] = useState({latitude: 0, longitude: 0});
 
+  const path = [start, end];
+
   const _input = useRef();
   const _map = useRef();
 
-  const onLocationSelect = addr => {
-    console.log(addr);
+  const onLocationSelect = _ => {
+    console.log('navigate...');
   };
 
   const _onMapRegionChange = rg => {
@@ -62,11 +65,37 @@ export default function LocationView() {
     }
   };
 
+  const fetchAddressForLocation = location => {
+    setLoading(true);
+    setPredictions([]);
+    let {latitude, longitude} = location;
+
+    setEnd({latitude, longitude});
+    // _setRegion({latitude, longitude}, false);
+
+    axios
+      .get(
+        `${REVRSE_GEO_CODE_URL}?key=${apiKey}&latlng=${latitude},${longitude}`,
+      )
+      .then(({data}) => {
+        console.log('*********************************', data);
+        setLoading(false);
+        let {results} = data;
+        if (results.length > 0) {
+          let {formatted_address} = results[0];
+          setText(formatted_address);
+        }
+      })
+      .catch(function(error) {
+        console.log(error, 'eeeeeeeeeeeeeeeeeeeeee');
+      });
+  };
+
   const _onMapPressed = rg => {
     console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', rg);
 
     setEnd(rg);
-    _setRegion(rg, false);
+    // _setRegion(rg, false);
 
     if (inFocus) {
       _input.current.blur();
@@ -106,33 +135,12 @@ export default function LocationView() {
         );
 
         setEnd(rg);
-        _setRegion(rg);
+        // _setRegion(rg);
 
         console.log('search result...', rg);
       });
   };
 
-  const fetchAddressForLocation = location => {
-    setLoading(true);
-    setPredictions([]);
-    let {latitude, longitude} = location;
-    axios
-      .get(
-        `${REVRSE_GEO_CODE_URL}?key=${apiKey}&latlng=${latitude},${longitude}`,
-      )
-      .then(({data}) => {
-        console.log('*********************************', data);
-        setLoading(false);
-        let {results} = data;
-        if (results.length > 0) {
-          let {formatted_address} = results[0];
-          setText(formatted_address);
-        }
-      })
-      .catch(function(error) {
-        console.log(error, 'eeeeeeeeeeeeeeeeeeeeee');
-      });
-  };
   const _request = text => {
     if (text.length >= 3) {
       axios
@@ -206,6 +214,18 @@ export default function LocationView() {
     console.log(errorMessage); // eslint-disable-line no-console
   };
 
+  const mapMarkers = () => {
+    return path.map((pt, i) => (
+      <Marker
+        key={i}
+        coordinate={{latitude: pt.latitude, longitude: pt.longitude}}
+        title={i === 0 ? 'start' : 'end'}
+        pinColor={i === 0 ? 'red' : 'green'}
+        description={'Welcome'}
+      />
+    ));
+  };
+
   return (
     <View style={styles.container}>
       {
@@ -217,7 +237,8 @@ export default function LocationView() {
           showsUserLocation={false}
           onPress={({nativeEvent}) => _onMapPressed(nativeEvent.coordinate)}
           onRegionChange={_onMapRegionChange}
-          onRegionChangeComplete={fetchAddressForLocation}>
+          // onRegionChangeComplete={fetchAddressForLocation}
+        >
           <MapViewDirections
             origin={start}
             destination={end}
@@ -242,6 +263,7 @@ export default function LocationView() {
             onError={onError}
             resetOnChange={false}
           />
+          {mapMarkers()}
         </MapView>
       }
       <Entypo
@@ -271,16 +293,20 @@ export default function LocationView() {
           <AutoCompleteListView predictions={predictions} />
         </View>
       </View>
-      <TouchableOpacity
-        style={[styles.currentLocBtn, {backgroundColor: 'black'}]}
-        onPress={_getCurrentLocation}>
-        <MaterialIcons name={'my-location'} color={'white'} size={25} />
-      </TouchableOpacity>
+
+      {false && (
+        <TouchableOpacity
+          style={[styles.currentLocBtn, {backgroundColor: 'black'}]}
+          onPress={_getCurrentLocation}>
+          <MaterialIcons name={'my-location'} color={'white'} size={25} />
+        </TouchableOpacity>
+      )}
+
       <TouchableOpacity
         style={[styles.actionButton]}
-        onPress={() => onLocationSelect(_input.current.getAddress())}>
+        onPress={() => onLocationSelect()}>
         <View>
-          <Text style={[styles.actionText]}>{'Done'}</Text>
+          <Text style={styles.actionText}>{'Navigate'}</Text>
         </View>
       </TouchableOpacity>
     </View>
@@ -299,7 +325,7 @@ const styles = StyleSheet.create({
   fullWidthContainer: {
     position: 'absolute',
     width: '100%',
-    top: 80,
+    top: 0,
     alignItems: 'center',
   },
   input: {
@@ -315,19 +341,18 @@ const styles = StyleSheet.create({
     right: 10,
   },
   actionButton: {
-    backgroundColor: '#000',
-    height: 50,
+    backgroundColor: Colors.primaryAlpha,
+    height: 40,
     position: 'absolute',
-    bottom: 10,
-    left: 10,
-    right: 10,
+    bottom: 0,
+    width: '50%',
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
   },
   actionText: {
     color: 'white',
-    fontSize: 23,
+    fontSize: 22,
   },
   ////////////////////////
 

@@ -7,6 +7,7 @@
 
 export default {
   primary: '#7B2935',
+  primaryAlpha: '#7B293599',
   border: '#345692',
   MainRed: '#ff4e46',
   MainYellow: '#f78000',
