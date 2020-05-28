@@ -24,6 +24,8 @@ import stuffpostRoutes from "./routes/stuffpostRoutes";
 import stuffpostRoutes2 from "./routes/stuffpostRoutes2";
 import stuffpostAdminRoutes from "./routes/stuffpostAdminRoutes";
 
+import buildingRoutes from "./routes/buildingRoute";
+
 import messageRoute from "./routes/messageRoutes";
 import roomRoute from "./routes/roomRoutes";
 import userRoutes2 from "./routes/userRoutes2";
@@ -95,6 +97,8 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/stuffpost", stuffpostRoutes);
 app.use("/admin_api/stuffpost", stuffpostAdminRoutes);
 app.use("/api2/stuffpost", stuffpostRoutes2);
+
+app.use("/api/building", buildingRoutes);
 
 app.use("/api/message", messageRoute);
 app.use("/api/room", roomRoute);

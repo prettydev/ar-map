@@ -41,7 +41,7 @@ export const signinValidation = (data: object) => {
 
 export const loginValidation = (data: object) => {
   const adminSchema = Joi.object({
-    phone: Joi.string().required(),
+    email: Joi.string().required(),
     password: Joi.string().min(6).required(),
   });
   return adminSchema.validate(data);
@@ -49,7 +49,7 @@ export const loginValidation = (data: object) => {
 
 export const registerValidation = (data: object) => {
   const adminSchema = Joi.object().keys({
-    phone: Joi.string().required(),
+    email: Joi.string().required(),
     password: Joi.string()
       .pattern(/^[a-zA-Z0-9]{3,30}$/)
       .required(),

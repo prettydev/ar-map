@@ -308,18 +308,18 @@ class AuthController {
     if (error)
       return res.status(200).json({ success: false, msg: error.message });
 
-    const { phone, password } = req.body;
+    const { email, password } = req.body;
 
-    const usernameExist = await Admin.findOne({ phone });
+    const usernameExist = await Admin.findOne({ email });
     console.log(usernameExist);
 
     if (usernameExist)
       return res
         .status(200)
-        .json({ success: false, msg: "Phonenumber already exist." });
+        .json({ success: false, msg: "Email already exist." });
 
     try {
-      const newAdmin = new Admin({ phone, password });
+      const newAdmin = new Admin({ email, password });
       await newAdmin.save();
 
       const token: string = jwt.sign(
@@ -346,16 +346,16 @@ class AuthController {
 
   //admin login
   public async login(req: Request, res: Response) {
-    const { phone, password } = req.body;
-    const { error } = loginValidation({ phone, password });
+    const { email, password } = req.body;
+    const { error } = loginValidation({ email, password });
 
     const admin = await Admin.findOne({
-      phone,
+      email,
       password,
     });
 
     if (!admin)
-      return res.status(200).json({ success: false, msg: "找不到用户." });
+      return res.status(200).json({ success: false, msg: "Not exist." });
 
     const token: string = jwt.sign(
       { _id: admin._id },

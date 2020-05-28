@@ -10,9 +10,9 @@ function LoginForm(props: FormComponentProps & RouterProps) {
     e.preventDefault();
     form.validateFields(async (err, values) => {
       if (!err) {
-        const { phone, password } = values;
+        const { email, password } = values;
 
-        const { data, headers } = await login({ phone, password });
+        const { data, headers } = await login({ email, password });
 
         if (data.success) {
           window.localStorage.setItem(
@@ -31,23 +31,23 @@ function LoginForm(props: FormComponentProps & RouterProps) {
     <div id="login">
       <Form onSubmit={handleSubmit} className="login-form">
         <Form.Item>
-          {form.getFieldDecorator("phone", {
-            rules: [{ required: true, message: "请输入账号!" }]
+          {form.getFieldDecorator("email", {
+            rules: [{ required: true, message: "Input the email" }],
           })(
             <Input
-              prefix={<Icon type="phone" style={iconColor} />}
-              placeholder="请输入账号!"
+              prefix={<Icon type="mail" style={iconColor} />}
+              placeholder="Email"
             />
           )}
         </Form.Item>
         <Form.Item>
           {form.getFieldDecorator("password", {
-            rules: [{ required: true, message: "请输入密码!" }]
+            rules: [{ required: true, message: "Input the password!" }],
           })(
             <Input
               prefix={<Icon type="lock" style={iconColor} />}
               type="password"
-              placeholder="请输入密码!"
+              placeholder="Password"
             />
           )}
         </Form.Item>
@@ -58,7 +58,7 @@ function LoginForm(props: FormComponentProps & RouterProps) {
             htmlType="submit"
             className="login-form-button"
           >
-            登录
+            Sign in
           </Button>
         </Form.Item>
         <Form.Item>
