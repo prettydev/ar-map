@@ -266,12 +266,16 @@ export default function LocationView() {
           {mapMarkers()}
         </MapView>
       }
-      <Entypo
-        name={'location-pin'}
-        size={30}
-        color={'black'}
-        style={{backgroundColor: 'transparent'}}
-      />
+
+      {false && (
+        <Entypo
+          name={'location-pin'}
+          size={30}
+          color={'black'}
+          style={{backgroundColor: 'transparent'}}
+        />
+      )}
+
       <View style={styles.fullWidthContainer}>
         <View style={styles.textInputContainer} elevation={5}>
           <TextInput
