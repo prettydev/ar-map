@@ -1,5 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
+  Button,
+  Image,
   View,
   StyleSheet,
   Platform,
@@ -8,6 +10,13 @@ import {
   TextInput,
   Dimensions,
 } from 'react-native';
+
+// import Carousel, {Pagination} from 'react-native-snap-carousel';
+import FastImage from 'react-native-fast-image';
+import Images from 'src/Theme/Images';
+
+import Carousel from './Carousel';
+
 import Events from 'react-native-simple-events';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
@@ -17,7 +26,7 @@ import Geolocation from '@react-native-community/geolocation';
 import AutoCompleteListView from './AutoCompleteListView';
 import MapViewDirections from 'react-native-maps-directions';
 import Colors from 'src/Theme/Colors';
-
+import Modal from 'react-native-modal';
 import {baseUrl} from 'src/config';
 
 const {width, height} = Dimensions.get('window');
@@ -35,6 +44,12 @@ const DEFAULT_DELTA = {latitudeDelta: 0.015, longitudeDelta: 0.0121};
 const apiKey = 'AIzaSyDOo1Y_JbCuuhs39Wt3i3iEyLgZXnqBkWo';
 
 export default function LocationView() {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
+
   const [kind, setKind] = useState(0);
 
   const [ready, setReady] = useState(false);
@@ -49,8 +64,15 @@ export default function LocationView() {
     longitude: -122,
   });
 
-  const [start, setStart] = useState({latitude: 0, longitude: 0});
-  const [end, setEnd] = useState({latitude: 0, longitude: 0});
+  const [start, setStart] = useState(region);
+  const [end, setEnd] = useState(region);
+
+  const [target, setTarget] = useState({
+    title: '',
+    description: '',
+    image: [],
+    distance: 0,
+  });
 
   const path = [start, end];
 
@@ -62,12 +84,10 @@ export default function LocationView() {
   };
 
   const _onMapRegionChange = rg => {
-    console.log('&&&&&&&&&&&&&&&&&&&&&&&&&&&&', rg);
-
-    if (inFocus) {
-      _input.current.blur();
-      setInFocus(false);
-    }
+    // if (inFocus) {
+    //   _input.current.blur();
+    //   setInFocus(false);
+    // }
   };
 
   const fetchAddressForLocation = location => {
@@ -98,14 +118,6 @@ export default function LocationView() {
 
   const _onMapPressed = rg => {
     console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^', rg);
-
-    setEnd(rg);
-    // _setRegion(rg, false);
-
-    if (inFocus) {
-      _input.current.blur();
-      setInFocus(false);
-    }
   };
 
   const _setRegion = (rg, animate = true) => {
@@ -130,6 +142,10 @@ export default function LocationView() {
     );
   };
 
+  const _getTargetLocation = () => {
+    _setRegion(end);
+  };
+
   const _onPlaceSelected = placeId => {
     _input.current.blur();
     axios
@@ -138,6 +154,50 @@ export default function LocationView() {
         let rg = (({lat, lng}) => ({latitude: lat, longitude: lng}))(
           data.result.geometry.location,
         );
+
+        // {
+        // "address_components": [[Object], [Object], [Object], [Object], [Object]],
+        // "adr_address": "<span class=\"locality\">Washington</span>, <span class=\"region\">PA</span> <span class=\"postal-code\">15301</span>, <span class=\"country-name\">USA</span>",
+        // "formatted_address": "Washington, PA 15301, USA",
+        // "geometry": {"location": [Object], "viewport": [Object]},
+        // "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+        // "id": "395ab72b3623a5e1fcd635aa8d141296d5eee412",
+        // "name": "Washington",
+        // "photos": [[Object], [Object], [Object], [Object], [Object], [Object], [Object], [Object], [Object], [Object]],
+        // "place_id": "ChIJMZYluYWtNYgRL9Pm0uxEhgQ",
+        // "reference": "ChIJMZYluYWtNYgRL9Pm0uxEhgQ",
+        // "scope": "GOOGLE",
+        // "types": ["locality", "political"],
+        // "url": "https://maps.google.com/?q=Washington,+PA+15301,+USA&ftid=0x8835ad85b9259631:0x48644ecd2e6d32f",
+        // "utc_offset": -240, "vicinity": "Washington",
+        // "website": "http://www.washingtonpa.us/"
+        // }
+
+        console.log('aaaaaaaaaa', data.result.photos[0], 'bbbbbbbbbbbbbb');
+
+        //   {
+        //   "height": 1224,
+        //   "html_attributions": ["<a href=\"https://maps.google.com/maps/contrib/112105854871802449540\">Patrick</a>"],
+        //   "photo_reference": "CmRaAAAAQjC7uZKraMWICl-pduS15TqVerM6D97Bq43pP4YYYHLLVeggqzMJggIwTJTM5W1no5AaDgYIM9LOo5NSKx96Q5zXsJhOds_IvD_J4JOMwmf6XdmmHXib7Yt1k4w6yHf3EhCIS9cqsVFxTN53-vUAQi-vGhRekXISosbA-6rjUT4OUl-93sPa6w",
+        //   "width": 1632
+        // }
+
+        let image = data.result.photos.map(photo => ({
+          title: '',
+          subtitle: '',
+          illustration:
+            'https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=' +
+            photo.photo_reference +
+            '&key=' +
+            apiKey,
+        }));
+
+        setTarget({
+          title: data.result.name,
+          description: data.result.formatted_address,
+          image,
+          distance: 0,
+        });
 
         setEnd(rg);
         // _setRegion(rg);
@@ -285,137 +345,237 @@ export default function LocationView() {
       <Marker
         key={i}
         coordinate={{latitude: pt.latitude, longitude: pt.longitude}}
-        title={i === 0 ? 'start' : 'end'}
         pinColor={i === 0 ? 'red' : 'green'}
-        description={'Welcome'}
+        // title={i === 0 ? 'start' : 'end'}
+        // description={'Welcome'}
+        onPress={() => {
+          if (i === 1) toggleModal();
+        }}
       />
     ));
   };
 
   return (
-    <View style={styles.container}>
-      {
-        <MapView
-          ref={_map}
-          style={styles.mapView}
-          region={region}
-          showsMyLocationButton={true}
-          showsUserLocation={false}
-          onPress={({nativeEvent}) => _onMapPressed(nativeEvent.coordinate)}
-          onRegionChange={_onMapRegionChange}
-          // onRegionChangeComplete={fetchAddressForLocation}
-        >
-          <MapViewDirections
-            origin={start}
-            destination={end}
-            // waypoints={coordinates.slice(1, -1)}
-            mode="DRIVING"
-            apikey={apiKey}
-            language="en"
-            strokeWidth={4}
-            strokeColor="red"
-            onStart={params => {
-              console.log(
-                `Started routing between "${params.origin}" and "${
-                  params.destination
-                }"${
-                  params.waypoints.length
-                    ? ' using waypoints: ' + params.waypoints.join(', ')
-                    : ''
-                }`,
-              );
-            }}
-            onReady={onReady}
-            onError={onError}
-            resetOnChange={false}
+    <>
+      <View style={styles.container}>
+        {
+          <MapView
+            ref={_map}
+            style={styles.mapView}
+            region={region}
+            showsMyLocationButton={true}
+            showsUserLocation={false}
+            onPress={({nativeEvent}) => _onMapPressed(nativeEvent.coordinate)}
+            onRegionChange={_onMapRegionChange}
+            // onRegionChangeComplete={fetchAddressForLocation}
+          >
+            <MapViewDirections
+              origin={start}
+              destination={end}
+              // waypoints={coordinates.slice(1, -1)}
+              mode="DRIVING"
+              apikey={apiKey}
+              language="en"
+              strokeWidth={4}
+              strokeColor="red"
+              onStart={params => {
+                console.log(
+                  `Started routing between "${params.origin}" and "${
+                    params.destination
+                  }"${
+                    params.waypoints.length
+                      ? ' using waypoints: ' + params.waypoints.join(', ')
+                      : ''
+                  }`,
+                );
+              }}
+              onReady={onReady}
+              onError={onError}
+              resetOnChange={false}
+            />
+            {mapMarkers()}
+          </MapView>
+        }
+
+        {false && (
+          <Entypo
+            name={'location-pin'}
+            size={30}
+            color={'black'}
+            style={{backgroundColor: 'transparent'}}
           />
-          {mapMarkers()}
-        </MapView>
-      }
+        )}
 
-      {false && (
-        <Entypo
-          name={'location-pin'}
-          size={30}
-          color={'black'}
-          style={{backgroundColor: 'transparent'}}
-        />
-      )}
+        <View
+          style={{
+            flexDirection: 'row',
+            top: 0,
+            position: 'absolute',
+            // alignItems: 'flex-start',
+            // justifyContent: 'flex-start',
+          }}>
+          <TouchableOpacity
+            style={[
+              styles.topButton,
+              {
+                backgroundColor:
+                  kind === 0 ? Colors.primary : Colors.primaryAlpha,
+              },
+            ]}
+            onPress={() => setKind(0)}>
+            <View>
+              <Text style={styles.actionText}>{'Address'}</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[
+              styles.topButton,
+              {
+                backgroundColor:
+                  kind === 1 ? Colors.primary : Colors.primaryAlpha,
+              },
+            ]}
+            onPress={() => setKind(1)}>
+            <View>
+              <Text style={styles.actionText}>{'Building'}</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
 
-      <View
-        style={{
-          flexDirection: 'row',
-          top: 0,
-          position: 'absolute',
-          // alignItems: 'flex-start',
-          // justifyContent: 'flex-start',
-        }}>
-        <TouchableOpacity
-          style={[
-            styles.topButton,
-            {
-              backgroundColor:
-                kind === 0 ? Colors.primary : Colors.primaryAlpha,
-            },
-          ]}
-          onPress={() => setKind(0)}>
-          <View>
-            <Text style={styles.actionText}>{'Address'}</Text>
+        <View style={styles.fullWidthContainer}>
+          <View style={styles.textInputContainer} elevation={5}>
+            <TextInput
+              ref={_input}
+              value={loading ? 'Loading...' : text}
+              style={[styles.textInput, styles.input]}
+              underlineColorAndroid={'transparent'}
+              placeholder={'Search'}
+              onFocus={_onFocus}
+              onBlur={_onBlur}
+              onChangeText={_onChangeText}
+              outlineProvider="bounds"
+              autoCorrect={false}
+              spellCheck={false}
+            />
+            {_getClearButton()}
           </View>
+          <View style={styles.listViewContainer}>
+            <AutoCompleteListView predictions={predictions} />
+          </View>
+        </View>
+        <TouchableOpacity
+          style={styles.targetLocBtn}
+          onPress={_getTargetLocation}>
+          <MaterialIcons name={'my-location'} color={'green'} size={25} />
         </TouchableOpacity>
         <TouchableOpacity
-          style={[
-            styles.topButton,
-            {
-              backgroundColor:
-                kind === 1 ? Colors.primary : Colors.primaryAlpha,
-            },
-          ]}
-          onPress={() => setKind(1)}>
-          <View>
-            <Text style={styles.actionText}>{'Building'}</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.fullWidthContainer}>
-        <View style={styles.textInputContainer} elevation={5}>
-          <TextInput
-            ref={_input}
-            value={loading ? 'Loading...' : text}
-            style={[styles.textInput, styles.input]}
-            underlineColorAndroid={'transparent'}
-            placeholder={'Search'}
-            onFocus={_onFocus}
-            onBlur={_onBlur}
-            onChangeText={_onChangeText}
-            outlineProvider="bounds"
-            autoCorrect={false}
-            spellCheck={false}
-          />
-          {_getClearButton()}
-        </View>
-        <View style={styles.listViewContainer}>
-          <AutoCompleteListView predictions={predictions} />
-        </View>
-      </View>
-
-      {false && (
-        <TouchableOpacity
-          style={[styles.currentLocBtn, {backgroundColor: 'black'}]}
+          style={styles.currentLocBtn}
           onPress={_getCurrentLocation}>
-          <MaterialIcons name={'my-location'} color={'white'} size={25} />
+          <MaterialIcons name={'my-location'} color={'red'} size={25} />
         </TouchableOpacity>
-      )}
+      </View>
 
-      <TouchableOpacity
-        style={[styles.actionButton]}
-        onPress={() => onLocationSelect()}>
-        <View>
-          <Text style={styles.actionText}>{'Navigate'}</Text>
+      <Modal
+        testID={'modal'}
+        isVisible={isModalVisible}
+        // onSwipeComplete={toggleModal}
+        // swipeDirection={['up', 'left', 'right', 'down']}
+        style={{justifyContent: 'flex-end', margin: 0}}>
+        <View
+          style={{
+            backgroundColor: 'white',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            borderRadius: 4,
+            borderColor: 'rgba(0, 0, 0, 0.1)',
+            flex: 0.5,
+            flexDirection: 'column',
+            padding: 5,
+          }}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              width: '100%',
+              padding: 15,
+            }}>
+            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+              <View
+                style={{
+                  backgroundColor: Colors.primary,
+                  width: 30,
+                  height: 30,
+                  borderColor: 'blue',
+                  borderWidth: 1,
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: 22,
+                  fontWeight: 'bold',
+                  paddingLeft: 20,
+                }}>
+                {target.title}
+              </Text>
+            </View>
+            <Text style={{fontSize: 20, fontWeight: 'bold', color: 'red'}}>
+              {target.distance}Km
+            </Text>
+          </View>
+          <View>
+            <Text
+              style={{
+                fontSize: 20,
+              }}>
+              {target.description}
+            </Text>
+          </View>
+          <View>
+            {
+              // <FastImage
+              //   style={{
+              //     width: 160,
+              //     height: 120,
+              //     borderColor: 'blue',
+              //     borderWidth: 1,
+              //     borderRadius: 20,
+              //   }}
+              //   source={{uri: target.image}}
+              //   resizeMode={FastImage.resizeMode.cover}
+              // />
+            }
+            <Carousel entries={target.image} />
+          </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'absolute',
+              bottom: 0,
+            }}>
+            <TouchableOpacity
+              style={styles.dlgBtn}
+              onPress={() => toggleModal()}>
+              <Text style={styles.dlgBtnTxt}>{'Surround'}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.dlgBtn}
+              onPress={() => toggleModal()}>
+              <Text style={styles.dlgBtnTxt}>{'Way'}</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.dlgBtn}
+              onPress={() => toggleModal()}>
+              <Text style={styles.dlgBtnTxt}>{'AR Camera'}</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </TouchableOpacity>
-    </View>
+      </Modal>
+    </>
   );
 }
 
@@ -439,11 +599,20 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   currentLocBtn: {
-    backgroundColor: '#000',
+    backgroundColor: Colors.primaryAlpha,
     padding: 5,
     borderRadius: 5,
     position: 'absolute',
-    bottom: 70,
+    bottom: 10,
+    right: 10,
+  },
+
+  targetLocBtn: {
+    backgroundColor: Colors.primaryAlpha,
+    padding: 5,
+    borderRadius: 5,
+    position: 'absolute',
+    bottom: 50,
     right: 10,
   },
   actionButton: {
@@ -503,5 +672,19 @@ const styles = StyleSheet.create({
     paddingLeft: 3,
     paddingRight: 3,
     paddingBottom: 3,
+  },
+  dlgBtn: {
+    flex: 1,
+    alignItems: 'center',
+    padding: 15,
+    margin: 5,
+    width: '100%',
+    backgroundColor: Colors.primary,
+  },
+  dlgBtnTxt: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    color: 'white',
+    fontWeight: 'bold',
   },
 });
