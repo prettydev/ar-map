@@ -38,7 +38,7 @@ export default function AutoCompleteListView(props) {
     const TouchableControl =
       Platform.OS === 'ios' ? TouchableOpacity : TouchableNativeFeedback;
     const {structured_formatting} = item;
-    return (
+    return item.place_id ? (
       <TouchableControl
         onPress={() => Events.trigger('PlaceSelected', item.place_id)}>
         <View style={styles.row}>
@@ -50,21 +50,35 @@ export default function AutoCompleteListView(props) {
           </Text>
         </View>
       </TouchableControl>
+    ) : (
+      <TouchableControl
+        onPress={() => Events.trigger('BuildingSelected', item)}>
+        <View style={styles.row}>
+          <Text style={styles.primaryText} numberOfLines={1}>
+            {item.title}
+          </Text>
+          <Text style={styles.secondaryText} numberOfLines={1}>
+            {item.description}
+          </Text>
+        </View>
+      </TouchableControl>
     );
   };
 
   const _getFlatList = () => {
     const style = inFocus ? null : {height: 0};
+
     return (
       <FlatList
         showsVerticalScrollIndicator={false}
         elevation={3}
         style={[styles.list, style]}
         data={props.predictions}
+        // renderItem={props.predictions.place_id ? _renderItem : _renderItem2}
         renderItem={_renderItem}
         ItemSeparatorComponent={() => <View style={styles.separator} />}
         keyboardShouldPersistTaps={'handled'}
-        keyExtractor={item => item.id}
+        keyExtractor={item => (item.id ? item.id : item._id)}
       />
     );
   };

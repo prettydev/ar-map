@@ -18,6 +18,8 @@ import AutoCompleteListView from './AutoCompleteListView';
 import MapViewDirections from 'react-native-maps-directions';
 import Colors from 'src/Theme/Colors';
 
+import {baseUrl} from 'src/config';
+
 const {width, height} = Dimensions.get('window');
 
 const PLACE_DETAIL_URL =
@@ -25,6 +27,7 @@ const PLACE_DETAIL_URL =
 
 const AUTOCOMPLETE_URL =
   'https://maps.googleapis.com/maps/api/place/autocomplete/json';
+const BUILDING_URL = baseUrl + 'api/building';
 const REVRSE_GEO_CODE_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 
 const DEFAULT_DELTA = {latitudeDelta: 0.015, longitudeDelta: 0.0121};
@@ -32,6 +35,8 @@ const DEFAULT_DELTA = {latitudeDelta: 0.015, longitudeDelta: 0.0121};
 const apiKey = 'AIzaSyDOo1Y_JbCuuhs39Wt3i3iEyLgZXnqBkWo';
 
 export default function LocationView() {
+  const [kind, setKind] = useState(0);
+
   const [ready, setReady] = useState(false);
   const [predictions, setPredictions] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -141,6 +146,12 @@ export default function LocationView() {
       });
   };
 
+  const _onBuildingSelected = building => {
+    _input.current.blur();
+    const {latitude, longitude, latitudeDelta, longitudeDelta} = building;
+    setEnd({latitude, longitude, latitudeDelta, longitudeDelta});
+  };
+
   const _request = text => {
     if (text.length >= 3) {
       axios
@@ -153,7 +164,22 @@ export default function LocationView() {
           },
         })
         .then(({data}) => {
+          console.log(data);
           let {predictions} = data;
+
+          // [
+          //   {
+          //     description: 'Big Ben, London, UK',
+          //     id: '5373d9309fe9e4b25bd6746c7c2021df35ec279c',
+          //     matched_substrings: [Array],
+          //     place_id: 'ChIJ2dGMjMMEdkgRqVqkuXQkj7c',
+          //     reference: 'ChIJ2dGMjMMEdkgRqVqkuXQkj7c',
+          //     structured_formatting: [Object],
+          //     terms: [Array],
+          //     types: [Array],
+          //   }
+          // ];
+
           setPredictions(predictions);
         });
     } else {
@@ -161,8 +187,46 @@ export default function LocationView() {
     }
   };
 
+  const _request2 = text => {
+    if (text.length >= 3) {
+      axios
+        .get(BUILDING_URL, {
+          params: {
+            key: text,
+          },
+        })
+        .then(({data}) => {
+          console.log(data);
+          // [
+          //   {
+          //     __v: 0,
+          //     _id: '5ed07d17495afa57f0fa7f0d',
+          //     comments: [],
+          //     createAt: '2020-05-29T03:10:15.074Z',
+          //     description: 'The best supermarket in the world',
+          //     description_ar: 'The best supermarket in the world',
+          //     latitude: 37.015,
+          //     latitudeDelta: 0.015,
+          //     likes: [],
+          //     longitude: -122.253,
+          //     longitudeDelta: 0.021,
+          //     photos: [],
+          //     title: 'Big Location',
+          //     title_ar: 'Big Location',
+          //     updateAt: '2020-05-29T03:10:15.074Z',
+          //   },
+          // ];
+
+          setPredictions(data);
+        });
+    } else {
+      setPredictions([]);
+    }
+  };
+
   const _onChangeText = text => {
-    _request(text);
+    if (kind === 0) _request(text);
+    else _request2(text);
     setText(text);
   };
 
@@ -193,9 +257,11 @@ export default function LocationView() {
     _getCurrentLocation();
 
     Events.listen('PlaceSelected', 'DetailID', _onPlaceSelected);
+    Events.listen('BuildingSelected', 'DetailItem', _onBuildingSelected);
 
     return () => {
       Events.rm('PlaceSelected', 'DetailID');
+      Events.rm('BuildingSelected', 'DetailItem');
     };
   }, []);
 
@@ -275,6 +341,42 @@ export default function LocationView() {
           style={{backgroundColor: 'transparent'}}
         />
       )}
+
+      <View
+        style={{
+          flexDirection: 'row',
+          top: 0,
+          position: 'absolute',
+          // alignItems: 'flex-start',
+          // justifyContent: 'flex-start',
+        }}>
+        <TouchableOpacity
+          style={[
+            styles.topButton,
+            {
+              backgroundColor:
+                kind === 0 ? Colors.primary : Colors.primaryAlpha,
+            },
+          ]}
+          onPress={() => setKind(0)}>
+          <View>
+            <Text style={styles.actionText}>{'Address'}</Text>
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[
+            styles.topButton,
+            {
+              backgroundColor:
+                kind === 1 ? Colors.primary : Colors.primaryAlpha,
+            },
+          ]}
+          onPress={() => setKind(1)}>
+          <View>
+            <Text style={styles.actionText}>{'Building'}</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
 
       <View style={styles.fullWidthContainer}>
         <View style={styles.textInputContainer} elevation={5}>
@@ -358,6 +460,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 22,
   },
+  topButton: {
+    height: 40,
+    width: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 5,
+  },
   ////////////////////////
 
   textInputContainer: {
@@ -367,6 +476,9 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 5,
     backgroundColor: 'white',
+    position: 'absolute',
+    top: 40,
+    width: '100%',
     shadowOffset: {
       width: 0,
       height: 2,

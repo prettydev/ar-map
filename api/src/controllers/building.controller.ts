@@ -5,6 +5,11 @@ import generateSchema = require("generate-schema");
 import Building from "../models/Building";
 
 class BuildingController {
+  /**
+   * get data from user app
+   * @param req
+   * @param res
+   */
   public async getItems(req: Request, res: Response): Promise<void> {
     const tag = req.query.tag;
     const key = req.query.key;
