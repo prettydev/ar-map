@@ -24,7 +24,7 @@ import stuffpostRoutes from "./routes/stuffpostRoutes";
 import stuffpostRoutes2 from "./routes/stuffpostRoutes2";
 import stuffpostAdminRoutes from "./routes/stuffpostAdminRoutes";
 
-import buildingRoutes from "./routes/buildingRoute";
+import buildingRoutes from "./routes/buildingRoutes";
 
 import messageRoute from "./routes/messageRoutes";
 import roomRoute from "./routes/roomRoutes";
@@ -98,8 +98,6 @@ app.use("/api/stuffpost", stuffpostRoutes);
 app.use("/admin_api/stuffpost", stuffpostAdminRoutes);
 app.use("/api2/stuffpost", stuffpostRoutes2);
 
-app.use("/api/building", buildingRoutes);
-
 app.use("/api/message", messageRoute);
 app.use("/api/room", roomRoute);
 app.use("/api/profile", profileRoute);
@@ -113,6 +111,7 @@ app.use("/auth/api/news", authNewsRoutes);
 app.use("/auth/api/contact", authContactRoutes);
 app.use("/auth/api/stuffpost", authStuffpostRoutes);
 app.use("/auth/api/profile", authProfileRoute);
+app.use("/auth/api/building", buildingRoutes);
 //////////////////////////////////////////////////////////////////////////////
 
 server.listen(app.get("port"), () => {

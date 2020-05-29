@@ -6,7 +6,14 @@ import path from "path";
 import xlsx from "xlsx";
 import Building from "../models/Building";
 
-const file_upload_path = path.join(process.env.root_path, "uploads");
+declare let process: {
+  env: {
+    NODE_ENV: string;
+  };
+};
+
+const file_upload_path = "uploads"; //path.join(process.env.root_path, "uploads");
+
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, file_upload_path);
@@ -38,6 +45,7 @@ class BuildingRoutes {
 
     this.router.post("/", upload, async (req: Request, res: Response) => {
       if (req.file) {
+        console.log("aaaaaaaaaaaaaaaaaaaaaaa", req.file);
         const file_name = req.file.filename;
         if (!(file_name.endsWith(".xlsx") || file_name.endsWith(".csv"))) {
           res.json({ error: "only xlsx and csv filed to be uploaded" });
@@ -49,17 +57,24 @@ class BuildingRoutes {
           workbook.Sheets[sheet_name_list[0]]
         );
 
+        console.log(rows);
+
         try {
-          const newItem = new Building(rows);
-          await newItem.save();
+          await Building.insertMany(rows);
 
           res.status(200).json({
             success: true,
             msg: "success!",
-            item: newItem,
           });
-        } catch (err) {}
+        } catch (err) {
+          console.log("err.......", err);
+          res.status(200).json({
+            success: false,
+            msg: "failed!",
+          });
+        }
       } else {
+        console.log("no attach");
         res.status(200).json({
           success: false,
           msg: "no attach!",

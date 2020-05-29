@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import Building from "../models/Building";
 import mongodb from "mongodb";
-import generateSchema = require("generate-schema"),
-  
+import generateSchema = require("generate-schema");
+
+import Building from "../models/Building";
+
 class BuildingController {
-  
   public async getItems(req: Request, res: Response): Promise<void> {
     const tag = req.query.tag;
     const key = req.query.key;
@@ -42,8 +42,8 @@ class BuildingController {
 
     items = await Building.find(filter).sort(sortObj);
 
-    res.json(items);    
-  }  
+    res.json(items);
+  }
 
   public async deleteItem(req: Request, res: Response): Promise<any> {
     try {

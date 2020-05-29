@@ -37,6 +37,9 @@ const Notifications = loadable(() => import("../pages/notifications"));
 const StuffPostAdd = loadable(() => import("../pages/stuffpost-add"));
 const StuffPostList = loadable(() => import("../pages/stuffposts"));
 
+const BuildingAdd = loadable(() => import("../pages/building-add"));
+const BuildingList = loadable(() => import("../pages/buildings"));
+
 const ReportList = loadable(() => import("../pages/reports"));
 
 const Home = loadable(() => import("../pages/home"));
@@ -48,129 +51,137 @@ export interface routeType {
 export const routes = [
   {
     path: "/login",
-    component: Login
+    component: Login,
   },
   {
     path: "/register",
-    component: Register
+    component: Register,
   },
   {
     path: "/forgotpwd",
-    component: ForgotPwd
+    component: ForgotPwd,
   },
   {
     path: "/",
     component: Layout,
     children: [
-      {
-        path: "/article",
-        component: ArticleList
-      },
-      {
-        path: "/article-add",
-        component: AddArticle
-      },
-      {
-        path: "/article-classify",
-        component: ArticleClassify
-      },
-      {
-        path: "/discuss",
-        component: ArticleComments
-      },
-      {
-        path: "/article-draft",
-        component: ArticleDraft
-      },
-      {
-        path: "/message-add",
-        component: AddMessage
-      },
-      {
-        path: "/message",
-        component: MessageList
-      },
-      {
-        path: "/project-add",
-        component: ProjectAdd
-      },
-      {
-        path: "/project",
-        component: Projects
-      },
-      {
-        path: "/tags-add",
-        component: TagAdd
-      },
-      {
-        path: "/tags",
-        component: Tags
-      },
-      {
-        path: "/notifications-add",
-        component: NotificationAdd
-      },
-      {
-        path: "/notifications",
-        component: Notifications
-      },
-      {
-        path: "/news-add",
-        component: NewsAdd
-      },
-      {
-        path: "/news",
-        component: News
-      },
-      {
-        path: "/profiles-add",
-        component: ProfileAdd
-      },
-      {
-        path: "/profiles",
-        component: Profiles
-      },
-      {
-        path: "/user-add",
-        component: UserAdd
-      },
-      {
-        path: "/users",
-        component: Users
-      },
-      {
-        path: "/contacts-add",
-        component: ContactAdd
-      },
-      {
-        path: "/contacts",
-        component: Contacts
-      },
+      // {
+      //   path: "/article",
+      //   component: ArticleList,
+      // },
+      // {
+      //   path: "/article-add",
+      //   component: AddArticle,
+      // },
+      // {
+      //   path: "/article-classify",
+      //   component: ArticleClassify,
+      // },
+      // {
+      //   path: "/discuss",
+      //   component: ArticleComments,
+      // },
+      // {
+      //   path: "/article-draft",
+      //   component: ArticleDraft,
+      // },
+      // {
+      //   path: "/message-add",
+      //   component: AddMessage,
+      // },
+      // {
+      //   path: "/message",
+      //   component: MessageList,
+      // },
+      // {
+      //   path: "/project-add",
+      //   component: ProjectAdd,
+      // },
+      // {
+      //   path: "/project",
+      //   component: Projects,
+      // },
+      // {
+      //   path: "/tags-add",
+      //   component: TagAdd,
+      // },
+      // {
+      //   path: "/tags",
+      //   component: Tags,
+      // },
+      // {
+      //   path: "/notifications-add",
+      //   component: NotificationAdd,
+      // },
+      // {
+      //   path: "/notifications",
+      //   component: Notifications,
+      // },
+      // {
+      //   path: "/news-add",
+      //   component: NewsAdd,
+      // },
+      // {
+      //   path: "/news",
+      //   component: News,
+      // },
+      // {
+      //   path: "/profiles-add",
+      //   component: ProfileAdd,
+      // },
+      // {
+      //   path: "/profiles",
+      //   component: Profiles,
+      // },
+      // {
+      //   path: "/user-add",
+      //   component: UserAdd,
+      // },
+      // {
+      //   path: "/users",
+      //   component: Users,
+      // },
+      // {
+      //   path: "/contacts-add",
+      //   component: ContactAdd,
+      // },
+      // {
+      //   path: "/contacts",
+      //   component: Contacts,
+      // },
       // {
       //   path: "/stuffposts-add",
       //   component: StuffPostAdd
       // },
+      // {
+      //   path: "/stuffposts",
+      //   component: StuffPostList,
+      // },
+      // {
+      //   path: "/stuffposts-add",
+      //   component: ReportList,
+      // },
       {
-        path: "/stuffposts",
-        component: StuffPostList
+        path: "/buildings",
+        component: BuildingList,
       },
       {
-        path: "/stuffposts-add",
-        component: ReportList
+        path: "/building-add",
+        component: BuildingAdd,
       },
       {
-        path: "/",
-        component: Home
-      }
-    ]
-  }
+        path: "/building-add",
+        component: Home,
+      },
+    ],
+  },
 ];
 
 export function RouteWithSubRoutes(route: any) {
   return (
     <Route
       path={route.path}
-      render={props => <route.component {...props} {...route} />}
+      render={(props) => <route.component {...props} {...route} />}
     />
   );
 }

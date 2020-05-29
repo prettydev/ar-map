@@ -5,19 +5,19 @@ import isLogin from "./login";
 
 const confirm = Modal.confirm;
 export const http = axios.create({
-  baseURL: API_ROOT
+  baseURL: API_ROOT,
 });
 
 export const http2 = axios.create({
-  baseURL: API2_ROOT
+  baseURL: API2_ROOT,
 });
 
 export const http_org = axios.create({
-  baseURL: ORIGINAL_ROOT
+  baseURL: ORIGINAL_ROOT,
 });
 
 export const http_admin = axios.create({
-  baseURL: ADMIN_API_ROOT
+  baseURL: ADMIN_API_ROOT,
 });
 
 export const getAuthorization = () => {
@@ -35,7 +35,7 @@ http.interceptors.request.use(
     config.headers.auth_token = getAuthorization();
     return config;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
   }
 );
@@ -45,7 +45,7 @@ http_admin.interceptors.request.use(
     config.headers.auth_token = getAuthorization();
     return config;
   },
-  error => {
+  (error) => {
     return Promise.reject(error);
   }
 );
@@ -60,16 +60,17 @@ http.interceptors.response.use(
       return response;
     } else {
       confirm({
-        title: "提示!",
-        content: "用户信息已过期，请点击确定后重新登录。",
-        okText: "确定",
-        cancelText: "取消",
+        title: "Alert!",
+        content:
+          "User information has expired, please click OK and log in again",
+        okText: "Ok",
+        cancelText: "Cancel",
         onOk() {
           window.location.href = "/login";
         },
         onCancel() {
           console.log("Cancel");
-        }
+        },
       });
     }
 
@@ -78,16 +79,17 @@ http.interceptors.response.use(
   (error: any) => {
     if (!isLogin()) {
       confirm({
-        title: "提示!",
-        content: "用户信息已过期，请点击确定后重新登录。",
-        okText: "确定",
-        cancelText: "取消",
+        title: "Alert!",
+        content:
+          "User information has expired, please click OK and log in again",
+        okText: "Ok",
+        cancelText: "Cancel",
         onOk() {
           window.location.href = "/login";
         },
         onCancel() {
           console.log("Cancel");
-        }
+        },
       });
     }
     return Promise.reject(error);

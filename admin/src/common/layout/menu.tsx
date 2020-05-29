@@ -35,7 +35,7 @@ export default function Munu(props: menuProps & RouteProps & RouterProps) {
     >
       <Menu.Item>
         <Icon type={"home"} />
-        <span>管理面板</span>
+        <span>AR Nav Admin</span>
       </Menu.Item>
       {menuConfig.map((menu: menuType) => {
         if (!menu.children) {

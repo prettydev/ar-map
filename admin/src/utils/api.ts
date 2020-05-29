@@ -94,9 +94,13 @@ export const adsStuffPost = (id: string, ads: boolean) =>
 export const editStuffPost = (id: string, params = {}) =>
   http_admin.put(`stuffpost/${id}`, { ...params });
 
+export const fetchBuilding = (params = {}) => http.get("building", { params });
+export const addBuilding = (params = {}) => http.post("building", params);
+export const delBuilding = (id: string) => http.delete(`building/${id}`);
+
 export const uploadConfig = () => ({
   action: `${ORIGINAL_ROOT}upload/photo`,
   headers: {
-    Authorization: getAuthorization()
-  }
+    Authorization: getAuthorization(),
+  },
 });
