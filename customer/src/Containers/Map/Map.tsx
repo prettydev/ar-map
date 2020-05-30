@@ -50,7 +50,9 @@ export default function LocationView() {
     setIsModalVisible(!isModalVisible);
   };
 
-  const [kind, setKind] = useState(0);
+  const [kind, setKind] = useState(0); //address, building
+  const [pointer, setPointer] = useState('start');
+  const [mode, setMode] = useState('DRIVING');
 
   const [ready, setReady] = useState(false);
   const [predictions, setPredictions] = useState([]);
@@ -134,6 +136,7 @@ export default function LocationView() {
 
         setStart({latitude, longitude});
         _setRegion({latitude, longitude});
+        setPointer('start');
 
         console.log('current location is ', position);
         setReady(true);
@@ -144,6 +147,7 @@ export default function LocationView() {
 
   const _getTargetLocation = () => {
     _setRegion(end);
+    setPointer('end');
   };
 
   const _onPlaceSelected = placeId => {
@@ -210,6 +214,11 @@ export default function LocationView() {
     _input.current.blur();
     const {latitude, longitude, latitudeDelta, longitudeDelta} = building;
     setEnd({latitude, longitude, latitudeDelta, longitudeDelta});
+    setTarget({
+      title: building.title,
+      description: building.description,
+      distance: 0,
+    });
   };
 
   const _request = text => {
@@ -373,7 +382,7 @@ export default function LocationView() {
               origin={start}
               destination={end}
               // waypoints={coordinates.slice(1, -1)}
-              mode="DRIVING"
+              mode={mode}
               apikey={apiKey}
               language="en"
               strokeWidth={4}
@@ -463,16 +472,112 @@ export default function LocationView() {
             <AutoCompleteListView predictions={predictions} />
           </View>
         </View>
-        <TouchableOpacity
-          style={styles.targetLocBtn}
-          onPress={_getTargetLocation}>
-          <MaterialIcons name={'my-location'} color={'green'} size={25} />
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.currentLocBtn}
-          onPress={_getCurrentLocation}>
-          <MaterialIcons name={'my-location'} color={'red'} size={25} />
-        </TouchableOpacity>
+        {true && (
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              alignItems: 'flex-end',
+            }}>
+            <View
+              style={{
+                flex: 1,
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+              }}>
+              <TouchableOpacity
+                style={[
+                  styles.modeBtn,
+                  {
+                    backgroundColor:
+                      mode === 'DRIVING' ? Colors.primary : Colors.primaryAlpha,
+                  },
+                ]}
+                onPress={() => setMode('DRIVING')}>
+                <MaterialIcons
+                  name={'directions-car'}
+                  color={'white'}
+                  size={25}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.modeBtn,
+                  {
+                    backgroundColor:
+                      mode === 'WALKING' ? Colors.primary : Colors.primaryAlpha,
+                  },
+                ]}
+                onPress={() => setMode('WALKING')}>
+                <MaterialIcons
+                  name={'directions-walk'}
+                  color={'white'}
+                  size={25}
+                />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.modeBtn,
+                  {
+                    backgroundColor:
+                      mode === 'BICYCLING'
+                        ? Colors.primary
+                        : Colors.primaryAlpha,
+                  },
+                ]}
+                onPress={() => setMode('BICYCLING')}>
+                <MaterialIcons
+                  name={'directions-bike'}
+                  color={'white'}
+                  size={25}
+                />
+              </TouchableOpacity>
+              {false && (
+                <TouchableOpacity
+                  style={[
+                    styles.modeBtn,
+                    {
+                      backgroundColor:
+                        mode === 'TRANSIT'
+                          ? Colors.primary
+                          : Colors.primaryAlpha,
+                    },
+                  ]}
+                  onPress={() => setMode('TRANSIT')}>
+                  <MaterialIcons
+                    name={'directions-transit'}
+                    color={'white'}
+                    size={25}
+                  />
+                </TouchableOpacity>
+              )}
+              <TouchableOpacity
+                style={[
+                  styles.modeBtn,
+                  {
+                    backgroundColor:
+                      pointer === 'end' ? Colors.primary : Colors.primaryAlpha,
+                  },
+                ]}
+                onPress={_getTargetLocation}>
+                <MaterialIcons name={'my-location'} color={'green'} size={25} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[
+                  styles.modeBtn,
+                  {
+                    backgroundColor:
+                      pointer === 'start'
+                        ? Colors.primary
+                        : Colors.primaryAlpha,
+                  },
+                ]}
+                onPress={_getCurrentLocation}>
+                <MaterialIcons name={'my-location'} color={'red'} size={25} />
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
       </View>
 
       <Modal
@@ -598,22 +703,11 @@ const styles = StyleSheet.create({
     width: '80%',
     padding: 5,
   },
-  currentLocBtn: {
+  modeBtn: {
     backgroundColor: Colors.primaryAlpha,
     padding: 5,
+    margin: 2,
     borderRadius: 5,
-    position: 'absolute',
-    bottom: 10,
-    right: 10,
-  },
-
-  targetLocBtn: {
-    backgroundColor: Colors.primaryAlpha,
-    padding: 5,
-    borderRadius: 5,
-    position: 'absolute',
-    bottom: 50,
-    right: 10,
   },
   actionButton: {
     backgroundColor: Colors.primaryAlpha,
