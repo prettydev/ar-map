@@ -27,7 +27,7 @@ const MyCarousel = props => {
   };
 
   useEffect(() => {
-    setEntries(props.entries ? props.entries : ENTRIES1);
+    setEntries(props.entries ? props.entries : []);
   }, []);
 
   const renderItem = ({item, index}, parallaxProps) => {

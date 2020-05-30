@@ -29,6 +29,8 @@ import Colors from 'src/Theme/Colors';
 import Modal from 'react-native-modal';
 import {baseUrl} from 'src/config';
 
+import Geocoder from 'react-native-geocoding';
+
 const {width, height} = Dimensions.get('window');
 
 const PLACE_DETAIL_URL =
@@ -42,6 +44,9 @@ const REVRSE_GEO_CODE_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
 const DEFAULT_DELTA = {latitudeDelta: 0.015, longitudeDelta: 0.0121};
 
 const apiKey = 'AIzaSyDOo1Y_JbCuuhs39Wt3i3iEyLgZXnqBkWo';
+
+Geocoder.init(apiKey);
+// Geocoder.init(apiKey, {language : "en"}); // set the language
 
 export default function LocationView() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -177,9 +182,6 @@ export default function LocationView() {
         // "utc_offset": -240, "vicinity": "Washington",
         // "website": "http://www.washingtonpa.us/"
         // }
-
-        console.log('aaaaaaaaaa', data.result.photos[0], 'bbbbbbbbbbbbbb');
-
         //   {
         //   "height": 1224,
         //   "html_attributions": ["<a href=\"https://maps.google.com/maps/contrib/112105854871802449540\">Patrick</a>"],
@@ -187,22 +189,39 @@ export default function LocationView() {
         //   "width": 1632
         // }
 
-        let image = data.result.photos.map(photo => ({
-          title: '',
-          subtitle: '',
-          illustration:
-            'https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=' +
-            photo.photo_reference +
-            '&key=' +
-            apiKey,
-        }));
+        // {"address_components": [{"long_name": "Unnamed Road", "short_name": "Unnamed Road", "types": [Array]}, {"long_name": "Santa Cruz", "short_name": "Santa Cruz", "types": [Array]}, {"long_name": "Santa Cruz County", "short_name": "Santa Cruz County", "types": [Array]}, {"long_name": "California", "short_name": "CA", "types": [Array]}, {"long_name": "United States", "short_name": "US", "types": [Array]}, {"long_name": "95065", "short_name": "95065", "types": [Array]}],
+        // "adr_address": "<span class=\"street-address\">Unnamed Road</span>, <span class=\"locality\">Santa Cruz</span>, <span class=\"region\">CA</span> <span class=\"postal-code\">95065</span>, <span class=\"country-name\">USA</span>",
+        // "formatted_address": "Unnamed Road, Santa Cruz, CA 95065, USA",
+        // "geometry": {"location": {"lat": 36.9998012, "lng": -122.0016938}, "viewport": {"northeast": [Object], "southwest": [Object]}},
+        // "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+        // "id": "980d70414193fc0ca361f0b6e2e00578951c59ba",
+        // "name": "Unnamed Road",
+        // "place_id": "ChIJwU0DV3JAjoAR9KmZe2jy1lg",
+        // "reference": "ChIJwU0DV3JAjoAR9KmZe2jy1lg", "scope": "GOOGLE", "types": ["route"], "url": "https://maps.google.com/?q=Unnamed+Road,+Santa+Cruz,+CA+95065,+USA&ftid=0x808e407257034dc1:0x58d6f2687b99a9f4", "utc_offset": -420, "vicinity": "Santa Cruz"}
+
+        let image = [];
+        if (data.result.photos) {
+          data.result.photos.map(photo => ({
+            title: '',
+            subtitle: '',
+            illustration:
+              'https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=' +
+              photo.photo_reference +
+              '&key=' +
+              apiKey,
+          }));
+        }
+
+        console.log('awwwwwwwwww', data.result, 'rrrrrrrrrrrr');
 
         setTarget({
+          ...target,
           title: data.result.name,
           description: data.result.formatted_address,
           image,
-          distance: 0,
         });
+
+        console.log(target);
 
         setEnd(rg);
         // _setRegion(rg);
@@ -341,6 +360,19 @@ export default function LocationView() {
 
     console.log(`Distance: ${distance} km`);
     console.log(`Duration: ${duration} min.`);
+
+    if (target.title === '') {
+      //when there's no target details
+      const {latitude, longitude} = end;
+      Geocoder.from({latitude, longitude})
+        .then(json => {
+          const target_place_id = json.results[0].access_points[0].place_id;
+          console.log('ffffffffffffff', target_place_id, 'ggggggggggggggggggg');
+
+          _onPlaceSelected(target_place_id); // set target details
+        })
+        .catch(error => console.warn(error));
+    }
 
     _map.current.fitToCoordinates(result.coordinates, {
       edgePadding: {

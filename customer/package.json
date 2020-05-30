@@ -29,6 +29,7 @@
     "react-native-dialog-input": "^1.0.7",
     "react-native-extra-dimensions-android": "^1.2.5",
     "react-native-fast-image": "^8.1.5",
+    "react-native-geocoding": "^0.4.0",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-google-places": "^3.1.2",
     "react-native-google-places-autocomplete": "^1.7.1",
