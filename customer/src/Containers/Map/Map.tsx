@@ -73,7 +73,8 @@ export default function LocationView() {
     title: '',
     description: '',
     image: [],
-    distance: 0,
+    distance: 0, //km
+    duration: 0, //min
   });
 
   const path = [start, end];
@@ -335,6 +336,12 @@ export default function LocationView() {
   }, []);
 
   const onReady = result => {
+    const {distance, duration} = result;
+    setTarget({...target, distance, duration});
+
+    console.log(`Distance: ${distance} km`);
+    console.log(`Duration: ${duration} min.`);
+
     _map.current.fitToCoordinates(result.coordinates, {
       edgePadding: {
         right: width / 10,
