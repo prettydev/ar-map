@@ -83,10 +83,14 @@ export default function AutoCompleteListView(props) {
     );
   };
 
-  return Platform.OS === 'android' ? (
-    _getFlatList()
-  ) : (
-    <View style={styles.listContainer}>{_getFlatList()}</View>
+  return (
+    <View style={{flex: 1, width: '100%'}}>
+      {Platform.OS === 'android' ? (
+        _getFlatList()
+      ) : (
+        <View style={styles.listContainer}>{_getFlatList()}</View>
+      )}
+    </View>
   );
 }
 
@@ -103,6 +107,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     borderBottomLeftRadius: 10,
     maxHeight: 220,
+    marginTop: 80,
   },
   listContainer: {
     shadowOffset: {
