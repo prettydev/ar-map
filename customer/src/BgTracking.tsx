@@ -14,15 +14,33 @@ function BgTracking() {
 
           console.log('current location....', latitude, longitude);
 
+          const delta =
+            Math.pow(latitude - state.location.latitude, 2) +
+            Math.pow(longitude - state.location.longitude, 2);
+
+          console.log(delta, '----------------------delta');
+
           dispatch({
             type: 'setLocation',
             payload: {latitude, longitude},
           });
 
-          axios.post(`${baseUrl}api2/user/location`, {
-            user_id: state.user._id,
-            location: {latitude, longitude},
-          });
+          if (delta > 0.0001) {
+            axios
+              .post(`${baseUrl}api2/user/location`, {
+                user_id: state.user._id,
+                location: {latitude, longitude},
+              })
+              .then(function(response) {
+                if (response.data.success) {
+                  console.log(response.data.user);
+                  dispatch({type: 'setUser', payload: response.data.user});
+                }
+              })
+              .catch(function(error) {
+                console.log(JSON.stringify(error));
+              });
+          }
         },
         error => {
           console.log(error.code, error.message);

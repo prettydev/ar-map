@@ -8,7 +8,7 @@ import {
   BackHandler,
 } from 'react-native';
 
-import RNPickerSelect from 'react-native-picker-select';
+import {Picker} from '@react-native-community/picker';
 import FastImage from 'react-native-fast-image';
 
 import Style from 'src/Style';
@@ -16,7 +16,7 @@ import CustomPwdInput from 'src/Components/CustomForm/CustomPwdInput/CustomPwdIn
 import FormCommonBtn from 'src/Components/Buttons/FormCommonBtn/FormCommonBtn';
 import AsyncStorage from '@react-native-community/async-storage';
 
-import {baseUrl, translationGetters} from 'src/config';
+import {baseUrl} from 'src/config';
 import {store} from 'src/Store';
 
 import Toast from 'react-native-simple-toast';
@@ -26,7 +26,11 @@ import io from 'socket.io-client';
 import Images from 'src/Theme/Images';
 import Colors from 'src/Theme/Colors';
 
+import {useTranslation} from 'react-i18next';
+
 export default function SignInScreen(props) {
+  const {t, i18n} = useTranslation();
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -93,19 +97,15 @@ export default function SignInScreen(props) {
       <View flex={1} flexDirection="row" style={{marginBottom: -20}}>
         <View flex={5} />
         <View flex={2}>
-          <RNPickerSelect
-            onValueChange={value => {
-              dispatch({
-                type: 'setLang',
-                payload: value,
-              });
-            }}
-            items={[
-              {label: 'English', value: 'en', color: Colors.primary},
-              {label: 'Arabic', value: 'ar', Color: Colors.primary},
-            ]}
-            value="en"
-          />
+          <Picker
+            selectedValue={i18n.language}
+            style={{height: 50, width: 120}}
+            onValueChange={(value, idx) => {
+              i18n.changeLanguage(i18n.language === 'en' ? 'ar' : 'en');
+            }}>
+            <Picker.Item label="English" value="en" />
+            <Picker.Item label="Arabic" value="ar" />
+          </Picker>
         </View>
       </View>
       <View style={{alignItems: 'center'}}>
@@ -114,28 +114,28 @@ export default function SignInScreen(props) {
           source={Images.Logo}
           resizeMode={FastImage.resizeMode.contain}
         />
-        <Text style={Style.CustomText}>KP MASTER PLAN</Text>
+        <Text style={Style.CustomText}>{t('app')}</Text>
       </View>
       <View style={Style.CustomForm}>
         <TextInput
           style={Style.CustomTextInput}
-          placeholder={'Email'}
+          placeholder={t('email')}
           onChangeText={value => setEmail(value)}
         />
 
         <CustomPwdInput
-          CustomPwdPlaceholder={'Password'}
+          CustomPwdPlaceholder={t('password')}
           proc={value => setPassword(value)}
         />
 
-        <FormCommonBtn CustomBtnTitle={'Login'} proc={handleSubmit} />
+        <FormCommonBtn CustomBtnTitle={t('signin')} proc={handleSubmit} />
 
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-          <Text>Don't have account?</Text>
+          <Text>{t('no_acc')}</Text>
           <TouchableOpacity onPress={() => props.navigation.navigate('SignUp')}>
             <Text
               style={{color: Colors.primary, textDecorationLine: 'underline'}}>
-              Create a new account
+              {t('create_new_acc')}
             </Text>
           </TouchableOpacity>
         </View>

@@ -18,7 +18,11 @@ import {baseUrl, photoSize} from 'src/config';
 
 import FormCommonBtn from 'src/Components/Buttons/FormCommonBtn/FormCommonBtn';
 
+import {useTranslation} from 'react-i18next';
+
 const AddFriend = props => {
+  const {t} = useTranslation();
+
   const [state, dispatch] = useContext(store);
 
   const [userInput, setUserInput] = useReducer(
@@ -61,7 +65,7 @@ const AddFriend = props => {
   return (
     <ScrollView style={Styles.FindStuffScreenContainer}>
       <View style={{alignItems: 'center', marginTop: 100}}>
-        <Text style={Style.CustomText}>New Contact</Text>
+        <Text style={Style.CustomText}>{t('new_contact')}</Text>
       </View>
       <View style={Style.CustomForm}>
         <TextInput
@@ -69,7 +73,7 @@ const AddFriend = props => {
           value={userInput.email}
           onChangeText={value => setUserInput({['email']: value})}
         />
-        <FormCommonBtn CustomBtnTitle={'Invite'} proc={handleSubmit} />
+        <FormCommonBtn CustomBtnTitle={t('invite')} proc={handleSubmit} />
       </View>
     </ScrollView>
   );

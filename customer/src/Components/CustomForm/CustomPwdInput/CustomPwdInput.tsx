@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { View, TouchableOpacity, TextInput, Text, Image } from "react-native";
-import Style from "src/Style";
-import Styles from "./CustomPwdInputStyle";
-import { Images } from "src/Theme";
-import Colors from "src/Theme/Colors";
+import React, {useState} from 'react';
+import {View, TouchableOpacity, TextInput, Text, Image} from 'react-native';
+import Style from 'src/Style';
+import Styles from './CustomPwdInputStyle';
+import {Images} from 'src/Theme';
+import Colors from 'src/Theme/Colors';
 
 export default function CustomPwdInput(props) {
   const [hidePassword, setHidePassword] = useState(true);
@@ -12,14 +12,14 @@ export default function CustomPwdInput(props) {
     <View>
       <View
         style={{
-          flexDirection: "row",
+          flexDirection: 'row',
           borderColor: Colors.border,
           borderWidth: 1,
           borderRadius: 5,
           marginBottom: 30,
-        }}
-      >
+        }}>
         <TextInput
+          style={{width: '80%'}}
           secureTextEntry={hidePassword}
           placeholder={props.CustomPwdPlaceholder}
           onChangeText={props.proc}
@@ -27,13 +27,13 @@ export default function CustomPwdInput(props) {
         <TouchableOpacity
           activeOpacity={0.8}
           style={Styles.touachableButton}
-          onPress={() => setHidePassword(!hidePassword)}
-        >
-          {// <Image
-          //   resizeMode="contain"
-          //   style={{width: 25}}
-          //   source={hidePassword ? Images.HideIcon : Images.ShowIcon}
-          // />
+          onPress={() => setHidePassword(!hidePassword)}>
+          {
+            // <Image
+            //   resizeMode="contain"
+            //   style={{width: 25}}
+            //   source={hidePassword ? Images.HideIcon : Images.ShowIcon}
+            // />
           }
         </TouchableOpacity>
       </View>

@@ -1,7 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
 import Styles from './CustomFormSelectStyle';
-import RNPickerSelect from 'react-native-picker-select';
 import {Colors} from 'src/Theme';
 
 export default function CustomFormSelect(props) {
@@ -22,12 +21,14 @@ export default function CustomFormSelect(props) {
         <Text>{CustomFormSelectLabel}</Text>
       </View>
       <View style={Styles.CustomFormSelectPickerContainer}>
-        <RNPickerSelect
-          placeholder={placeholder}
-          onValueChange={procFunc}
-          items={itemArr}
-          doneText={'Select'}
-        />
+        {
+          // <RNPickerSelect
+          //     placeholder={placeholder}
+          //     onValueChange={procFunc}
+          //     items={itemArr}
+          //     doneText={'Select'}
+          //   />
+        }
       </View>
     </View>
   );

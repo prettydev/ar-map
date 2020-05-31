@@ -36,9 +36,6 @@ const {Provider} = store;
 const StateProvider = ({children}) => {
   const [state, dispatch] = useReducer((state, action) => {
     switch (action.type) {
-      case 'setLang': {
-        return {...state, lang: action.payload};
-      }
       case 'setCurrentScreen': {
         return {...state, current_screen: action.payload};
       }

@@ -17,7 +17,7 @@ import Toast from 'react-native-simple-toast';
 import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
-const axios = require('axios');
+import axios from 'axios';
 
 export default function FriendList(props) {
   const [state, dispatch] = useContext(store);

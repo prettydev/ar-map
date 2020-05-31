@@ -4,12 +4,15 @@ import Styles from './FriendListStyle';
 
 import EvilIconsIcon from 'react-native-vector-icons/EvilIcons';
 
+import {useTranslation} from 'react-i18next';
+
 const SearchBox = props => {
+  const {t} = useTranslation();
   return (
     <View style={Styles.HomeSearchArea}>
       <View style={Styles.HomeSearchInputContainer}>
         <TextInput
-          placeholder={'User ID/Phone Number'}
+          placeholder={t('search_friend')}
           placeholderTextColor={'white'}
           style={Styles.HomeSearchInput}
           onChangeText={props.inputProc}

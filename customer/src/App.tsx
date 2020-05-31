@@ -3,6 +3,9 @@ import React, {useState, useEffect, useContext} from 'react';
 
 import {Image, Text, View} from 'react-native';
 
+import i18next from 'i18next';
+import {initReactI18next, useTranslation} from 'react-i18next';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -32,6 +35,32 @@ import Style from 'src/Style';
 import Colors from './Theme/Colors.ts';
 
 import BgTracking from 'src/BgTracking';
+
+import {en, ar} from 'src/trans';
+
+const languageDetector = {
+  type: 'languageDetector',
+  async: true,
+  detect: cb => cb('ar'),
+  init: () => {},
+  cacheUserLanguage: () => {},
+};
+
+i18next
+  .use(languageDetector)
+  .use(initReactI18next)
+  .init({
+    fallbackLng: 'ar',
+    debug: true,
+    resources: {
+      en: {
+        translation: en,
+      },
+      ar: {
+        translation: ar,
+      },
+    },
+  });
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();

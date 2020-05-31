@@ -12,7 +12,11 @@ import {
 } from 'react-native';
 import Events from 'react-native-simple-events';
 
+import {useTranslation} from 'react-i18next';
+
 export default function AutoCompleteListView(props) {
+  const {t} = useTranslation();
+
   const [inFocus, setInFocus] = useState(false);
 
   useEffect(() => {

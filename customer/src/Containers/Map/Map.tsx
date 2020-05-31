@@ -18,7 +18,6 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import axios from 'axios';
 import MapView, {Marker} from 'react-native-maps';
-import Geolocation from 'react-native-geolocation-service';
 import AutoCompleteListView from './AutoCompleteListView';
 import MapViewDirections from 'react-native-maps-directions';
 import Colors from 'src/Theme/Colors';
@@ -29,6 +28,8 @@ import Toast from 'react-native-simple-toast';
 import CtlBtn from './CtlBtn';
 
 import {store} from 'src/Store';
+
+import {useTranslation} from 'react-i18next';
 
 const {width, height} = Dimensions.get('window');
 
@@ -47,6 +48,8 @@ Geocoder.init(apiKey);
 // Geocoder.init(apiKey, {language : "en"}); // set the language
 
 export default function LocationView() {
+  const {t} = useTranslation();
+
   const [state, dispatch] = useContext(store);
 
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -466,7 +469,7 @@ export default function LocationView() {
             ]}
             onPress={() => setKind(0)}>
             <View>
-              <Text style={styles.actionText}>{'Address'}</Text>
+              <Text style={styles.actionText}>{t('address')}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
@@ -479,7 +482,7 @@ export default function LocationView() {
             ]}
             onPress={() => setKind(1)}>
             <View>
-              <Text style={styles.actionText}>{'Building'}</Text>
+              <Text style={styles.actionText}>{t('building')}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -488,10 +491,10 @@ export default function LocationView() {
           <View style={styles.textInputContainer} elevation={5}>
             <TextInput
               ref={_input}
-              value={loading ? 'Loading...' : text}
+              value={loading ? t('loading') : text}
               style={[styles.textInput, styles.input]}
               underlineColorAndroid={'transparent'}
-              placeholder={'Search'}
+              placeholder={t('search')}
               onFocus={_onFocus}
               onBlur={_onBlur}
               onChangeText={_onChangeText}
@@ -653,7 +656,7 @@ export default function LocationView() {
             <TouchableOpacity
               style={styles.dlgBtn}
               onPress={() => toggleModal()}>
-              <Text style={styles.dlgBtnTxt}>{'Close'}</Text>
+              <Text style={styles.dlgBtnTxt}>{t('close')}</Text>
             </TouchableOpacity>
           </View>
         </View>
