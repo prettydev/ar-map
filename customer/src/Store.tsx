@@ -11,7 +11,6 @@ import {localNotifTitle} from './Notif';
 const initialState = {
   socket: io(baseUrl, {ransports: ['websocket'], jsonp: false}),
   token: '',
-  lang: 'en', //  0:  english, 1: arabic
   user: {},
   location: {},
   car: {}, //car location

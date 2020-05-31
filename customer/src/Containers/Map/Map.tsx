@@ -72,8 +72,8 @@ export default function LocationView() {
   //  current viewpoint of the map
   const [region, setRegion] = useState({
     ...DEFAULT_DELTA,
-    latitude: 37,
-    longitude: -122,
+    latitude: 25.285,
+    longitude: 51.208,
   });
 
   //  current location
