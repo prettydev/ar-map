@@ -108,9 +108,17 @@ export default function FriendList(props) {
                   )}
                 </View>
                 <View flex={4}>
-                  <View style={{alignItems: 'center'}}>
+                  <TouchableOpacity
+                    style={{alignItems: 'center'}}
+                    onPress={() => {
+                      dispatch({
+                        type: 'setFriend',
+                        payload: item.user.location,
+                      });
+                      props.navigation.navigate('Map');
+                    }}>
                     <Text style={{fontSize: 20}}>{item.user.email}</Text>
-                  </View>
+                  </TouchableOpacity>
 
                   {!item.state && (
                     <View

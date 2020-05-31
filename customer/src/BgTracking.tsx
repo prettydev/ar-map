@@ -30,7 +30,7 @@ function BgTracking() {
         {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
       );
     return () => {};
-  }, []);
+  }, [state.user._id]);
   return <></>;
 }
 

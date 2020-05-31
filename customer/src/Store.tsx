@@ -14,6 +14,8 @@ const initialState = {
   lang: 'en', //  0:  english, 1: arabic
   user: {},
   location: {},
+  car: {}, //car location
+  friend: null, //friend location
   news: [],
   last_note: {},
   notifications: [],
@@ -42,6 +44,14 @@ const StateProvider = ({children}) => {
       }
       case 'setLocation': {
         return {...state, location: action.payload};
+      }
+      case 'setCar': {
+        //only location
+        return {...state, car: action.payload};
+      }
+      case 'setFriend': {
+        //only location
+        return {...state, friend: action.payload};
       }
       case 'setSocket': {
         return {...state, socket: action.payload};

@@ -78,7 +78,7 @@ export default function LocationView() {
   //  target location
   const [target, setTarget] = useState(region);
   //  car location
-  const [car, setCar] = useState(region);
+  const [car, setCar] = useState();
 
   const [targetInfo, setTargetInfo] = useState({
     title: '',
@@ -178,10 +178,33 @@ export default function LocationView() {
   };
 
   /**
+   * update view area of the map as target area, and set button flag as 'target'
+   */
+  const viewCarLocation = () => {
+    if (!car) {
+      Toast.show('Not saved car location!');
+      return;
+    }
+    _setRegion(car);
+    setPointer('car');
+  };
+
+  /**
+   * update view area of the map as target area, and set button flag as 'target'
+   */
+  const viewFriendLocation = () => {
+    if (!state.friend) {
+      Toast.show('Not selected friend!');
+      return;
+    }
+    _setRegion(state.friend);
+    setPointer('friend');
+  };
+
+  /**
    * save car location when user click save button, actually save the current location to the car variable
    */
   const saveCarLocation = () => {
-    // setCar(current);
     setCar(state.location);
     setSaved(true);
     Toast.show('Saved the car location!');
@@ -310,7 +333,7 @@ export default function LocationView() {
       Events.rm('PlaceSelected', 'DetailID');
       Events.rm('BuildingSelected', 'DetailItem');
     };
-  }, []);
+  }, [state.location]);
 
   const onReady = result => {
     // const {distance, duration} = result;
@@ -345,7 +368,9 @@ export default function LocationView() {
       <>
         {path.map(
           (pt, i) =>
-            pt.latitude && (
+            pt.latitude &&
+            (i === 0 ||
+              (i === 1 && target !== car && target != state.friend)) && (
               <Marker
                 key={i}
                 coordinate={{latitude: pt.latitude, longitude: pt.longitude}}
@@ -358,20 +383,27 @@ export default function LocationView() {
               />
             ),
         )}
-        <Marker
-          coordinate={{latitude: car.latitude, longitude: car.longitude}}
-          onPress={() => {
-            setTarget(car);
-          }}>
-          <MaterialCommunityIcons name={'car-side'} size={45} color="green" />
-        </Marker>
-        <Marker
-          coordinate={{latitude: car.latitude, longitude: car.longitude}}
-          onPress={() => {
-            setTarget(car);
-          }}>
-          <MaterialCommunityIcons name={'face'} size={45} color="green" />
-        </Marker>
+        {car && (
+          <Marker
+            coordinate={{latitude: car.latitude, longitude: car.longitude}}
+            onPress={() => {
+              setTarget(car);
+            }}>
+            <MaterialCommunityIcons name={'car-side'} size={45} color="green" />
+          </Marker>
+        )}
+        {state.friend && (
+          <Marker
+            coordinate={{
+              latitude: state.friend.latitude,
+              longitude: state.friend.longitude,
+            }}
+            onPress={() => {
+              setTarget(state.friend);
+            }}>
+            <MaterialCommunityIcons name={'face'} size={45} color="green" />
+          </Marker>
+        )}
       </>
     );
   };
@@ -486,20 +518,14 @@ export default function LocationView() {
               flexDirection: 'column',
               alignItems: 'flex-start',
             }}>
-            <CtlBtn
-              icon={'add-location'}
-              color={'blue'}
-              alpha={saved}
-              proc={saveCarLocation}
-            />
-            {false && (
+            {
               <CtlBtn
-                icon={'location-searching'}
+                icon={'add-location'}
                 color={'blue'}
-                // alpha={pointer === 'current'}
-                // proc={viewCarLocationWithRoute}
+                alpha={saved}
+                proc={saveCarLocation}
               />
-            )}
+            }
           </View>
           <View
             style={{
@@ -507,15 +533,33 @@ export default function LocationView() {
               flexDirection: 'column',
               alignItems: 'flex-end',
             }}>
+            {false && (
+              <CtlBtn
+                icon={'directions-car'}
+                alpha={mode === 'DRIVING'}
+                proc={() => setMode('DRIVING')}
+              />
+            )}
+            {false && (
+              <CtlBtn
+                icon={'directions-walk'}
+                alpha={mode === 'WALKING'}
+                proc={() => setMode('WALKING')}
+              />
+            )}
             <CtlBtn
-              icon={'directions-car'}
-              alpha={mode === 'DRIVING'}
-              proc={() => setMode('DRIVING')}
+              icon={'car-side'}
+              alpha={pointer === 'car'}
+              color="green"
+              community={true}
+              proc={viewCarLocation}
             />
             <CtlBtn
-              icon={'directions-walk'}
-              alpha={mode === 'WALKING'}
-              proc={() => setMode('WALKING')}
+              icon={'face'}
+              alpha={pointer === 'face'}
+              color="green"
+              community={true}
+              proc={viewFriendLocation}
             />
             <CtlBtn
               icon={'my-location'}

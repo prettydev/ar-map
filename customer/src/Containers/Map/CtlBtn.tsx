@@ -1,7 +1,8 @@
-import React from "react";
-import { Text, View, TouchableOpacity } from "react-native";
-import Colors from "src/Theme/Colors";
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import React from 'react';
+import {Text, View, TouchableOpacity} from 'react-native';
+import Colors from 'src/Theme/Colors';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 /**
  *
@@ -20,13 +21,21 @@ export default function CtlBtn(props) {
         borderRadius: 5,
         backgroundColor: props.alpha ? Colors.primary : Colors.primaryAlpha,
       }}
-      onPress={props.proc}
-    >
-      <MaterialIcons
-        name={props.icon}
-        color={props.color ? props.color : "white"}
-        size={25}
-      />
+      onPress={props.proc}>
+      {props.community && (
+        <MaterialCommunityIcons
+          name={props.icon}
+          color={props.color ? props.color : 'white'}
+          size={25}
+        />
+      )}
+      {!props.community && (
+        <MaterialIcons
+          name={props.icon}
+          color={props.color ? props.color : 'white'}
+          size={25}
+        />
+      )}
     </TouchableOpacity>
   );
 }
