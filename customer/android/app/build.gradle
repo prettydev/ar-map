@@ -242,4 +242,8 @@ task copyDownloadableDepsToLibs(type: Copy) {
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); 
+
+Project background_geolocation = project(':react-native-background-geolocation')
+apply from: "${background_geolocation.projectDir}/app.gradle"
+
 applyNativeModulesAppBuildGradle(project)
