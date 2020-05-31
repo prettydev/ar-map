@@ -7,8 +7,6 @@ import {
   ScrollView,
   TouchableOpacity,
   Dimensions,
-  NativeModules,
-  NativeEventEmitter,
   Platform,
 } from 'react-native';
 import FastImage from 'react-native-fast-image';
@@ -30,9 +28,6 @@ import {checkPermissions, requestLocationPermission} from 'src/Permissions';
 
 import AsyncStorage from '@react-native-community/async-storage';
 import {RESULTS} from 'react-native-permissions';
-
-const AMapGeolocation = NativeModules.AMapGeolocation;
-const eventEmitter = new NativeEventEmitter(AMapGeolocation);
 
 function HomeView(props) {
   const [state, dispatch] = useContext(store);
