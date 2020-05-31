@@ -8,6 +8,7 @@ import {
   LayoutAnimation,
   Platform,
   TouchableNativeFeedback,
+  Dimensions,
 } from 'react-native';
 import Events from 'react-native-simple-events';
 
@@ -84,7 +85,7 @@ export default function AutoCompleteListView(props) {
   };
 
   return (
-    <View style={{flex: 1, width: '100%'}}>
+    <View style={{width: Dimensions.get('window').width}}>
       {Platform.OS === 'android' ? (
         _getFlatList()
       ) : (
