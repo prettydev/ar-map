@@ -1,16 +1,16 @@
 {
   "project_info": {
     "project_number": "238250379722",
-    "firebase_url": "https://arnav-5f690.firebaseio.com",
-    "project_id": "arnav-5f690",
-    "storage_bucket": "arnav-5f690.appspot.com"
+    "firebase_url": "https://armap-5f690.firebaseio.com",
+    "project_id": "armap-5f690",
+    "storage_bucket": "armap-5f690.appspot.com"
   },
   "client": [
     {
       "client_info": {
         "mobilesdk_app_id": "1:238250379722:android:178351932c36b50541e733",
         "android_client_info": {
-          "package_name": "com.arnav"
+          "package_name": "com.armap"
         }
       },
       "oauth_client": [

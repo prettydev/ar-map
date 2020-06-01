@@ -1,4 +1,4 @@
-# arnav customer app
+# ARMap customer app
 
 ## build release version guide
 
@@ -60,7 +60,7 @@ pod install
 ---
 
 - get sha1
-  keytool -list -v -keystore .\arnav.keystore -alias findstuffkey -storepass 123456 -keypass 123456
+  keytool -list -v -keystore .\armap.keystore -alias findstuffkey -storepass 123456 -keypass 123456
 
 - generate debug.keystore
   keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000
@@ -72,6 +72,12 @@ pod install
 - bottom tab bar ref
 
   https://reactnavigation.org/docs/bottom-tab-navigator/
+
+---
+
+## disable yellow box
+
+      console.disableYellowBox = true;
 
 ---
 
@@ -94,7 +100,7 @@ pod install
 
 ## occurs error due to the following settings
 
-MYAPP_UPLOAD_STORE_FILE=arnav.keystore
+MYAPP_UPLOAD_STORE_FILE=armap.keystore
 MYAPP_UPLOAD_KEY_ALIAS=findstuffkey
 MYAPP_UPLOAD_STORE_PASSWORD=123456
 MYAPP_UPLOAD_KEY_PASSWORD=123456

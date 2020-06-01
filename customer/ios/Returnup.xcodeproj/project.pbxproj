@@ -12,14 +12,14 @@
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1DFF29D125A4B2A5AC7B9942 /* libPods-arnav-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA36B18D5E6427334E2EE5E /* libPods-arnav-tvOSTests.a */; };
+		1DFF29D125A4B2A5AC7B9942 /* libPods-armap-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CA36B18D5E6427334E2EE5E /* libPods-armap-tvOSTests.a */; };
 		2D02E4BC1E0B4A80006451C7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* FindStuffTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FindStuffTests.m */; };
-		40BD88E91B35B80C4764563E /* libPods-arnav-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87FB0DD3FFE7277BC46FD845 /* libPods-arnav-tvOS.a */; };
+		40BD88E91B35B80C4764563E /* libPods-armap-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 87FB0DD3FFE7277BC46FD845 /* libPods-armap-tvOS.a */; };
 		6971462D5FF5FF16C8F5D27D /* libPods-FindStuffTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD17F38302C3C2992C4C9E50 /* libPods-FindStuffTests.a */; };
-		7162ED2806C5F2BB5DADE77B /* libPods-arnav.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 932E255874158927270D954F /* libPods-arnav.a */; };
+		7162ED2806C5F2BB5DADE77B /* libPods-armap.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 932E255874158927270D954F /* libPods-armap.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,14 +28,14 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = arnav;
+			remoteInfo = armap;
 		};
 		2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 2D02E47A1E0B4A5D006451C7;
-			remoteInfo = "arnav-tvOS";
+			remoteInfo = "armap-tvOS";
 		};
 /* End PBXContainerItemProxy section */
 
@@ -44,27 +44,27 @@
 		00E356EE1AD99517003FC87E /* FindStuffTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FindStuffTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* FindStuffTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindStuffTests.m; sourceTree = "<group>"; };
-		05C57645F1671D0ED3E8FB51 /* Pods-arnav.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arnav.debug.xcconfig"; path = "Target Support Files/Pods-arnav/Pods-arnav.debug.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* arnav.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = arnav.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = arnav/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = arnav/AppDelegate.m; sourceTree = "<group>"; };
+		05C57645F1671D0ED3E8FB51 /* Pods-armap.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-armap.debug.xcconfig"; path = "Target Support Files/Pods-armap/Pods-armap.debug.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* armap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = armap.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = armap/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = armap/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = arnav/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = arnav/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = arnav/main.m; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = armap/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = armap/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = armap/main.m; sourceTree = "<group>"; };
 		13EEE473F4404D7CB80D10A1 /* Pods-FindStuffTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindStuffTests.release.xcconfig"; path = "Target Support Files/Pods-FindStuffTests/Pods-FindStuffTests.release.xcconfig"; sourceTree = "<group>"; };
-		2D02E47B1E0B4A5D006451C7 /* arnav-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "arnav-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2D02E4901E0B4A5D006451C7 /* arnav-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "arnav-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CA36B18D5E6427334E2EE5E /* libPods-arnav-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-arnav-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		4D2F1014E9021C5210B74598 /* Pods-arnav-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arnav-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-arnav-tvOS/Pods-arnav-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
-		4F847AAD0C6239198A005C98 /* Pods-arnav-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arnav-tvOS.release.xcconfig"; path = "Target Support Files/Pods-arnav-tvOS/Pods-arnav-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		50D5168476D1E22327FECB36 /* Pods-arnav-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arnav-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-arnav-tvOSTests/Pods-arnav-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		2D02E47B1E0B4A5D006451C7 /* armap-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "armap-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2D02E4901E0B4A5D006451C7 /* armap-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "armap-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4CA36B18D5E6427334E2EE5E /* libPods-armap-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-armap-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D2F1014E9021C5210B74598 /* Pods-armap-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-armap-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-armap-tvOS/Pods-armap-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		4F847AAD0C6239198A005C98 /* Pods-armap-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-armap-tvOS.release.xcconfig"; path = "Target Support Files/Pods-armap-tvOS/Pods-armap-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		50D5168476D1E22327FECB36 /* Pods-armap-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-armap-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-armap-tvOSTests/Pods-armap-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		60238CCE223BFD8505C75AED /* Pods-FindStuffTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FindStuffTests.debug.xcconfig"; path = "Target Support Files/Pods-FindStuffTests/Pods-FindStuffTests.debug.xcconfig"; sourceTree = "<group>"; };
-		648FC29041AD7B582DCF2AA9 /* Pods-arnav-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arnav-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-arnav-tvOSTests/Pods-arnav-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
-		87FB0DD3FFE7277BC46FD845 /* libPods-arnav-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-arnav-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		932E255874158927270D954F /* libPods-arnav.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-arnav.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		648FC29041AD7B582DCF2AA9 /* Pods-armap-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-armap-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-armap-tvOSTests/Pods-armap-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		87FB0DD3FFE7277BC46FD845 /* libPods-armap-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-armap-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		932E255874158927270D954F /* libPods-armap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-armap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD17F38302C3C2992C4C9E50 /* libPods-FindStuffTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FindStuffTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		CF75FD2C0D11D4248C3F0E22 /* Pods-arnav.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-arnav.release.xcconfig"; path = "Target Support Files/Pods-arnav/Pods-arnav.release.xcconfig"; sourceTree = "<group>"; };
+		CF75FD2C0D11D4248C3F0E22 /* Pods-armap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-armap.release.xcconfig"; path = "Target Support Files/Pods-armap/Pods-armap.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -82,7 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7162ED2806C5F2BB5DADE77B /* libPods-arnav.a in Frameworks */,
+				7162ED2806C5F2BB5DADE77B /* libPods-armap.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				40BD88E91B35B80C4764563E /* libPods-arnav-tvOS.a in Frameworks */,
+				40BD88E91B35B80C4764563E /* libPods-armap-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,7 +98,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DFF29D125A4B2A5AC7B9942 /* libPods-arnav-tvOSTests.a in Frameworks */,
+				1DFF29D125A4B2A5AC7B9942 /* libPods-armap-tvOSTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,7 +122,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* arnav */ = {
+		13B07FAE1A68108700A75B9A /* armap */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -133,7 +133,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = arnav;
+			name = armap;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -141,9 +141,9 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				932E255874158927270D954F /* libPods-arnav.a */,
-				87FB0DD3FFE7277BC46FD845 /* libPods-arnav-tvOS.a */,
-				4CA36B18D5E6427334E2EE5E /* libPods-arnav-tvOSTests.a */,
+				932E255874158927270D954F /* libPods-armap.a */,
+				87FB0DD3FFE7277BC46FD845 /* libPods-armap-tvOS.a */,
+				4CA36B18D5E6427334E2EE5E /* libPods-armap-tvOSTests.a */,
 				BD17F38302C3C2992C4C9E50 /* libPods-FindStuffTests.a */,
 			);
 			name = Frameworks;
@@ -159,7 +159,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* arnav */,
+				13B07FAE1A68108700A75B9A /* armap */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* FindStuffTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -174,10 +174,10 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* arnav.app */,
+				13B07F961A680F5B00A75B9A /* armap.app */,
 				00E356EE1AD99517003FC87E /* FindStuffTests.xctest */,
-				2D02E47B1E0B4A5D006451C7 /* arnav-tvOS.app */,
-				2D02E4901E0B4A5D006451C7 /* arnav-tvOSTests.xctest */,
+				2D02E47B1E0B4A5D006451C7 /* armap-tvOS.app */,
+				2D02E4901E0B4A5D006451C7 /* armap-tvOSTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -185,12 +185,12 @@
 		BED7FFE3DFE977A39B1813F3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				05C57645F1671D0ED3E8FB51 /* Pods-arnav.debug.xcconfig */,
-				CF75FD2C0D11D4248C3F0E22 /* Pods-arnav.release.xcconfig */,
-				4D2F1014E9021C5210B74598 /* Pods-arnav-tvOS.debug.xcconfig */,
-				4F847AAD0C6239198A005C98 /* Pods-arnav-tvOS.release.xcconfig */,
-				50D5168476D1E22327FECB36 /* Pods-arnav-tvOSTests.debug.xcconfig */,
-				648FC29041AD7B582DCF2AA9 /* Pods-arnav-tvOSTests.release.xcconfig */,
+				05C57645F1671D0ED3E8FB51 /* Pods-armap.debug.xcconfig */,
+				CF75FD2C0D11D4248C3F0E22 /* Pods-armap.release.xcconfig */,
+				4D2F1014E9021C5210B74598 /* Pods-armap-tvOS.debug.xcconfig */,
+				4F847AAD0C6239198A005C98 /* Pods-armap-tvOS.release.xcconfig */,
+				50D5168476D1E22327FECB36 /* Pods-armap-tvOSTests.debug.xcconfig */,
+				648FC29041AD7B582DCF2AA9 /* Pods-armap-tvOSTests.release.xcconfig */,
 				60238CCE223BFD8505C75AED /* Pods-FindStuffTests.debug.xcconfig */,
 				13EEE473F4404D7CB80D10A1 /* Pods-FindStuffTests.release.xcconfig */,
 			);
@@ -219,9 +219,9 @@
 			productReference = 00E356EE1AD99517003FC87E /* FindStuffTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* arnav */ = {
+		13B07F861A680F5B00A75B9A /* armap */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "arnav" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "armap" */;
 			buildPhases = (
 				1F4A1FC5A6A994101151CBFE /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -235,14 +235,14 @@
 			);
 			dependencies = (
 			);
-			name = arnav;
-			productName = arnav;
-			productReference = 13B07F961A680F5B00A75B9A /* arnav.app */;
+			name = armap;
+			productName = armap;
+			productReference = 13B07F961A680F5B00A75B9A /* armap.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E47A1E0B4A5D006451C7 /* arnav-tvOS */ = {
+		2D02E47A1E0B4A5D006451C7 /* armap-tvOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "arnav-tvOS" */;
+			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "armap-tvOS" */;
 			buildPhases = (
 				AF0EB85C4EF6BDFE91AA0393 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F122414F3F0027D42C /* Start Packager */,
@@ -255,14 +255,14 @@
 			);
 			dependencies = (
 			);
-			name = "arnav-tvOS";
-			productName = "arnav-tvOS";
-			productReference = 2D02E47B1E0B4A5D006451C7 /* arnav-tvOS.app */;
+			name = "armap-tvOS";
+			productName = "armap-tvOS";
+			productReference = 2D02E47B1E0B4A5D006451C7 /* armap-tvOS.app */;
 			productType = "com.apple.product-type.application";
 		};
-		2D02E48F1E0B4A5D006451C7 /* arnav-tvOSTests */ = {
+		2D02E48F1E0B4A5D006451C7 /* armap-tvOSTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "arnav-tvOSTests" */;
+			buildConfigurationList = 2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "armap-tvOSTests" */;
 			buildPhases = (
 				B9D9E363B731099ABE3A8ED8 /* [CP] Check Pods Manifest.lock */,
 				2D02E48C1E0B4A5D006451C7 /* Sources */,
@@ -274,9 +274,9 @@
 			dependencies = (
 				2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */,
 			);
-			name = "arnav-tvOSTests";
-			productName = "arnav-tvOSTests";
-			productReference = 2D02E4901E0B4A5D006451C7 /* arnav-tvOSTests.xctest */;
+			name = "armap-tvOSTests";
+			productName = "armap-tvOSTests";
+			productReference = 2D02E4901E0B4A5D006451C7 /* armap-tvOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -308,7 +308,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "arnav" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "armap" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -322,10 +322,10 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* arnav */,
+				13B07F861A680F5B00A75B9A /* armap */,
 				00E356ED1AD99517003FC87E /* FindStuffTests */,
-				2D02E47A1E0B4A5D006451C7 /* arnav-tvOS */,
-				2D02E48F1E0B4A5D006451C7 /* arnav-tvOSTests */,
+				2D02E47A1E0B4A5D006451C7 /* armap-tvOS */,
+				2D02E48F1E0B4A5D006451C7 /* armap-tvOSTests */,
 			);
 		};
 /* End PBXProject section */
@@ -394,7 +394,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-arnav-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-armap-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -421,7 +421,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-arnav/Pods-arnav-resources.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-armap/Pods-armap-resources.sh",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -460,7 +460,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-arnav/Pods-arnav-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-armap/Pods-armap-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AF0EB85C4EF6BDFE91AA0393 /* [CP] Check Pods Manifest.lock */ = {
@@ -478,7 +478,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-arnav-tvOS-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-armap-tvOS-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -500,7 +500,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-arnav-tvOSTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-armap-tvOSTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -609,12 +609,12 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* arnav */;
+			target = 13B07F861A680F5B00A75B9A /* armap */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 		2D02E4921E0B4A5D006451C7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 2D02E47A1E0B4A5D006451C7 /* arnav-tvOS */;
+			target = 2D02E47A1E0B4A5D006451C7 /* armap-tvOS */;
 			targetProxy = 2D02E4911E0B4A5D006451C7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -626,7 +626,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = arnav;
+			path = armap;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -692,7 +692,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/arnav.app/arnav";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/armap.app/armap";
 			};
 			name = Debug;
 		};
@@ -751,13 +751,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/arnav.app/arnav";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/armap.app/armap";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 05C57645F1671D0ED3E8FB51 /* Pods-arnav.debug.xcconfig */;
+			baseConfigurationReference = 05C57645F1671D0ED3E8FB51 /* Pods-armap.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
@@ -765,7 +765,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = 7B4TRWM586;
-				INFOPLIST_FILE = arnav/Info.plist;
+				INFOPLIST_FILE = armap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.3;
 				OTHER_LDFLAGS = (
@@ -773,8 +773,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.creditcoder.arnav;
-				PRODUCT_NAME = arnav;
+				PRODUCT_BUNDLE_IDENTIFIER = com.creditcoder.armap;
+				PRODUCT_NAME = armap;
 				PROVISIONING_PROFILE_SPECIFIER = "dist-fs-gb";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -782,14 +782,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = CF75FD2C0D11D4248C3F0E22 /* Pods-arnav.release.xcconfig */;
+			baseConfigurationReference = CF75FD2C0D11D4248C3F0E22 /* Pods-armap.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 7B4TRWM586;
-				INFOPLIST_FILE = arnav/Info.plist;
+				INFOPLIST_FILE = armap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.3;
 				OTHER_LDFLAGS = (
@@ -797,8 +797,8 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.creditcoder.arnav;
-				PRODUCT_NAME = arnav;
+				PRODUCT_BUNDLE_IDENTIFIER = com.creditcoder.armap;
+				PRODUCT_NAME = armap;
 				PROVISIONING_PROFILE_SPECIFIER = "dist-fs-gb";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -806,7 +806,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4D2F1014E9021C5210B74598 /* Pods-arnav-tvOS.debug.xcconfig */;
+			baseConfigurationReference = 4D2F1014E9021C5210B74598 /* Pods-armap-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -817,14 +817,14 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "arnav-tvOS/Info.plist";
+				INFOPLIST_FILE = "armap-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.arnav-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.armap-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -834,7 +834,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4F847AAD0C6239198A005C98 /* Pods-arnav-tvOS.release.xcconfig */;
+			baseConfigurationReference = 4F847AAD0C6239198A005C98 /* Pods-armap-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -845,14 +845,14 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "arnav-tvOS/Info.plist";
+				INFOPLIST_FILE = "armap-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.arnav-tvOS";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.armap-tvOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
@@ -862,7 +862,7 @@
 		};
 		2D02E4991E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 50D5168476D1E22327FECB36 /* Pods-arnav-tvOSTests.debug.xcconfig */;
+			baseConfigurationReference = 50D5168476D1E22327FECB36 /* Pods-armap-tvOSTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -872,24 +872,24 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "arnav-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "armap-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.arnav-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.armap-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/arnav-tvOS.app/arnav-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/armap-tvOS.app/armap-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Debug;
 		};
 		2D02E49A1E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 648FC29041AD7B582DCF2AA9 /* Pods-arnav-tvOSTests.release.xcconfig */;
+			baseConfigurationReference = 648FC29041AD7B582DCF2AA9 /* Pods-armap-tvOSTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
@@ -899,17 +899,17 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_NO_COMMON_BLOCKS = YES;
-				INFOPLIST_FILE = "arnav-tvOSTests/Info.plist";
+				INFOPLIST_FILE = "armap-tvOSTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.arnav-tvOSTests";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.facebook.REACT.armap-tvOSTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/arnav-tvOS.app/arnav-tvOS";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/armap-tvOS.app/armap-tvOS";
 				TVOS_DEPLOYMENT_TARGET = 10.1;
 			};
 			name = Release;
@@ -1025,7 +1025,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "arnav" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "armap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -1034,7 +1034,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "arnav-tvOS" */ = {
+		2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "armap-tvOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
@@ -1043,7 +1043,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "arnav-tvOSTests" */ = {
+		2D02E4BB1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "armap-tvOSTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
@@ -1052,7 +1052,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "arnav" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "armap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

@@ -130,7 +130,7 @@ const ARStack = () => {
 const MainStack = () => {
   return (
     <Tab.Navigator
-      initialRouteName="Friend"
+      initialRouteName="Map"
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;

@@ -1,4 +1,4 @@
-package com.arnav;
+package com.armap;
 
 import android.app.Application;
 import android.util.Log;

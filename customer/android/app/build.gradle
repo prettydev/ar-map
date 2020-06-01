@@ -79,7 +79,8 @@ project.ext.react = [
     entryFile: "index.js",
     enableHermes: false,  // clean and rebuild if changing
 
-    // bundleInDebug: true,    
+    bundleInDebug: true,
+        
     // devDisabledInDebug: true
 
     // bundleInRelease: true
@@ -143,7 +144,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.arnav"
+        applicationId "com.armap"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -242,8 +243,5 @@ task copyDownloadableDepsToLibs(type: Copy) {
 apply from: "../../node_modules/react-native/react.gradle"
 apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); 
-
-Project background_geolocation = project(':react-native-background-geolocation')
-apply from: "${background_geolocation.projectDir}/app.gradle"
 
 applyNativeModulesAppBuildGradle(project)

@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'arnav' do
-  # Pods for arnav
+target 'armap' do
+  # Pods for armap
   pod 'FBLazyVector', :path => "../node_modules/react-native/Libraries/FBLazyVector"
   pod 'FBReactNativeSpec', :path => "../node_modules/react-native/Libraries/FBReactNativeSpec"
   pod 'RCTRequired', :path => "../node_modules/react-native/Libraries/RCTRequired"
@@ -44,10 +44,10 @@ target 'arnav' do
   use_native_modules!
 end
 
-target 'arnav-tvOS' do
-  # Pods for arnav-tvOS
+target 'armap-tvOS' do
+  # Pods for armap-tvOS
 
-  target 'arnav-tvOSTests' do
+  target 'armap-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

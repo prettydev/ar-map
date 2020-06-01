@@ -241,7 +241,7 @@ class AuthController {
       return;
     }
 
-    let content = `arnav verification code is ${otp_code}`;
+    let content = `armap verification code is ${otp_code}`;
 
     console.log("will send sms  ...", content);
 

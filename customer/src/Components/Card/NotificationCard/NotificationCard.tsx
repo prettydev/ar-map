@@ -1,22 +1,21 @@
-import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-import FastImage from "react-native-fast-image";
-import { Images } from "src/Theme";
-import Style from "./NotificationCardStyle";
+import React from 'react';
+import {View, Text, TouchableOpacity} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import {Images} from 'src/Theme';
+import Style from './NotificationCardStyle';
 
-import moment from "moment";
+import moment from 'moment';
 
-export default function Card({ item, proc }) {
+export default function Card({item, proc}) {
   return (
     <TouchableOpacity style={Style.CardWrap} onPress={proc}>
-      <View style={{ flex: 1 }} />
+      <View style={{flex: 1}} />
       <View
         style={{
           flex: 10,
           paddingLeft: 30,
-        }}
-      >
-        <Text>arnav bot</Text>
+        }}>
+        <Text>armap bot</Text>
 
         <View style={Style.CardDescription}>
           <Text numberOfLines={2} style={Style.CardDescriptionText}>
@@ -27,13 +26,12 @@ export default function Card({ item, proc }) {
         <View
           style={{
             paddingTop: 10,
-            borderBottomColor: "#ddd",
+            borderBottomColor: '#ddd',
             borderBottomWidth: 1,
             paddingBottom: 10,
-          }}
-        >
+          }}>
           <Text style={Style.CardLocationText}>
-            {moment(item.createAt).format("M月D日:hh时mm分")}
+            {moment(item.createAt).format('M月D日:hh时mm分')}
           </Text>
         </View>
       </View>

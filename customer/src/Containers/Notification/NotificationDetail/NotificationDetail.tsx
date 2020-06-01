@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import FastImage from "react-native-fast-image";
-import { Images, Colors } from "src/Theme";
-import Styles from "./NotificationDetailStyle";
-import Style from "src/Style";
-import Header from "src/Components/Header/Header";
+import React, {useEffect, useState} from 'react';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import {Images, Colors} from 'src/Theme';
+import Styles from './NotificationDetailStyle';
+import Style from 'src/Style';
+import Header from 'src/Components/Header/Header';
 
-import moment from "moment";
+import moment from 'moment';
 
 export default function PostDetail(props) {
   const [item, setItem] = useState(props.route.params.item);
@@ -14,11 +14,11 @@ export default function PostDetail(props) {
 
   return (
     <>
-      <ScrollView style={{ backgroundColor: "#f4f6f8" }}>
+      <ScrollView style={{backgroundColor: '#f4f6f8'}}>
         <View>
           <Header
             back={() => props.navigation.goBack()}
-            label={"Post Details"}
+            label={'Post Details'}
           />
 
           <View style={Styles.UserInfoContainer}>
@@ -27,12 +27,12 @@ export default function PostDetail(props) {
                 <View style={Styles.UserNameContainer}>
                   <View style={Styles.UserNameWrap}>
                     <View>
-                      <Text>{"arnav bot"}</Text>
+                      <Text>{'armap bot'}</Text>
                     </View>
                   </View>
                   <View>
-                    <Text style={{ color: Colors.grey }}>
-                      {moment(item.createAt).format("MM/DD")}
+                    <Text style={{color: Colors.grey}}>
+                      {moment(item.createAt).format('MM/DD')}
                     </Text>
                   </View>
                 </View>
@@ -41,7 +41,7 @@ export default function PostDetail(props) {
           </View>
           <View style={Styles.StuffInfoContainer}>
             <View>
-              <Text style={{ color: Colors.grey }}>{item.content}</Text>
+              <Text style={{color: Colors.grey}}>{item.content}</Text>
             </View>
           </View>
         </View>
