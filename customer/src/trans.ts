@@ -23,6 +23,14 @@ export const en = {
   //alerts
   invalid: 'Input valid values!',
   same_pass: 'Input the same password',
+  network_error: 'Network error!',
+  success: 'Success!',
+  error: 'Error!',
+  self_email: `Can't add your account!`,
+  reject: 'Reject!',
+  car_saved: 'Saved the car location!',
+  car_not_saved: 'Not saved the car location!',
+  not_selected_friend: 'Not selected the friend!',
 };
 export const ar = {
   //  ui labels
@@ -40,6 +48,7 @@ export const ar = {
   create: 'krijoj',
   close: 'afër',
   search: 'Kërko',
+  search_friend: 'ID e përdoruesit / numri i telefonit',
   new_contact: 'Kontakt i ri',
   invite: 'ftoj',
   address: 'Adresë',
@@ -48,5 +57,12 @@ export const ar = {
   //alerts
   invalid: 'vlera të vlefshme hyrëse!',
   same_pass: 'jepni të njëjtin fjalëkalim',
-  search_friend: 'ID e përdoruesit / numri i telefonit',
+  network_error: 'Gabim në rrjet!',
+  success: 'sukses!',
+  error: 'gabim!',
+  self_email: 'Nuk mund të shtoni llogarinë tuaj!',
+  reject: 'hedh poshtë!',
+  car_saved: 'Saved the car location!',
+  car_not_saved: 'Nuk e ruajti vendndodhjen e makinës!',
+  not_selected_friend: 'Nuk u zgjodh miku!',
 };

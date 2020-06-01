@@ -1,12 +1,15 @@
 import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import {Text, TouchableOpacity, View, ActivityIndicator} from 'react-native';
 import Styles from './FormCommonBtnStyle';
 
-export default function FormCommonBtn(props) {
+export default function FormCommonBtn({loading = false, CustomBtnTitle, proc}) {
   return (
     <View style={{alignItems: 'center'}}>
-      <TouchableOpacity style={Styles.FormCommonBtn} onPress={props.proc}>
-        <Text style={Styles.FormCommonBtnText}>{props.CustomBtnTitle}</Text>
+      <TouchableOpacity style={Styles.FormCommonBtn} onPress={proc}>
+        {!loading && (
+          <Text style={Styles.FormCommonBtnText}>{CustomBtnTitle}</Text>
+        )}
+        {loading && <ActivityIndicator size="large" color="#fff" />}
       </TouchableOpacity>
     </View>
   );

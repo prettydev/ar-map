@@ -34,12 +34,12 @@ const AddFriend = props => {
 
   async function handleSubmit() {
     if (userInput.email === '') {
-      Toast.show('Input error!');
+      Toast.show(t('invalid'));
       return;
     }
 
     if (userInput.email === state.user.email) {
-      Toast.show(`Can't add your account!`);
+      Toast.show(t('self_email'));
       return;
     }
 
@@ -57,7 +57,7 @@ const AddFriend = props => {
           });
       })
       .catch(function(error) {
-        Toast.show('error');
+        Toast.show(t('error'));
         console.log(JSON.stringify(error));
       });
   }

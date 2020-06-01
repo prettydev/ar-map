@@ -19,7 +19,11 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 import axios from 'axios';
 
+import {useTranslation} from 'react-i18next';
+
 export default function FriendList(props) {
+  const {t} = useTranslation();
+
   const [state, dispatch] = useContext(store);
 
   const [tmp, setTmp] = useState('');
@@ -44,7 +48,7 @@ export default function FriendList(props) {
         });
       })
       .catch(function(error) {
-        Toast.show('error');
+        Toast.show(t('error'));
         console.log(JSON.stringify(error));
       });
   };
@@ -139,7 +143,7 @@ export default function FriendList(props) {
                       </TouchableOpacity>
                       <TouchableOpacity
                         onPress={() => {
-                          Toast.show('Rejected!');
+                          Toast.show(t('reject'));
                         }}>
                         <Text
                           style={{

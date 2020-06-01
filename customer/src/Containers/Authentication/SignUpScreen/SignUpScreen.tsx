@@ -34,6 +34,8 @@ import {useTranslation} from 'react-i18next';
 export default function SignUpScreen(props) {
   const {t} = useTranslation();
 
+  const [loading, setLoading] = useState(false);
+
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
   const [otp, setOtp] = useState('');
@@ -115,7 +117,7 @@ export default function SignUpScreen(props) {
       })
       .catch(error => {
         console.log(error);
-        Toast.show('error!');
+        Toast.show(t('error'));
       });
   }
 
@@ -132,6 +134,8 @@ export default function SignUpScreen(props) {
 
     console.log(phone, password);
 
+    setLoading(true);
+
     axios
       .post(baseUrl + 'auth/signup', {
         email,
@@ -146,11 +150,13 @@ export default function SignUpScreen(props) {
 
           props.navigation.navigate('SignIn');
         } else {
+          setLoading(false);
           Toast.show(response2.data.msg);
         }
       })
       .catch(function(error) {
-        console.log(error);
+        setLoading(false);
+        Toast.show(t('network_error'));
       });
   }
 
@@ -208,7 +214,7 @@ export default function SignUpScreen(props) {
             }}
           />
 
-          <FormCommonBtn CustomBtnTitle={t('create')} proc={handleSubmit} />
+          <FormCommonBtn CustomBtnTitle={t('create')} proc={handleSubmit} loading={loading}/>
 
           <View style={{flexDirection: 'row', justifyContent: 'center'}}>
             <Text>{t('already_have_acc')}</Text>
