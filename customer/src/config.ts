@@ -7,8 +7,8 @@ export const baseUrl = 'http://51.38.88.155:8000/';
 export const apiKey = 'AIzaSyDOo1Y_JbCuuhs39Wt3i3iEyLgZXnqBkWo';
 
 export const initialLocation = {
-  latitude: 25.285,
-  longitude: 51.208,
+  latitude: 25.3592,
+  longitude: 51.5277,
 };
 
 export const avatarSize = 128;

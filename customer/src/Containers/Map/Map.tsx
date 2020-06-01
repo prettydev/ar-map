@@ -338,8 +338,8 @@ export default function LocationView() {
   }, [state.location]);
 
   const onReady = result => {
-    const {distance, duration} = result;
-    setTarget({...target, distance, duration}); //don't work scaling
+    // const {distance, duration} = result;
+    // setTarget({...target, distance, duration}); //don't work scaling
 
     if (targetInfo.title === '') {
       const {latitude, longitude} = target;
