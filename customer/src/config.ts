@@ -1,8 +1,8 @@
 import memoize from 'lodash.memoize';
 
 export const appVersion = '0.1';
-export const baseUrl = 'http://10.0.2.2:8000/';
-// export const baseUrl = 'http://51.38.88.155:8000/';
+// export const baseUrl = 'http://10.0.2.2:8000/';
+export const baseUrl = 'http://51.38.88.155:8000/';
 
 export const apiKey = 'AIzaSyDOo1Y_JbCuuhs39Wt3i3iEyLgZXnqBkWo';
 
