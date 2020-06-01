@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState, useContext} from 'react';
+import React, { useEffect, useRef, useState, useContext } from "react";
 import {
   Button,
   Image,
@@ -9,46 +9,46 @@ import {
   Text,
   TextInput,
   Dimensions,
-} from 'react-native';
+} from "react-native";
 
-import Carousel from './Carousel';
+import Carousel from "./Carousel";
 
-import Events from 'react-native-simple-events';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import axios from 'axios';
-import MapView, {Marker} from 'react-native-maps';
-import AutoCompleteListView from './AutoCompleteListView';
-import MapViewDirections from 'react-native-maps-directions';
-import Colors from 'src/Theme/Colors';
-import Modal from 'react-native-modal';
-import {baseUrl, apiKey} from 'src/config';
-import Geocoder from 'react-native-geocoding';
-import Toast from 'react-native-simple-toast';
-import CtlBtn from './CtlBtn';
+import Events from "react-native-simple-events";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import axios from "axios";
+import MapView, { Marker } from "react-native-maps";
+import AutoCompleteListView from "./AutoCompleteListView";
+import MapViewDirections from "react-native-maps-directions";
+import Colors from "src/Theme/Colors";
+import Modal from "react-native-modal";
+import { baseUrl, apiKey, initialLocation } from "src/config";
+import Geocoder from "react-native-geocoding";
+import Toast from "react-native-simple-toast";
+import CtlBtn from "./CtlBtn";
 
-import {store} from 'src/Store';
+import { store } from "src/Store";
 
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
-const {width, height} = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
 const PLACE_DETAIL_URL =
-  'https://maps.googleapis.com/maps/api/place/details/json';
+  "https://maps.googleapis.com/maps/api/place/details/json";
 
 const AUTOCOMPLETE_URL =
-  'https://maps.googleapis.com/maps/api/place/autocomplete/json';
-const BUILDING_URL = baseUrl + 'api/building';
-const REVRSE_GEO_CODE_URL = 'https://maps.googleapis.com/maps/api/geocode/json';
+  "https://maps.googleapis.com/maps/api/place/autocomplete/json";
+const BUILDING_URL = baseUrl + "api/building";
+const REVRSE_GEO_CODE_URL = "https://maps.googleapis.com/maps/api/geocode/json";
 
-const DEFAULT_DELTA = {latitudeDelta: 0.015, longitudeDelta: 0.0121};
+const DEFAULT_DELTA = { latitudeDelta: 0.015, longitudeDelta: 0.0121 };
 
 Geocoder.init(apiKey);
 
 // Geocoder.init(apiKey, {language : "en"}); // set the language
 
 export default function LocationView() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   const [state, dispatch] = useContext(store);
 
@@ -59,21 +59,20 @@ export default function LocationView() {
   };
 
   const [kind, setKind] = useState(0); //address, building for button effect
-  const [pointer, setPointer] = useState('route'); // current, target location flag for button effect
-  const [mode, setMode] = useState('DRIVING'); //  car, walk flag for button effect
+  const [pointer, setPointer] = useState("route"); // current, target location flag for button effect
+  const [mode, setMode] = useState("DRIVING"); //  car, walk flag for button effect
   const [saved, setSaved] = useState(false); // saved state of the car location
 
   const [predictions, setPredictions] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
 
   const [inFocus, setInFocus] = useState(false);
 
   //  current viewpoint of the map
   const [region, setRegion] = useState({
     ...DEFAULT_DELTA,
-    latitude: 25.285,
-    longitude: 51.208,
+    ...initialLocation,
   });
 
   //  current location
@@ -84,8 +83,8 @@ export default function LocationView() {
   const [car, setCar] = useState();
 
   const [targetInfo, setTargetInfo] = useState({
-    title: '',
-    description: '',
+    title: "",
+    description: "",
     image: [],
     distance: 0, //km
     duration: 0, //min
@@ -97,14 +96,14 @@ export default function LocationView() {
   const _input = useRef();
   const _map = useRef();
 
-  const _onMapRegionChange = rg => {
+  const _onMapRegionChange = (rg) => {
     // if (inFocus) {
     //   _input.current.blur();
     //   setInFocus(false);
     // }
   };
 
-  const fetchAddressForLocation = location => {
+  const fetchAddressForLocation = (location) => {
     /**
     setLoading(true);
     setPredictions([]);
@@ -132,8 +131,8 @@ export default function LocationView() {
        */
   };
 
-  const _onMapPressed = rg => {
-    console.log('map pressed...', rg);
+  const _onMapPressed = (rg) => {
+    console.log("map pressed...", rg);
   };
 
   /**
@@ -142,7 +141,7 @@ export default function LocationView() {
    * @param animate
    */
   const _setRegion = (rg, animate = true) => {
-    setRegion({...region, ...rg});
+    setRegion({ ...region, ...rg });
     if (animate) _map.current.animateToRegion(region);
   };
 
@@ -169,7 +168,7 @@ export default function LocationView() {
   const viewCurrentLocation = () => {
     // _setRegion(current);
     _setRegion(state.location);
-    setPointer('current');
+    setPointer("current");
   };
 
   /**
@@ -177,7 +176,7 @@ export default function LocationView() {
    */
   const viewTargetLocation = () => {
     _setRegion(target);
-    setPointer('target');
+    setPointer("target");
   };
 
   /**
@@ -185,11 +184,11 @@ export default function LocationView() {
    */
   const viewCarLocation = () => {
     if (!car) {
-      Toast.show('Not saved car location!');
+      Toast.show("Not saved car location!");
       return;
     }
     _setRegion(car);
-    setPointer('car');
+    setPointer("car");
   };
 
   /**
@@ -197,11 +196,11 @@ export default function LocationView() {
    */
   const viewFriendLocation = () => {
     if (!state.friend) {
-      Toast.show('Not selected friend!');
+      Toast.show("Not selected friend!");
       return;
     }
     _setRegion(state.friend);
-    setPointer('friend');
+    setPointer("friend");
   };
 
   /**
@@ -210,31 +209,31 @@ export default function LocationView() {
   const saveCarLocation = () => {
     setCar(state.location);
     setSaved(true);
-    Toast.show('Saved the car location!');
+    Toast.show("Saved the car location!");
   };
 
-  const _onPlaceSelected = placeId => {
+  const _onPlaceSelected = (placeId) => {
     _input.current.blur();
     axios
       .get(`${PLACE_DETAIL_URL}?key=${apiKey}&placeid=${placeId}`)
-      .then(({data}) => {
-        let rg = (({lat, lng}) => ({latitude: lat, longitude: lng}))(
+      .then(({ data }) => {
+        let rg = (({ lat, lng }) => ({ latitude: lat, longitude: lng }))(
           data.result.geometry.location,
         );
 
         let image = [];
         if (data.result.photos) {
-          image = data.result.photos.map(photo => ({
-            title: '',
-            subtitle: '',
+          image = data.result.photos.map((photo) => ({
+            title: "",
+            subtitle: "",
             illustration:
-              'https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=' +
+              "https://maps.googleapis.com/maps/api/place/photo?maxwidth=200&photoreference=" +
               photo.photo_reference +
-              '&key=' +
+              "&key=" +
               apiKey,
           }));
         } else {
-          console.log('no images.....................', data.result);
+          console.log("no images.....................", data.result);
         }
 
         setTargetInfo({
@@ -248,31 +247,31 @@ export default function LocationView() {
       });
   };
 
-  const _onBuildingSelected = building => {
+  const _onBuildingSelected = (building) => {
     _input.current.blur();
-    const {latitude, longitude, latitudeDelta, longitudeDelta} = building;
-    setTarget({latitude, longitude, latitudeDelta, longitudeDelta});
+    const { latitude, longitude, latitudeDelta, longitudeDelta } = building;
+    setTarget({ latitude, longitude, latitudeDelta, longitudeDelta });
     setTargetInfo({
+      ...targetInfo,
       title: building.title,
       description: building.description,
-      distance: 0,
     });
   };
 
-  const _request = text => {
+  const _request = (text) => {
     if (text.length >= 3) {
       axios
         .get(AUTOCOMPLETE_URL, {
           params: {
             input: text,
             key: apiKey,
-            language: 'en',
+            language: "en",
             components: [],
           },
         })
-        .then(({data}) => {
+        .then(({ data }) => {
           console.log(data);
-          let {predictions} = data;
+          let { predictions } = data;
           setPredictions(predictions);
         });
     } else {
@@ -280,7 +279,7 @@ export default function LocationView() {
     }
   };
 
-  const _request2 = text => {
+  const _request2 = (text) => {
     if (text.length >= 3) {
       axios
         .get(BUILDING_URL, {
@@ -288,7 +287,7 @@ export default function LocationView() {
             key: text,
           },
         })
-        .then(({data}) => {
+        .then(({ data }) => {
           console.log(data);
           setPredictions(data);
         });
@@ -297,59 +296,63 @@ export default function LocationView() {
     }
   };
 
-  const _onChangeText = text => {
+  const _onChangeText = (text) => {
     if (kind === 0) _request(text);
     else _request2(text);
     setText(text);
   };
 
   const _onPressClear = () => {
-    setText('');
+    setText("");
     setPredictions([]);
   };
 
   const _getClearButton = () =>
-    inFocus ? (
-      <TouchableOpacity style={styles.btn} onPress={_onPressClear}>
-        <MaterialIcons name={'clear'} size={20} />
-      </TouchableOpacity>
-    ) : null;
+    inFocus
+      ? (
+        <TouchableOpacity style={styles.btn} onPress={_onPressClear}>
+          <MaterialIcons name={"clear"} size={20} />
+        </TouchableOpacity>
+      )
+      : null;
 
   const _onFocus = () => {
     setLoading(false);
     setInFocus(true);
-    Events.trigger('InputFocus');
+    Events.trigger("InputFocus");
   };
 
   const _onBlur = () => {
     setInFocus(false);
-    Events.trigger('InputBlur');
+    Events.trigger("InputBlur");
   };
 
   useEffect(() => {
     console.log(state.user);
 
-    Events.listen('PlaceSelected', 'DetailID', _onPlaceSelected);
-    Events.listen('BuildingSelected', 'DetailItem', _onBuildingSelected);
+    Events.listen("PlaceSelected", "DetailID", _onPlaceSelected);
+    Events.listen("BuildingSelected", "DetailItem", _onBuildingSelected);
 
     return () => {
-      Events.rm('PlaceSelected', 'DetailID');
-      Events.rm('BuildingSelected', 'DetailItem');
+      Events.rm("PlaceSelected", "DetailID");
+      Events.rm("BuildingSelected", "DetailItem");
     };
   }, [state.location]);
 
-  const onReady = result => {
-    // const {distance, duration} = result;
-    // setTarget({...target, distance, duration}); //don't work scaling
+  const onReady = (result) => {
+    console.log("=======================================", result);
 
-    if (targetInfo.title === '') {
-      const {latitude, longitude} = target;
-      Geocoder.from({latitude, longitude})
-        .then(json => {
+    const { distance, duration } = result;
+    setTarget({ ...target, distance, duration }); //don't work scaling
+
+    if (targetInfo.title === "") {
+      const { latitude, longitude } = target;
+      Geocoder.from({ latitude, longitude })
+        .then((json) => {
           const target_place_id = json.results[0].access_points[0].place_id;
           _onPlaceSelected(target_place_id); // set target details
         })
-        .catch(error => console.warn(error));
+        .catch((error) => console.warn(error));
     }
 
     _map.current.fitToCoordinates(result.coordinates, {
@@ -362,7 +365,7 @@ export default function LocationView() {
     });
   };
 
-  const onError = errorMessage => {
+  const onError = (errorMessage) => {
     console.log(errorMessage); // eslint-disable-line no-console
   };
 
@@ -373,11 +376,12 @@ export default function LocationView() {
           (pt, i) =>
             pt.latitude &&
             (i === 0 ||
-              (i === 1 && target !== car && target != state.friend)) && (
+              (i === 1 && target !== car && target != state.friend)) &&
+            (
               <Marker
                 key={i}
-                coordinate={{latitude: pt.latitude, longitude: pt.longitude}}
-                pinColor={i === 0 ? 'red' : 'green'}
+                coordinate={{ latitude: pt.latitude, longitude: pt.longitude }}
+                pinColor={i === 0 ? "red" : "green"}
                 // title={i === 0 ? 'current' : 'target'}
                 // description={'Welcome'}
                 onPress={() => {
@@ -388,11 +392,12 @@ export default function LocationView() {
         )}
         {car && (
           <Marker
-            coordinate={{latitude: car.latitude, longitude: car.longitude}}
+            coordinate={{ latitude: car.latitude, longitude: car.longitude }}
             onPress={() => {
               setTarget(car);
-            }}>
-            <MaterialCommunityIcons name={'car-side'} size={45} color="green" />
+            }}
+          >
+            <MaterialCommunityIcons name={"car-side"} size={45} color="green" />
           </Marker>
         )}
         {state.friend && (
@@ -403,8 +408,9 @@ export default function LocationView() {
             }}
             onPress={() => {
               setTarget(state.friend);
-            }}>
-            <MaterialCommunityIcons name={'face'} size={45} color="green" />
+            }}
+          >
+            <MaterialCommunityIcons name={"face"} size={45} color="green" />
           </Marker>
         )}
       </>
@@ -420,9 +426,10 @@ export default function LocationView() {
           region={region}
           showsMyLocationButton={true}
           showsUserLocation={false}
-          onPress={({nativeEvent}) => _onMapPressed(nativeEvent.coordinate)}
+          onPress={({ nativeEvent }) => _onMapPressed(nativeEvent.coordinate)}
           onRegionChange={_onMapRegionChange}
-          onRegionChangeComplete={fetchAddressForLocation}>
+          onRegionChangeComplete={fetchAddressForLocation}
+        >
           <MapViewDirections
             // origin={current}
             origin={state.location}
@@ -433,14 +440,12 @@ export default function LocationView() {
             language="en"
             strokeWidth={4}
             strokeColor="red"
-            onStart={params => {
+            onStart={(params) => {
               console.log(
-                `Started routing between "${params.origin}" and "${
-                  params.destination
-                }"${
+                `Started routing between "${params.origin}" and "${params.destination}"${
                   params.waypoints.length
-                    ? ' using waypoints: ' + params.waypoints.join(', ')
-                    : ''
+                    ? " using waypoints: " + params.waypoints.join(", ")
+                    : ""
                 }`,
               );
             }}
@@ -453,36 +458,40 @@ export default function LocationView() {
 
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: "row",
             top: 0,
-            position: 'absolute',
+            position: "absolute",
             // alignItems: 'flex-start',
             // justifyContent: 'flex-start',
-          }}>
+          }}
+        >
           <TouchableOpacity
             style={[
               styles.topButton,
               {
-                backgroundColor:
-                  kind === 0 ? Colors.primary : Colors.primaryAlpha,
+                backgroundColor: kind === 0
+                  ? Colors.primary
+                  : Colors.primaryAlpha,
               },
             ]}
-            onPress={() => setKind(0)}>
+            onPress={() => setKind(0)}
+          >
             <View>
-              <Text style={styles.actionText}>{t('address')}</Text>
+              <Text style={styles.actionText}>{t("address")}</Text>
             </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={[
               styles.topButton,
               {
-                backgroundColor:
-                  kind === 1 ? Colors.primary : Colors.primaryAlpha,
+                backgroundColor: kind === 1 ? Colors.primary
+                : Colors.primaryAlpha,
               },
             ]}
-            onPress={() => setKind(1)}>
+            onPress={() => setKind(1)}
+          >
             <View>
-              <Text style={styles.actionText}>{t('building')}</Text>
+              <Text style={styles.actionText}>{t("building")}</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -491,10 +500,10 @@ export default function LocationView() {
           <View style={styles.textInputContainer} elevation={5}>
             <TextInput
               ref={_input}
-              value={loading ? t('loading') : text}
+              value={loading ? t("loading") : text}
               style={[styles.textInput, styles.input]}
-              underlineColorAndroid={'transparent'}
-              placeholder={t('search')}
+              underlineColorAndroid={"transparent"}
+              placeholder={t("search")}
               onFocus={_onFocus}
               onBlur={_onBlur}
               onChangeText={_onChangeText}
@@ -511,69 +520,70 @@ export default function LocationView() {
         <View
           style={{
             flex: 2,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignItems: 'space-between',
-          }}>
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "space-between",
+          }}
+        >
           <View
             style={{
               flex: 1,
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-            }}>
-            {
-              <CtlBtn
-                icon={'add-location'}
-                color={'blue'}
-                alpha={saved}
-                proc={saveCarLocation}
-              />
-            }
+              flexDirection: "column",
+              alignItems: "flex-start",
+            }}
+          >
+            {<CtlBtn
+              icon={"add-location"}
+              color={"blue"}
+              alpha={saved}
+              proc={saveCarLocation}
+            />}
           </View>
           <View
             style={{
               flex: 1,
-              flexDirection: 'column',
-              alignItems: 'flex-end',
-            }}>
+              flexDirection: "column",
+              alignItems: "flex-end",
+            }}
+          >
             {false && (
               <CtlBtn
-                icon={'directions-car'}
-                alpha={mode === 'DRIVING'}
-                proc={() => setMode('DRIVING')}
+                icon={"directions-car"}
+                alpha={mode === "DRIVING"}
+                proc={() => setMode("DRIVING")}
               />
             )}
             {false && (
               <CtlBtn
-                icon={'directions-walk'}
-                alpha={mode === 'WALKING'}
-                proc={() => setMode('WALKING')}
+                icon={"directions-walk"}
+                alpha={mode === "WALKING"}
+                proc={() => setMode("WALKING")}
               />
             )}
             <CtlBtn
-              icon={'car-side'}
-              alpha={pointer === 'car'}
+              icon={"car-side"}
+              alpha={pointer === "car"}
               color="green"
               community={true}
               proc={viewCarLocation}
             />
             <CtlBtn
-              icon={'face'}
-              alpha={pointer === 'face'}
+              icon={"face"}
+              alpha={pointer === "face"}
               color="green"
               community={true}
               proc={viewFriendLocation}
             />
             <CtlBtn
-              icon={'my-location'}
-              color={'green'}
-              alpha={pointer === 'target'}
+              icon={"my-location"}
+              color={"green"}
+              alpha={pointer === "target"}
               proc={viewTargetLocation}
             />
             <CtlBtn
-              icon={'my-location'}
-              color={'red'}
-              alpha={pointer === 'current'}
+              icon={"my-location"}
+              color={"red"}
+              alpha={pointer === "current"}
               proc={viewCurrentLocation}
             />
           </View>
@@ -581,42 +591,46 @@ export default function LocationView() {
       </View>
 
       <Modal
-        testID={'modal'}
+        testID={"modal"}
         isVisible={isModalVisible}
         onBackdropPress={toggleModal}
         // onSwipeComplete={toggleModal}
         // swipeDirection={['up', 'left', 'right', 'down']}
-        style={{justifyContent: 'flex-end', margin: 0}}>
+        style={{ justifyContent: "flex-end", margin: 0 }}
+      >
         <View
           style={{
-            backgroundColor: 'white',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            backgroundColor: "white",
+            justifyContent: "space-between",
+            alignItems: "center",
             borderRadius: 4,
-            borderColor: 'rgba(0, 0, 0, 0.1)',
+            borderColor: "rgba(0, 0, 0, 0.1)",
             flex: 0.5,
-            flexDirection: 'column',
+            flexDirection: "column",
             padding: 5,
-          }}>
+          }}
+        >
           <View
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              width: '100%',
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+              width: "100%",
               padding: 15,
-            }}>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            }}
+          >
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
               <Text
                 style={{
                   fontSize: 20,
-                  fontWeight: 'bold',
+                  fontWeight: "bold",
                   paddingLeft: 10,
-                }}>
+                }}
+              >
                 {targetInfo.title}
               </Text>
             </View>
-            <Text style={{fontSize: 18, fontWeight: 'bold', color: 'red'}}>
+            <Text style={{ fontSize: 18, fontWeight: "bold", color: "red" }}>
               {targetInfo.distance}Km
             </Text>
           </View>
@@ -625,38 +639,40 @@ export default function LocationView() {
               style={{
                 fontSize: 20,
                 paddingBottom: 15,
-              }}>
+              }}
+            >
               {targetInfo.description}
             </Text>
           </View>
           <View>
-            {
-              // <FastImage
-              //   style={{
-              //     width: 160,
-              //     height: 120,
-              //     borderColor: 'blue',
-              //     borderWidth: 1,
-              //     borderRadius: 20,
-              //   }}
-              //   source={{uri: target.image}}
-              //   resizeMode={FastImage.resizeMode.cover}
-              // />
+            {// <FastImage
+            //   style={{
+            //     width: 160,
+            //     height: 120,
+            //     borderColor: 'blue',
+            //     borderWidth: 1,
+            //     borderRadius: 20,
+            //   }}
+            //   source={{uri: target.image}}
+            //   resizeMode={FastImage.resizeMode.cover}
+            // />
             }
             <Carousel entries={targetInfo.image} />
           </View>
           <View
             style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'absolute',
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "absolute",
               bottom: 0,
-            }}>
+            }}
+          >
             <TouchableOpacity
               style={styles.dlgBtn}
-              onPress={() => toggleModal()}>
-              <Text style={styles.dlgBtnTxt}>{t('close')}</Text>
+              onPress={() => toggleModal()}
+            >
+              <Text style={styles.dlgBtnTxt}>{t("close")}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -668,74 +684,74 @@ export default function LocationView() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   mapView: {
     ...StyleSheet.absoluteFillObject,
   },
   fullWidthContainer: {
-    position: 'absolute',
-    width: '100%',
+    position: "absolute",
+    width: "100%",
     top: 0,
-    alignItems: 'center',
+    alignItems: "center",
   },
   input: {
-    width: '80%',
+    width: "80%",
     padding: 5,
   },
   actionButton: {
     backgroundColor: Colors.primaryAlpha,
     height: 40,
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
-    width: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "50%",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 5,
   },
   actionText: {
-    color: 'white',
+    color: "white",
     fontSize: 22,
   },
   topButton: {
     height: 40,
-    width: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "50%",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 5,
   },
   ////////////////////////
 
   textInputContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
     height: 40,
     zIndex: 99,
     paddingLeft: 10,
     borderRadius: 5,
-    backgroundColor: 'white',
-    position: 'absolute',
+    backgroundColor: "white",
+    position: "absolute",
     top: 40,
-    width: '100%',
+    width: "100%",
     shadowOffset: {
       width: 0,
       height: 2,
     },
     shadowRadius: 2,
     shadowOpacity: 0.24,
-    alignItems: 'center',
+    alignItems: "center",
   },
   textInput: {
     flex: 1,
     fontSize: 17,
-    color: '#404752',
+    color: "#404752",
   },
   btn: {
     width: 30,
     height: 30,
     padding: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   listViewContainer: {
     paddingLeft: 3,
@@ -744,16 +760,16 @@ const styles = StyleSheet.create({
   },
   dlgBtn: {
     // flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
     padding: 10,
     margin: 5,
-    width: '60%',
+    width: "60%",
     backgroundColor: Colors.primary,
   },
   dlgBtnTxt: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    fontWeight: 'bold',
+    alignItems: "center",
+    justifyContent: "center",
+    color: "white",
+    fontWeight: "bold",
   },
 });

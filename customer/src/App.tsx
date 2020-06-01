@@ -43,7 +43,7 @@ import { en, ar } from "src/trans";
 const languageDetector = {
   type: "languageDetector",
   async: true,
-  detect: (cb) => cb("ar"),
+  detect: (cb) => cb("en"),
   init: () => {},
   cacheUserLanguage: () => {},
 };
@@ -52,7 +52,7 @@ i18next
   .use(languageDetector)
   .use(initReactI18next)
   .init({
-    fallbackLng: "ar",
+    fallbackLng: "en",
     debug: true,
     resources: {
       en: {

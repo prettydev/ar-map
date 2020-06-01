@@ -21,7 +21,7 @@ export const en = {
   building: 'Building',
   loading: 'Loading...',
   //alerts
-  invalid: 'Inputh valid values!',
+  invalid: 'Input valid values!',
   same_pass: 'Input the same password',
 };
 export const ar = {

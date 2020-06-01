@@ -6,6 +6,11 @@ export const baseUrl = 'http://10.0.2.2:8000/';
 
 export const apiKey = 'AIzaSyDOo1Y_JbCuuhs39Wt3i3iEyLgZXnqBkWo';
 
+export const initialLocation = {
+  latitude: 25.285,
+  longitude: 51.208,
+};
+
 export const avatarSize = 128;
 export const photoSize = 256;
 

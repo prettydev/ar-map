@@ -58,7 +58,10 @@ app.set("port", process.env.PORT || 8000);
 const connectedUsers = {};
 initializeSocketIO(io, connectedUsers);
 
-const MONGO_URI = "mongodb://localhost/arnav";
+// const MONGO_URI = "mongodb://localhost/arnav";
+const MONGO_URI =
+  "mongodb+srv://arnavigation:arnavigation@cluster0-jiigr.mongodb.net/arnav?retryWrites=true&w=majority";
+
 mongoose.set("useFindAndModify", true);
 mongoose
   .connect(process.env.MONGODB_URI || MONGO_URI, {
